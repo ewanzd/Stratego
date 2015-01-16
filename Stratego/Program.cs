@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Stratego
 {
-    public class Class1
+    public class Program
     {
+        static void Main()
+        {
+
+        }
     }
 }
