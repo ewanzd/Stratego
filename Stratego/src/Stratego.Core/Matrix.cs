@@ -11,13 +11,14 @@ namespace Stratego.Core
     /// </summary>
     public abstract class Matrix
     {
-        // Das Objekt verwaltet Daten in beliebigen Anzahl von Dimensionen und Länge der Dimensionen
+        // Das Objekt verwaltet Daten in beliebigen Anzahl und Länge der Dimensionen
 
         /// <summary>
         /// Get and set a grain of <see cref="Stratego.Core.Matrix"/>.
         /// </summary>
         /// <param name="position">Position of the grain.</param>
         /// <returns>Target grain.</returns>
+        /// <exception cref="IndexOutOfRangeException">Position is out of range.</exception>
         protected object this[params int[] position]
         {
             get
@@ -57,6 +58,7 @@ namespace Stratego.Core
         /// Create new <see cref="Stratego.Core.Matrix"/>.
         /// </summary>
         /// <param name="dimensionsLength">Length of all dimensions.</param>
+        /// <exception cref="OverflowException">One of dimensions length is under 0.</exception>
         public Matrix(params int[] dimensionsLength)
         {
             // Die einzelnen Dimesionslängen abspeichern
@@ -74,6 +76,7 @@ namespace Stratego.Core
         /// </summary>
         /// <param name="point">Position in dimensions.</param>
         /// <returns>Return position in <see cref="Stratego.Core.Matrix"/>.</returns>
+        /// <exception cref="IndexOutOfRangeException">One of point is out of range.</exception>
         private int GetPosition(params int[] point)
         {
             // Anzahl Dimensionen der Übergabe abrufen
@@ -92,6 +95,10 @@ namespace Stratego.Core
                 // Position in der aktuellen Dimension abrufen
                 int val = point[i] - 1;
 
+                // Prüfen, ob die Position innerhalb des möglichen Bereichs liegt
+                if(val >= dimensionsLength[i] || val < 0)
+                    throw new IndexOutOfRangeException();
+
                 // Zu der gesuchten Dimension springen
                 pos += val * GetDimensionLength(i);
             }
@@ -105,6 +112,7 @@ namespace Stratego.Core
         /// </summary>
         /// <param name="startDeep">Start deep in <see cref="Stratego.Core.Matrix"/>.</param>
         /// <returns>Return number of grains in target dimension.</returns>
+        /// <exception cref="IndexOutOfRangeException">Start deep is out of range.</exception>
         private int GetDimensionLength(int startDeep)
         {
             // Eine Dimension besitzt mindestens einen Wert
@@ -126,6 +134,7 @@ namespace Stratego.Core
         /// </summary>
         /// <param name="dimension">Get length from this dimension.</param>
         /// <returns>Return length of dimension.</returns>
+        /// <exception cref="IndexOutOfRangeException">Number of dimension is out of range.</exception>
         protected int GetLength(int dimension)
         {
             // Array fängt von 0 an, deshalb wird 1 abgezählt

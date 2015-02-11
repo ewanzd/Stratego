@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace Stratego.Core
 {
     [Serializable]
-    public class Point
+    public class Position
     {
         public int X { get; private set; }
 
         public int Y { get; private set; }
 
-        public Point(int x, int y)
+        public Position(int x, int y)
         {
             this.X = x;
             this.Y = y;

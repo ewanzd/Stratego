@@ -6,22 +6,48 @@ using System.Threading.Tasks;
 
 namespace Stratego.Core
 {
-    public class Board : Matrix
+    /// <summary>
+    /// 2D board with any length and height.
+    /// </summary>
+    public class Board<field> : Matrix where field : Field
     {
-        public Field this[int x, int y]
+        /// <summary>
+        /// Get and set a field of board.
+        /// </summary>
+        /// <param name="x">Horizontal position in board.</param>
+        /// <param name="y">Vertical position in board.</param>
+        /// <returns>Return field in target position.</returns>
+        /// <exception cref="IndexOutOfRangeException">Position is out of range.</exception>
+        public field this[int x, int y]
         {
             get
             {
-                return (Field)base[x, y];
+                return (field)base[x, y];
             }
             set
             {
                 base[x, y] = value;
-                //OnFieldChanged(new Point(posX, posY));
+                OnFieldChanged(new Position(x, y));
             }
         }
 
-        protected object sync = new object();
+        /// <summary>
+        /// Get and set a field of board.
+        /// </summary>
+        /// <param name="position">Position in board.</param>
+        /// <returns>Return field in target position.</returns>
+        /// <exception cref="IndexOutOfRangeException">Position is out of range.</exception>
+        public field this[Position position]
+        {
+            get
+            {
+                return this[position.X, position.Y];
+            }
+            set
+            {
+                this[position.X, position.Y] = value;
+            }
+        }
 
         public event EventHandler BoardInitializing;
 
@@ -45,7 +71,8 @@ namespace Stratego.Core
             }
         }
 
-        public Board(int length, int height) : base(length, height)
+        public Board(int length, int height)
+            : base(length, height)
         {
             OnBoardInitializing();
             OnBoardInitialized();
@@ -55,36 +82,26 @@ namespace Stratego.Core
         {
             var ev = BoardInitializing;
 
-            if(ev != null) ev(this, EventArgs.Empty);
+            if(ev != null)
+                ev(this, EventArgs.Empty);
         }
 
         protected void OnBoardInitialized()
         {
             var ev = BoardInitialized;
 
-            if(ev != null) ev(this, EventArgs.Empty);
+            if(ev != null)
+                ev(this, EventArgs.Empty);
         }
 
-        protected void OnFieldChanged(Point pos)
+        protected void OnFieldChanged(Position position)
         {
             var ev = FieldChanged;
 
-            //var eventArgs = new FieldEventArgs(pos, )
+            var args = new FieldEventArgs(position);
 
-            //if(ev != null) ev(this, EventArgs.Empty);
-        }
-    }
-
-    public class FieldEventArgs : EventArgs
-    {
-        public readonly Point Position;
-
-        public readonly Field Field;
-
-        public FieldEventArgs(Point pos, Field field)
-        {
-            this.Position = pos;
-            this.Field = field;
+            if(ev != null)
+                ev(this, args);
         }
     }
 }
