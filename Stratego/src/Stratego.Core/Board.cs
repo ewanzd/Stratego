@@ -6,27 +6,34 @@ using System.Threading.Tasks;
 
 namespace Stratego.Core
 {
-    public class Board
+    public class Board : Matrix
     {
         public Field this[int x, int y]
         {
             get
             {
-                return Fields[x - 1, y - 1];
+                return (Field)base[x, y];
             }
             set
             {
-                Fields[x - 1, y - 1] = value;
+                base[x, y] = value;
+                //OnFieldChanged(new Point(posX, posY));
             }
         }
 
-        protected readonly Field[,] Fields;
+        protected object sync = new object();
+
+        public event EventHandler BoardInitializing;
+
+        public event EventHandler BoardInitialized;
+
+        public event EventHandler<FieldEventArgs> FieldChanged;
 
         public int Length
         {
             get
             {
-                return Fields.GetLength(0);
+                return GetLength(1);
             }
         }
 
@@ -34,31 +41,50 @@ namespace Stratego.Core
         {
             get
             {
-                return Fields.GetLength(1);
+                return GetLength(2);
             }
         }
 
-        public Board(int length, int height)
-            : this(length, height, new Field())
+        public Board(int length, int height) : base(length, height)
         {
-
+            OnBoardInitializing();
+            OnBoardInitialized();
         }
 
-        public Board(int length, int height, Field standardField)
+        protected void OnBoardInitializing()
         {
-            Fields = new Field[length, height];
-            fillFields(standardField);
+            var ev = BoardInitializing;
+
+            if(ev != null) ev(this, EventArgs.Empty);
         }
 
-        protected virtual void fillFields(Field standardField)
+        protected void OnBoardInitialized()
         {
-            for(int x = 0; x < this.Length; x++)
-            {
-                for(int y = 0; y < this.Height; y++)
-                {
-                    Fields[x, y] = new Field(standardField);
-                }
-            }
+            var ev = BoardInitialized;
+
+            if(ev != null) ev(this, EventArgs.Empty);
+        }
+
+        protected void OnFieldChanged(Point pos)
+        {
+            var ev = FieldChanged;
+
+            //var eventArgs = new FieldEventArgs(pos, )
+
+            //if(ev != null) ev(this, EventArgs.Empty);
+        }
+    }
+
+    public class FieldEventArgs : EventArgs
+    {
+        public readonly Point Position;
+
+        public readonly Field Field;
+
+        public FieldEventArgs(Point pos, Field field)
+        {
+            this.Position = pos;
+            this.Field = field;
         }
     }
 }
