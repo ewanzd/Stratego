@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Stratego.Core
 {
-    public class Field
+    public class FieldBase
     {
         public FieldType Type { get; set; }
 
-        public Field()
+        public FieldBase()
         {
-
+            
         }
 
-        public Field(Field field)
+        public FieldBase(FieldBase field)
         {
             Type = field.Type;
         }

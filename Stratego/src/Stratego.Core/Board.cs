@@ -9,13 +9,13 @@ namespace Stratego.Core
     /// <summary>
     /// 2D board with any length and height.
     /// </summary>
-    public class Board<field> : Matrix where field : Field
+    public class Board<field> : Matrix where field : FieldBase
     {
         /// <summary>
-        /// Get and set a field of board.
+        /// Get and set a field of <see cref="Stratego.Core.Board{field}"/>.
         /// </summary>
-        /// <param name="x">Horizontal position in board.</param>
-        /// <param name="y">Vertical position in board.</param>
+        /// <param name="x">Horizontal position in <see cref="Stratego.Core.Board{field}"/>.</param>
+        /// <param name="y">Vertical position in <see cref="Stratego.Core.Board{field}"/>.</param>
         /// <returns>Return field in target position.</returns>
         /// <exception cref="IndexOutOfRangeException">Position is out of range.</exception>
         public field this[int x, int y]
@@ -49,12 +49,19 @@ namespace Stratego.Core
             }
         }
 
-        public event EventHandler BoardInitializing;
-
+        /// <summary>
+        /// Event after <see cref="Stratego.Core.Board{field}"/> initialize.
+        /// </summary>
         public event EventHandler BoardInitialized;
 
+        /// <summary>
+        /// Event after field change.
+        /// </summary>
         public event EventHandler<FieldEventArgs> FieldChanged;
 
+        /// <summary>
+        /// Get length of <see cref="Stratego.Core.Board{field}"/>.
+        /// </summary>
         public int Length
         {
             get
@@ -63,6 +70,9 @@ namespace Stratego.Core
             }
         }
 
+        /// <summary>
+        /// Get height of <see cref="Stratego.Core.Board{field}"/>.
+        /// </summary>
         public int Height
         {
             get
@@ -71,21 +81,20 @@ namespace Stratego.Core
             }
         }
 
+        /// <summary>
+        /// Create new instance of <see cref="Stratego.Core.Board{field}"/>.
+        /// </summary>
+        /// <param name="length">Length of <see cref="Stratego.Core.Board{field}"/>.</param>
+        /// <param name="height">Height of <see cref="Stratego.Core.Board{field}"/>.</param>
         public Board(int length, int height)
             : base(length, height)
         {
-            OnBoardInitializing();
             OnBoardInitialized();
         }
 
-        protected void OnBoardInitializing()
-        {
-            var ev = BoardInitializing;
-
-            if(ev != null)
-                ev(this, EventArgs.Empty);
-        }
-
+        /// <summary>
+        /// Fire <see cref="Stratego.Core.Board{field}.BoardInitialized"/>.
+        /// </summary>
         protected void OnBoardInitialized()
         {
             var ev = BoardInitialized;
@@ -94,6 +103,9 @@ namespace Stratego.Core
                 ev(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Fire <see cref="Stratego.Core.Board{field}.FieldChanged"/>.
+        /// </summary>
         protected void OnFieldChanged(Position position)
         {
             var ev = FieldChanged;
