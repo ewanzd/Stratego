@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Stratego.Core
 {
-    public class PawnBase
+    public enum FightResult
     {
-        private MoveType _moveType;
-        private Range _range;
+        Win = 1,
+        Lose = 2,
+        Draw = 3
     }
 }

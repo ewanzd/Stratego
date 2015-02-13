@@ -9,7 +9,7 @@ namespace Stratego.Core
     /// <summary>
     /// 2D board with any length and height.
     /// </summary>
-    public class Board<field> : Matrix where field : FieldBase
+    public class Board : Matrix
     {
         /// <summary>
         /// Get and set a field of <see cref="Stratego.Core.Board{field}"/>.
@@ -18,11 +18,11 @@ namespace Stratego.Core
         /// <param name="y">Vertical position in <see cref="Stratego.Core.Board{field}"/>.</param>
         /// <returns>Return field in target position.</returns>
         /// <exception cref="IndexOutOfRangeException">Position is out of range.</exception>
-        public field this[int x, int y]
+        public FieldBase this[int x, int y]
         {
             get
             {
-                return (field)base[x, y];
+                return (FieldBase)base[x, y];
             }
             set
             {
@@ -37,7 +37,7 @@ namespace Stratego.Core
         /// <param name="position">Position in board.</param>
         /// <returns>Return field in target position.</returns>
         /// <exception cref="IndexOutOfRangeException">Position is out of range.</exception>
-        public field this[Position position]
+        public FieldBase this[Position position]
         {
             get
             {
@@ -48,11 +48,6 @@ namespace Stratego.Core
                 this[position.X, position.Y] = value;
             }
         }
-
-        /// <summary>
-        /// Event after <see cref="Stratego.Core.Board{field}"/> initialize.
-        /// </summary>
-        public event EventHandler BoardInitialized;
 
         /// <summary>
         /// Event after field change.
@@ -89,18 +84,7 @@ namespace Stratego.Core
         public Board(int length, int height)
             : base(length, height)
         {
-            OnBoardInitialized();
-        }
-
-        /// <summary>
-        /// Fire <see cref="Stratego.Core.Board{field}.BoardInitialized"/>.
-        /// </summary>
-        protected void OnBoardInitialized()
-        {
-            var ev = BoardInitialized;
-
-            if(ev != null)
-                ev(this, EventArgs.Empty);
+            
         }
 
         /// <summary>
