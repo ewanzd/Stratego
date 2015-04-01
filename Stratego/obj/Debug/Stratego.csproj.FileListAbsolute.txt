@@ -1,0 +1,5 @@
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego\obj\Debug\Stratego.csprojResolveAssemblyReference.cache
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego\bin\Debug\Stratego.exe
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego\bin\Debug\Stratego.pdb
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego\obj\Debug\Stratego.exe
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego\obj\Debug\Stratego.pdb

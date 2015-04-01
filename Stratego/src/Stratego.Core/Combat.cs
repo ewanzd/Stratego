@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace Stratego.Core
 {
-    public class Combat
+    public interface ICombatSystem<pawn>
+    {
+
+    }
+
+    public class CombatSystem
     {
         private List<CombatSpecialCase> specialcases;
 
-        public Combat()
+        public CombatSystem()
         {
             specialcases = new List<CombatSpecialCase>();
         }
