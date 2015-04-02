@@ -42,37 +42,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\Montana\Board.cs" />
-    <Compile Include="src\Stratego.Core\Combat.cs" />
-    <Compile Include="src\Stratego.Core\Enums\FieldType.cs" />
-    <Compile Include="src\Stratego.Core\Enums\FightResult.cs" />
-    <Compile Include="src\Stratego.Core\Enums\GameState.cs" />
-    <Compile Include="src\Stratego.Core\Enums\MoveType.cs" />
-    <Compile Include="src\Stratego.Core\Enums\Range.cs" />
-    <Compile Include="src\Stratego.Core\Extensions\EnumerationExtension.cs" />
-    <Compile Include="src\Montana\FieldBase.cs" />
-    <Compile Include="src\Montana\FieldEventArgs.cs" />
-    <Compile Include="src\Stratego.Core\CombatSpecialCase.cs" />
-    <Compile Include="src\Montana\GameBase.cs" />
-    <Compile Include="src\Stratego.Core\GameMove.cs" />
-    <Compile Include="src\Stratego.Core\StrategoField.cs" />
-    <Compile Include="src\Stratego.Core\StrategoGame.cs" />
-    <Compile Include="src\Montana\GameSummaryBase.cs" />
-    <Compile Include="src\Montana\Interfaces\IGame.cs" />
-    <Compile Include="src\Montana\Matrix.cs" />
-    <Compile Include="src\Stratego.Core\Pawn.cs" />
-    <Compile Include="src\Montana\Position.cs" />
-    <Compile Include="src\Stratego.Core\StrategoGame.Initialize.cs" />
-    <Compile Include="src\Stratego.Core\StrategoGameSummary.cs" />
+    <Compile Include="Montana\Board.cs" />
+    <Compile Include="Stratego.Core\Combat.cs" />
+    <Compile Include="Stratego.Core\Enums\FieldType.cs" />
+    <Compile Include="Stratego.Core\Enums\FightResult.cs" />
+    <Compile Include="Stratego.Core\Enums\GameState.cs" />
+    <Compile Include="Stratego.Core\Enums\MoveType.cs" />
+    <Compile Include="Stratego.Core\Enums\Range.cs" />
+    <Compile Include="Stratego.Core\Extensions\EnumerationExtension.cs" />
+    <Compile Include="Montana\FieldBase.cs" />
+    <Compile Include="Montana\FieldEventArgs.cs" />
+    <Compile Include="Stratego.Core\CombatSpecialCase.cs" />
+    <Compile Include="Montana\GameBase.cs" />
+    <Compile Include="Stratego.Core\GameMove.cs" />
+    <Compile Include="Stratego.Core\StrategoField.cs" />
+    <Compile Include="Stratego.Core\StrategoGame.cs" />
+    <Compile Include="Montana\GameSummaryBase.cs" />
+    <Compile Include="Montana\Interfaces\IGame.cs" />
+    <Compile Include="Montana\Matrix.cs" />
+    <Compile Include="Stratego.Core\Pawn.cs" />
+    <Compile Include="Montana\Position.cs" />
+    <Compile Include="Stratego.Core\StrategoGame.Initialize.cs" />
+    <Compile Include="Stratego.Core\StrategoGameSummary.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Instruction.txt" />
+    <None Include="Instruction.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="src\Montana\Enums\" />
-    <Folder Include="src\Stratego.AI\" />
+    <Folder Include="Montana\Enums\" />
+    <Folder Include="Stratego.AI\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

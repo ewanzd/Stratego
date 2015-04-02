@@ -35,10 +35,11 @@ namespace Montana
             IsActive = true;
         }
 
-        public GameBase(GameSummaryBase summary)
+        public GameBase(info summary)
         {
             this.GameId = summary.GameId;
             this.listOfPlayers = summary.ListOfPlayers;
+            this.IsActive = summary.IsActive;
         }
 
         public virtual bool AddPlayerToGame(Guid player)
