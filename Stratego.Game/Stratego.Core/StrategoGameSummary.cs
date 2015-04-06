@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Stratego.Core
 {
-    public class StrategoGameSummary : GameSummaryBase
+    public class StrategoGameSummary : BoardGameSummary
     {
         public GameState GameState { get; set; }
         public List<GameMove> ListOfMoves { get; set; }

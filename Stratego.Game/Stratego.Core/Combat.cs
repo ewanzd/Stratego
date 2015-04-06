@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Montana;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,6 @@ using System.Threading.Tasks;
 
 namespace Stratego.Core
 {
-    public interface ICombatSystem<pawn>
-    {
-
-    }
-
     public class CombatSystem
     {
         private List<CombatSpecialCase> specialcases;

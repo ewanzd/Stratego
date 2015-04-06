@@ -11,7 +11,9 @@ namespace Stratego.Game.Test
         public void InitGame()
         {
             StrategoGame game = new StrategoGame();
-
+            var sum = game.GetSummary();
+            
+            Assert.AreEqual(true, sum.IsActive);
         }
     }
 }

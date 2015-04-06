@@ -42,11 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Montana\BoardGame.cs" />
+    <Compile Include="Montana\BoardGameSummary.cs" />
+    <Compile Include="Montana\Interfaces\ICombatSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Montana\Board.cs" />
     <Compile Include="Stratego.Core\Combat.cs" />
     <Compile Include="Stratego.Core\Enums\FieldType.cs" />
-    <Compile Include="Stratego.Core\Enums\FightResult.cs" />
+    <Compile Include="Montana\Enums\FightResult.cs" />
     <Compile Include="Stratego.Core\Enums\GameState.cs" />
     <Compile Include="Stratego.Core\Enums\MoveType.cs" />
     <Compile Include="Stratego.Core\Enums\Range.cs" />
@@ -55,11 +58,10 @@
     <Compile Include="Montana\FieldEventArgs.cs" />
     <Compile Include="Stratego.Core\CombatSpecialCase.cs" />
     <Compile Include="Montana\GameBase.cs" />
-    <Compile Include="Stratego.Core\GameMove.cs" />
+    <Compile Include="Montana\GameMove.cs" />
     <Compile Include="Stratego.Core\StrategoField.cs" />
     <Compile Include="Stratego.Core\StrategoGame.cs" />
     <Compile Include="Montana\GameSummaryBase.cs" />
-    <Compile Include="Montana\Interfaces\IGame.cs" />
     <Compile Include="Montana\Matrix.cs" />
     <Compile Include="Stratego.Core\Pawn.cs" />
     <Compile Include="Montana\Position.cs" />
@@ -70,7 +72,6 @@
     <None Include="Instruction.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Montana\Enums\" />
     <Folder Include="Stratego.AI\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

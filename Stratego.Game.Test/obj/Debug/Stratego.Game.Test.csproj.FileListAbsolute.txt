@@ -5,3 +5,10 @@ C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Game.Te
 C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Game.Test\obj\Debug\Stratego.Game.Test.csprojResolveAssemblyReference.cache
 C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Game.Test\obj\Debug\Stratego.Game.Test.dll
 C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Game.Test\obj\Debug\Stratego.Game.Test.pdb
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Game.Test\bin\Debug\Stratego.Game.Test.dll
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Game.Test\bin\Debug\Stratego.Game.Test.pdb
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Game.Test\bin\Debug\Stratego.Game.dll
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Game.Test\bin\Debug\Stratego.Game.pdb
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Game.Test\obj\Debug\Stratego.Game.Test.csprojResolveAssemblyReference.cache
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Game.Test\obj\Debug\Stratego.Game.Test.dll
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Game.Test\obj\Debug\Stratego.Game.Test.pdb

@@ -13,7 +13,5 @@ namespace Montana
         public bool IsActive { get; set; }
         
         public List<Guid> ListOfPlayers { get; set; }
-
-
     }
 }

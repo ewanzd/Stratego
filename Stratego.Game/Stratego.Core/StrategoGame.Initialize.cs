@@ -8,8 +8,10 @@ namespace Stratego.Core
 {
     public partial class StrategoGame
     {
-        private void InitializeGame()
+        protected override void OnInitialize()
         {
+            base.OnInitialize();
+
             this.MaxPlayer = 2;
 
             Pawn bomber = new Pawn("PAWN_BOMBER", 12)
@@ -28,8 +30,8 @@ namespace Stratego.Core
                 MoveType    = MoveType.Cross
             };
 
-            fight.AddSpecialCase(new CombatSpecialCase(fieldMarshal.TypeName, bomber.TypeName, new Func<Pawn, Pawn, FightResult>((att, def) => FightResult.Draw)));
-            fight.AddSpecialCase(new CombatSpecialCase(general.TypeName, bomber.TypeName, new Func<Pawn, Pawn, FightResult>((att, def) => FightResult.Draw)));
+            //fight.AddSpecialCase(new CombatSpecialCase(fieldMarshal.TypeName, bomber.TypeName, new Func<Pawn, Pawn, FightResult>((att, def) => FightResult.Draw)));
+            //fight.AddSpecialCase(new CombatSpecialCase(general.TypeName, bomber.TypeName, new Func<Pawn, Pawn, FightResult>((att, def) => FightResult.Draw)));
         }
     }
 }

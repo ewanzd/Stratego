@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 
 namespace Stratego.Core
 {
-    public partial class StrategoGame : GameBase<StrategoGameSummary>
+    public partial class StrategoGame : BoardGame<StrategoGameSummary>
     {
         // Verfügt über die Spiellogik von Stratego
 
-        protected Board<StrategoField> board;
         protected List<GameMove> listOfMoves;
         protected CombatSystem fight;
         private int _maxPlayer;
 
         public GameState GameState { get; protected set; }
 
-        public sealed override int MaxPlayer
+        public override int MaxPlayer
         {
             get
             {
@@ -26,24 +25,20 @@ namespace Stratego.Core
             }
             protected set
             {
-                _maxPlayer = value;
+                if(IsActive && !IsReady)
+                    _maxPlayer = value;
             }
         }
 
         public StrategoGame()
         {
-            board       = new Board<StrategoField>(10, 10);
             listOfMoves = new List<GameMove>();
             fight       = new CombatSystem();
-
-            InitializeGame();
         }
 
         public StrategoGame(StrategoGameSummary summary) : base(summary)
         {
             this.listOfMoves = summary.ListOfMoves;
-
-            InitializeGame();
         }
 
         public bool PlacingPawn()
@@ -51,14 +46,11 @@ namespace Stratego.Core
             return false;
         }
 
-        public void MakeMove(GameMove move)
+        public override StrategoGameSummary GetSummary()
         {
+            var sum = base.GetSummary();
 
-        }
-
-        public StrategoGameSummary GetSummary()
-        {
-            return null;
+            return sum;
         }
     }
 }
