@@ -14,11 +14,31 @@ namespace Stratego.Game.Test
             var playerGuid2 = Guid.NewGuid();
 
             var game = new StrategoGame();
-            game.AddPlayer(playerGuid1);
-            game.AddPlayer(playerGuid2);
+            if(!game.AddPlayer(playerGuid1)) Assert.Fail("Can't add player.");
+            if(!game.AddPlayer(playerGuid2)) Assert.Fail("Can't add player.");
 
             Assert.AreEqual(true, game.IsActive);
             Assert.AreEqual(true, game.IsReady);
+        }
+
+        StrategoGame game;
+
+        [TestInitialize]
+        public void Init()
+        {
+            game = new StrategoGame();
+        }
+
+        [TestMethod]
+        public void GameCheckReadyEvent()
+        {
+            game.Ready += (sender, e) =>
+            {
+                Assert.AreNotEqual(sender, null);
+            };
+
+            game.AddPlayer(Guid.NewGuid());
+            game.AddPlayer(Guid.NewGuid());
         }
     }
 }

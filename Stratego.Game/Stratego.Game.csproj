@@ -42,18 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Montana\BoardGame.cs" />
-    <Compile Include="Montana\BoardGameSummary.cs" />
     <Compile Include="Montana\Interfaces\IDisplay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Montana\Board.cs" />
     <Compile Include="Stratego.AI\StrategoAI.cs" />
+    <Compile Include="Stratego.Game\BoardManager.cs" />
     <Compile Include="Stratego.Game\Combat.cs" />
     <Compile Include="Montana\Enums\FightResult.cs" />
     <Compile Include="Stratego.Game\Enums\GameState.cs" />
     <Compile Include="Montana\Enums\MoveType.cs" />
     <Compile Include="Stratego.Game\Extensions\EnumerationExtension.cs" />
-    <Compile Include="Montana\Model\Terrain.cs" />
+    <Compile Include="Montana\Terrain.cs" />
     <Compile Include="Montana\FieldEventArgs.cs" />
     <Compile Include="Stratego.Game\CombatSpecialCase.cs" />
     <Compile Include="Montana\GameBase.cs" />
@@ -64,7 +63,7 @@
     <Compile Include="Stratego.Game\StrategoGame.cs" />
     <Compile Include="Montana\GameSummaryBase.cs" />
     <Compile Include="Montana\Matrix.cs" />
-    <Compile Include="Montana\Model\Unit.cs" />
+    <Compile Include="Montana\Unit.cs" />
     <Compile Include="Montana\Position.cs" />
     <Compile Include="Stratego.Game\StrategoGameSummary.cs" />
   </ItemGroup>

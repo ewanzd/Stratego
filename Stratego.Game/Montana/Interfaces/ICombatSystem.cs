@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Montana
 {
-    public enum FightResult
+    public interface ICombatSystem<pawn>
     {
-        Win     = 1,
-        Lose    = 2,
-        Draw    = 3
+        FightResult Go(pawn attacker, pawn defender);
     }
 }

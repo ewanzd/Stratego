@@ -11,6 +11,8 @@ namespace Stratego.Game
     {
         protected Unit UnitType { get; set; }
 
+        public Guid Player { get; set; }
+
         public string Name
         {
             get

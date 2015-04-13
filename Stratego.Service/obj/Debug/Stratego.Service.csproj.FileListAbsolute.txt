@@ -7,3 +7,12 @@ C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Service
 C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Service\obj\Debug\Stratego.Service.csprojResolveAssemblyReference.cache
 C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Service\obj\Debug\Stratego.Service.dll
 C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Service\obj\Debug\Stratego.Service.pdb
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Service\bin\Debug\Stratego.Service.dll
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Service\bin\Debug\Stratego.Service.pdb
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Service\bin\Debug\Stratego.Data.dll
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Service\bin\Debug\Stratego.Game.dll
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Service\bin\Debug\Stratego.Data.pdb
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Service\bin\Debug\Stratego.Game.pdb
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Service\obj\Debug\Stratego.Service.csprojResolveAssemblyReference.cache
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Service\obj\Debug\Stratego.Service.dll
+C:\Users\Danilo\Source\Repos\Stratego\Stratego.Service\obj\Debug\Stratego.Service.pdb

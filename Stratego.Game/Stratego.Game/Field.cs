@@ -10,5 +10,7 @@ namespace Stratego.Game
     public class Field
     {
         protected Terrain Terrain { get; set; }
+
+        public Pawn Pawn { get; set; }
     }
 }

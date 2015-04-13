@@ -93,7 +93,7 @@ namespace Montana
 
         protected virtual bool CheckReady()
         {
-            if (listOfPlayers.Count != MaxPlayer - 1)
+            if (listOfPlayers.Count >= MaxPlayer)
                 return false;
 
             if (!IsActive)

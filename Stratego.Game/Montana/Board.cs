@@ -25,11 +25,11 @@ namespace Montana
             {
                 return (field)base[x, y];
             }
-            //set
-            //{
-            //    base[x, y] = value;
-            //    OnFieldChanged(new Position(x, y));
-            //}
+            set
+            {
+                base[x, y] = value;
+                OnFieldChanged(new Position(x, y));
+            }
         }
 
         /// <summary>
@@ -44,10 +44,10 @@ namespace Montana
             {
                 return this[position.X, position.Y];
             }
-            //set
-            //{
-            //    this[position.X, position.Y] = value;
-            //}
+            set
+            {
+                this[position.X, position.Y] = value;
+            }
         }
 
         /// <summary>

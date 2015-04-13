@@ -11,7 +11,14 @@ namespace Stratego.Game
     {
         public StrategoBoard(int length, int height) : base(length, height)
         {
+            Initialize();
+        }
 
+        public void Initialize()
+        {
+            for (int x = 1; x <= Length; x++)
+                for (int y = 1; y <= Height; y++)
+                    this[x, y] = new Field();
         }
     }
 }
