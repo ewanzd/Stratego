@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Montana
+namespace Stratego.Game
 {
-    public class FieldBase
+    public enum GameState
     {
-        public FieldBase()
-        {
-            
-        }
+        Prep        = 1,
+        InPlay      = 2,
+        Finished    = 3
     }
 }

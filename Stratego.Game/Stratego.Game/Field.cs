@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stratego.Core
+namespace Stratego.Game
 {
-    public class StrategoField : FieldBase
+    public class Field
     {
-
+        protected Terrain Terrain { get; set; }
     }
 }

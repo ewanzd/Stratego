@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stratego.Core
+namespace Stratego.Game
 {
-    public class StrategoGameSummary : BoardGameSummary
+    public class StrategoGameSummary : GameSummaryBase
     {
         public GameState GameState { get; set; }
         public List<GameMove> ListOfMoves { get; set; }

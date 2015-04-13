@@ -75,7 +75,7 @@ namespace Montana
 
         }
 
-        public virtual bool AddPlayerToGame(Guid player)
+        public virtual bool AddPlayer(Guid player)
         {
             if(player == Guid.Empty)
                 return false;

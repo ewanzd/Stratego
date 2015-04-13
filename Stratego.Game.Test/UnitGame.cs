@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Stratego.Core;
+using Stratego.Game;
 
 namespace Stratego.Game.Test
 {
@@ -10,10 +10,15 @@ namespace Stratego.Game.Test
         [TestMethod]
         public void InitGame()
         {
-            StrategoGame game = new StrategoGame();
-            var sum = game.GetSummary();
-            
-            Assert.AreEqual(true, sum.IsActive);
+            var playerGuid1 = Guid.NewGuid();
+            var playerGuid2 = Guid.NewGuid();
+
+            var game = new StrategoGame();
+            game.AddPlayer(playerGuid1);
+            game.AddPlayer(playerGuid2);
+
+            Assert.AreEqual(true, game.IsActive);
+            Assert.AreEqual(true, game.IsReady);
         }
     }
 }

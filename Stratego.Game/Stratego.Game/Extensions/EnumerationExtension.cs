@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stratego.Core
+namespace Stratego.Game
 {
     // from http://www.codeproject.com/Articles/37921/Enums-Flags-and-C-Oh-my-bad-pun
 

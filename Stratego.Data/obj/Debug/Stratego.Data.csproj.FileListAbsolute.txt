@@ -1,0 +1,4 @@
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Data\bin\Debug\Stratego.Data.dll
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Data\bin\Debug\Stratego.Data.pdb
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Data\obj\Debug\Stratego.Data.dll
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Data\obj\Debug\Stratego.Data.pdb

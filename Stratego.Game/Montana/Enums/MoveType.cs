@@ -4,8 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stratego.Core
+namespace Montana
 {
+    /// <summary>
+    /// o = None
+    /// 1 = Diagonal
+    /// 2 = Cross
+    /// 3 = Abroad
+    /// </summary>
     [Flags]
     public enum MoveType
     {

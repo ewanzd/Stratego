@@ -11,13 +11,12 @@ namespace Montana
     /// </summary>
     /// <typeparam name="field">Type of field.</typeparam>
     public class Board<field> : Matrix
-        where field : FieldBase
     {
         /// <summary>
-        /// Get and set a field of <see cref="Stratego.Core.Board{field}"/>.
+        /// Get and set a field of <see cref="Stratego.Game.Board{field}"/>.
         /// </summary>
-        /// <param name="x">Horizontal position in <see cref="Stratego.Core.Board{field}"/>.</param>
-        /// <param name="y">Vertical position in <see cref="Stratego.Core.Board{field}"/>.</param>
+        /// <param name="x">Horizontal position in <see cref="Stratego.Game.Board{field}"/>.</param>
+        /// <param name="y">Vertical position in <see cref="Stratego.Game.Board{field}"/>.</param>
         /// <returns>Return field in target position.</returns>
         /// <exception cref="IndexOutOfRangeException">Position is out of range.</exception>
         public field this[int x, int y]
@@ -57,7 +56,7 @@ namespace Montana
         public event EventHandler<FieldEventArgs> FieldChanged;
 
         /// <summary>
-        /// Get length of <see cref="Stratego.Core.Board{field}"/>.
+        /// Get length of <see cref="Stratego.Game.Board{field}"/>.
         /// </summary>
         public int Length
         {
@@ -68,7 +67,7 @@ namespace Montana
         }
 
         /// <summary>
-        /// Get height of <see cref="Stratego.Core.Board{field}"/>.
+        /// Get height of <see cref="Stratego.Game.Board{field}"/>.
         /// </summary>
         public int Height
         {
@@ -79,10 +78,10 @@ namespace Montana
         }
 
         /// <summary>
-        /// Create new instance of <see cref="Stratego.Core.Board{field}"/>.
+        /// Create new instance of <see cref="Stratego.Game.Board{field}"/>.
         /// </summary>
-        /// <param name="length">Length of <see cref="Stratego.Core.Board{field}"/>.</param>
-        /// <param name="height">Height of <see cref="Stratego.Core.Board{field}"/>.</param>
+        /// <param name="length">Length of <see cref="Stratego.Game.Board{field}"/>.</param>
+        /// <param name="height">Height of <see cref="Stratego.Game.Board{field}"/>.</param>
         public Board(int length, int height)
             : base(length, height)
         {
@@ -90,7 +89,7 @@ namespace Montana
         }
 
         /// <summary>
-        /// Fire <see cref="Stratego.Core.Board{field}.FieldChanged"/>.
+        /// Fire <see cref="Stratego.Game.Board{field}.FieldChanged"/>.
         /// </summary>
         protected void OnFieldChanged(Position position)
         {

@@ -1,0 +1,9 @@
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Service\bin\Debug\Stratego.Service.dll
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Service\bin\Debug\Stratego.Service.pdb
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Service\bin\Debug\Stratego.Data.dll
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Service\bin\Debug\Stratego.Game.dll
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Service\bin\Debug\Stratego.Data.pdb
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Service\bin\Debug\Stratego.Game.pdb
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Service\obj\Debug\Stratego.Service.csprojResolveAssemblyReference.cache
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Service\obj\Debug\Stratego.Service.dll
+C:\Users\U009037\Documents\Visual Studio 2013\Projects\Stratego\Stratego.Service\obj\Debug\Stratego.Service.pdb

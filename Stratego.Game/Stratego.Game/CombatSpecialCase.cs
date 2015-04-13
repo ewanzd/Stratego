@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stratego.Core
+namespace Stratego.Game
 {
     public class CombatSpecialCase
     {
@@ -13,9 +13,9 @@ namespace Stratego.Core
 
         public string DefenderTypeName { get; private set; }
 
-        public Func<Pawn, Pawn, FightResult> Fight { get; private set; }
+        public Func<Unit, Unit, FightResult> Fight { get; private set; }
 
-        public CombatSpecialCase(string attTypeName, string defTypeName, Func<Pawn, Pawn, FightResult> specialCase)
+        public CombatSpecialCase(string attTypeName, string defTypeName, Func<Unit, Unit, FightResult> specialCase)
         {
             this.AttackerTypeName = attTypeName;
             this.DefenderTypeName = defTypeName;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stratego.Core
+namespace Stratego.Game
 {
     public class CombatSystem
     {
@@ -16,7 +16,7 @@ namespace Stratego.Core
             specialcases = new List<CombatSpecialCase>();
         }
 
-        public FightResult Go(Pawn attacker, Pawn defender)
+        public FightResult Go(Unit attacker, Unit defender)
         {
             return FightResult.Draw;
         }

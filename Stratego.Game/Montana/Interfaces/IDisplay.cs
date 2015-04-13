@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stratego.Core
+namespace Montana
 {
-    public enum GameState
+    public interface IDisplay
     {
-        Prep        = 1,
-        InPlay      = 2,
-        Finished    = 3
+        string Name { get; set; }
+
+        string Description { get; set; }
     }
 }
