@@ -14,7 +14,6 @@ namespace Stratego.Game
         protected List<GameMove> listOfMoves;
         protected CombatSystem fight;
         private int _maxPlayer;
-        protected StrategoBoard board;
 
         public GameState GameState { get; protected set; }
 
@@ -35,9 +34,6 @@ namespace Stratego.Game
         {
             listOfMoves = new List<GameMove>();
             fight       = new CombatSystem();
-            board       = new StrategoBoard(10, 10);
-
-            var a = board[3, 5];
         }
 
         public StrategoGame(StrategoGameSummary summary) : base(summary)
