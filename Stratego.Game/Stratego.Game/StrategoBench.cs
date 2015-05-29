@@ -3,40 +3,62 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Stratego.Game
 {
+    /// <summary>
+    /// Manage the access to board.
+    /// </summary>
     public class StrategoBench
     {
-        StrategoBoard board;
-        List<GameMove> listOfMoves;
+        protected Board<Field> Board;
+        protected CombatSystem Combat;
+        protected List<GameMove> ListOfMoves;
 
-        public int Length
-        {
-            get
-            {
-                return board.Length;
-            }
-        }
+        protected object sync = new object();
 
-        public int Height
-        {
-            get
-            {
-                return board.Height;
-            }
-        }
-
-        public event EventHandler FieldChanged;
+        public event EventHandler<MoveEventArgs> PawnMoved;
+        public event EventHandler PawnPlaced;
+        public event EventHandler Fighted;
+        public event EventHandler KingFailed;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="board"></param>
-        public StrategoBench(StrategoBoard board)
+        public StrategoBench() 
+            : this(new Board<Field>(10, 10))
         {
-            this.board = board;
+            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="board"></param>
+        public StrategoBench(Board<Field> board)
+        {
+            this.Board = board;
+            ListOfMoves = new List<GameMove>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="initializer"></param>
+        public void Initialize(IBoardInitializer initializer)
+        {
+            initializer.Initialize(Board);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        public Field GetField(Position pos)
+        {
+            return Board[pos.X, pos.Y];
         }
 
         /// <summary>
@@ -46,7 +68,7 @@ namespace Stratego.Game
         /// <returns>Return <c>true</c> if have a pawn.</returns>
         public bool HavePawn(Position pos)
         {
-            var field = board[pos];
+            var field = Board[pos];
             return (field != null) ? field.Pawn != null : false;
         }
 
@@ -58,7 +80,7 @@ namespace Stratego.Game
         /// <returns></returns>
         public bool PlacingPawn(Pawn pawn, Position pos)
         {
-            var field = board[pos];
+            var field = Board[pos];
 
             if (HavePawn(pos))
                 return false;
@@ -84,26 +106,47 @@ namespace Stratego.Game
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <returns></returns>
-        public bool MakeMove(Position from, Position to)
+        public bool CanMove(Position from, Position to)
         {
-            var move = new GameMove()
-            {
-                From = from,
-                To = to
-            };
-
-            return MakeMove(move);
+            return false;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="move"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
         /// <returns></returns>
-        public bool MakeMove(GameMove move)
+        public bool MakeMove(Position from, Position to)
         {
+            var start = GetField(from);
+            var end = GetField(to);
 
-            listOfMoves.Add(move);
+            lock (sync)
+            {
+                // Can't move the pawn
+                if (start.Pawn == null)
+                    return false;
+                if (!CanMove(from, to))
+                    return false;
+
+                // Move the pawn
+                if (end.Pawn == null)
+                {
+                    var pawn = start.Pawn;
+                    start.Pawn = null;
+                    end.Pawn = pawn;
+                    OnPawnMoved(from, to, pawn);
+                    return true;
+                }
+
+                // Fight
+                var att = start.Pawn;
+                var def = end.Pawn;
+                var result = Combat.Go(att, def);
+
+                //listOfMoves.Add(move);
+            }
 
             return false;
         }
@@ -112,12 +155,20 @@ namespace Stratego.Game
         /// 
         /// </summary>
         /// <param name="field"></param>
-        protected void OnFieldChanged(Field field)
+        protected void OnPawnMoved(Position from, Position to, Pawn pawn)
         {
-            var ev = FieldChanged;
+            var ev = PawnMoved;
+            var args = new MoveEventArgs(from, to, pawn);
 
-            if(ev != null)
-                ev(field, EventArgs.Empty);
+            if(ev != null) ev(this, args);
+        }
+    }
+
+    public class MoveEventArgs : EventArgs
+    {
+        public MoveEventArgs(Position from, Position to, Pawn pawn)
+        {
+
         }
     }
 }

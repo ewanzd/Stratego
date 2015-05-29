@@ -16,7 +16,7 @@ namespace Stratego.Game
             specialcases = new List<CombatSpecialCase>();
         }
 
-        public FightResult Go(Unit attacker, Unit defender)
+        public FightResult Go(Pawn attacker, Pawn defender)
         {
             return FightResult.Draw;
         }

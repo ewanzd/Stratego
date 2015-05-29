@@ -40,5 +40,19 @@ namespace Stratego.Game.Test
             game.AddPlayer(Guid.NewGuid());
             game.AddPlayer(Guid.NewGuid());
         }
+
+        [TestMethod]
+        public void InitBoardBench()
+        {
+            var playerGuid1 = Guid.NewGuid();
+
+            var bench = game.Bench;
+
+            var pawnSettings = new StrategoPawnSettings();
+            var pawn1 = pawnSettings.GetPawn(playerGuid1, "PAWN_FLAG");
+            var result = bench.PlacingPawn(pawn1, new Montana.Position(1, 1));
+
+            Assert.AreEqual(true, result);
+        }
     }
 }

@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Stratego.Game
 {
-    public class Field
+    public interface IBoardInitializer
     {
-        public Terrain Terrain { get; set; }
-
-        public Pawn Pawn { get; set; }
+        Board<Field> Initialize(Board<Field> board);
     }
 }

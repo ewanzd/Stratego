@@ -27,8 +27,12 @@ namespace Montana
             }
             set
             {
-                base[x, y] = value;
-                //OnFieldChanged(new Position(x, y));
+                var newValue = value;
+                var oldValue = base[x, y];
+
+                base[x, y] = newValue;
+
+                OnFieldChanged(new Position(x, y), oldValue, newValue);
             }
         }
 
@@ -50,10 +54,10 @@ namespace Montana
             }
         }
 
-        ///// <summary>
-        ///// Event after field change.
-        ///// </summary>
-        //public event EventHandler<FieldEventArgs> FieldChanged;
+        /// <summary>
+        /// Event after field change.
+        /// </summary>
+        public event EventHandler<FieldEventArgs> FieldChanged;
 
         /// <summary>
         /// Get length of <see cref="Stratego.Game.Board{field}"/>.
@@ -88,17 +92,18 @@ namespace Montana
             
         }
 
-        ///// <summary>
-        ///// Fire <see cref="Stratego.Game.Board{field}.FieldChanged"/>.
-        ///// </summary>
-        //protected void OnFieldChanged(Position position)
-        //{
-        //    var ev = FieldChanged;
+        /// <summary>
+        /// Fire <see cref="Stratego.Game.Board{field}.FieldChanged"/>.
+        /// </summary>
+        /// <param name="cor"></param>
+        /// <param name="newValue"></param>
+        protected void OnFieldChanged(Position cor, object oldValue, object newValue)
+        {
+            var ev = FieldChanged;
+            var args = new FieldEventArgs(cor, oldValue, newValue);
 
-        //    var args = new FieldEventArgs(position);
-
-        //    if(ev != null)
-        //        ev(this, args);
-        //}
+            if (ev != null)
+                ev(this, args);
+        }
     }
 }

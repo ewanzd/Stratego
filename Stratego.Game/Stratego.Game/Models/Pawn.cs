@@ -13,11 +13,21 @@ namespace Stratego.Game
 
         public Guid Player { get; set; }
 
+        private string _name;
+        private int _power;
+
         public string Name
         {
             get
             {
-                return UnitType.TypeName;
+                var type = UnitType;
+                var name = _name;
+
+                return !String.IsNullOrWhiteSpace(name) ? name : UnitType.TypeName;
+            }
+            set
+            {
+                _name = value;
             }
         }
 
@@ -27,6 +37,16 @@ namespace Stratego.Game
             {
                 return UnitType.Power;
             }
+        }
+
+        public Pawn(Unit type, Guid playerId = default(Guid), string name = "")
+        {
+            if (type == null)
+                throw new ArgumentNullException("type");
+
+            this.UnitType = type;
+            this.Player = playerId;
+            this.Name = name;
         }
     }
 }
