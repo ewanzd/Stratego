@@ -54,6 +54,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Montana\Montana.csproj">
+      <Project>{28a5193e-2b02-481b-98c8-803f9c662af8}</Project>
+      <Name>Montana</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Stratego.Game\Stratego.Game.csproj">
       <Project>{0f44f0ed-00b5-40af-b05c-a6291c2aa3f4}</Project>
       <Name>Stratego.Game</Name>
