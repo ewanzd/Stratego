@@ -1,0 +1,5 @@
+C:\Users\ewanzd\Source\Repos\Stratego\Montana\bin\Debug\Montana.dll
+C:\Users\ewanzd\Source\Repos\Stratego\Montana\bin\Debug\Montana.pdb
+C:\Users\ewanzd\Source\Repos\Stratego\Montana\obj\Debug\Montana.csprojResolveAssemblyReference.cache
+C:\Users\ewanzd\Source\Repos\Stratego\Montana\obj\Debug\Montana.dll
+C:\Users\ewanzd\Source\Repos\Stratego\Montana\obj\Debug\Montana.pdb

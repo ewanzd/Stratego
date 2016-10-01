@@ -42,37 +42,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Montana\Interfaces\IDisplay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Montana\Board.cs" />
-    <Compile Include="Stratego.AI\StrategoAI.cs" />
     <Compile Include="Stratego.Game\Interfaces\IBoardInitializer.cs" />
     <Compile Include="Stratego.Game\StrategoBench.cs" />
     <Compile Include="Stratego.Game\CombatSystem.cs" />
-    <Compile Include="Montana\Enums\FightResult.cs" />
     <Compile Include="Stratego.Game\Enums\GameState.cs" />
-    <Compile Include="Montana\Enums\MoveType.cs" />
     <Compile Include="Stratego.Game\Extensions\EnumerationExtension.cs" />
     <Compile Include="Stratego.Game\Models\Terrain.cs" />
-    <Compile Include="Montana\FieldEventArgs.cs" />
     <Compile Include="Stratego.Game\CombatSpecialCase.cs" />
-    <Compile Include="Montana\GameBase.cs" />
-    <Compile Include="Montana\GameMove.cs" />
     <Compile Include="Stratego.Game\Models\Pawn.cs" />
     <Compile Include="Stratego.Game\Models\Field.cs" />
     <Compile Include="Stratego.Game\StrategoGame.cs" />
-    <Compile Include="Montana\GameSummaryBase.cs" />
-    <Compile Include="Montana\Matrix.cs" />
     <Compile Include="Stratego.Game\Models\Unit.cs" />
-    <Compile Include="Montana\Position.cs" />
     <Compile Include="Stratego.Game\StrategoGameSummary.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Instruction.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Stratego.AI\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Classic.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Montana\Montana.csproj">
+      <Project>{b00e1a56-63de-4f26-bcc3-630141581289}</Project>
+      <Name>Montana</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

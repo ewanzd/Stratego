@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Montana\Montana.csproj">
-      <Project>{28a5193e-2b02-481b-98c8-803f9c662af8}</Project>
+      <Project>{b00e1a56-63de-4f26-bcc3-630141581289}</Project>
       <Name>Montana</Name>
     </ProjectReference>
     <ProjectReference Include="..\Stratego.Game\Stratego.Game.csproj">
