@@ -13,7 +13,8 @@ namespace Stratego.Game
     {
         protected Board<Field> Board;
         protected CombatSystem Combat;
-        protected List<GameMove> ListOfMoves;
+        //protected List<GameMove> ListOfMoves;
+        internal StrategoGameSummary Summary { get; set; }
 
         protected object sync = new object();
 
@@ -38,8 +39,7 @@ namespace Stratego.Game
         /// <param name="board"></param>
         public StrategoBench(Board<Field> board)
         {
-            this.Board = board;
-            ListOfMoves = new List<GameMove>();
+            Board = board;
         }
 
         /// <summary>

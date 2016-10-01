@@ -15,14 +15,27 @@ namespace Montana
         // Grundlogik für verschiedene Arten von Spiele.
 
         /// <summary>
+        /// 
+        /// </summary>
+        public summary Summary { get; private set; }
+
+        /// <summary>
         /// All players <see cref="System.Guid"/>.
         /// </summary>
-        protected List<Guid> listOfPlayers;
+        protected List<Guid> listOfPlayers
+        {
+            get { return Summary.ListOfPlayers; }
+            private set { Summary.ListOfPlayers = value; }
+        }
 
         /// <summary>
         /// Is the game active.
         /// </summary>
-        public bool IsActive { get; private set; }
+        public bool IsActive
+        {
+            get { return Summary.Active; }
+            private set { Summary.Active = value; }
+        }
 
         /// <summary>
         /// Is the game ready to play.
@@ -32,7 +45,11 @@ namespace Montana
         /// <summary>
         /// The <see cref="System.Guid"/> of game.
         /// </summary>
-        public Guid GameId { get; private set; }
+        public Guid GameId
+        {
+            get { return Summary.GameId; }
+            private set { Summary.GameId = value; }
+        }
 
         /// <summary>
         /// Max player of game.
@@ -50,29 +67,20 @@ namespace Montana
         public event EventHandler Finished;
 
         /// <summary>
-        /// Initialize a new default game.
+        /// 
         /// </summary>
-        public GameBase()
+        /// <param name="summary"></param>
+        public GameBase(summary summary)
         {
-            this.listOfPlayers = new List<Guid>();
-            GameId = Guid.NewGuid();
-            IsActive = true;
-
-            OnInitialize();
-        }
-
-        public GameBase(summary sum)
-        {
-            this.GameId = sum.GameId;
-            this.listOfPlayers = sum.ListOfPlayers;
-            this.IsActive = sum.IsActive;
+            Summary = summary;
 
             OnInitialize();
         }
 
         protected virtual void OnInitialize()
         {
-
+            if(listOfPlayers == null) listOfPlayers = new List<Guid>();
+            if(GameId == Guid.Empty) GameId = Guid.NewGuid();
         }
 
         public virtual bool AddPlayer(Guid player)
@@ -93,7 +101,7 @@ namespace Montana
 
         protected virtual bool CheckReady()
         {
-            if (listOfPlayers.Count >= MaxPlayer)
+            if (listOfPlayers.Count < MaxPlayer)
                 return false;
 
             if (!IsActive)
@@ -106,28 +114,12 @@ namespace Montana
         {
             IsReady = true;
 
-            var ev = Ready;
-
-            if(ev != null)
-                ev(this, EventArgs.Empty);
+            Ready?.Invoke(this, EventArgs.Empty);
         }
 
         protected void OnFinished()
         {
-            var ev = Finished;
-
-            if(ev != null)
-                ev(this, EventArgs.Empty);
-        }
-
-        public virtual summary GetSummary()
-        {
-            return new summary()
-            {
-                GameId = GameId,
-                ListOfPlayers = listOfPlayers,
-                IsActive = IsActive
-            };
+            Finished?.Invoke(this, EventArgs.Empty);
         }
     }
 }

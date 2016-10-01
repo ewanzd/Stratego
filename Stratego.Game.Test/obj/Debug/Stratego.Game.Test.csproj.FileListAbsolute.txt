@@ -12,3 +12,14 @@ C:\Users\Danilo\Source\Repos\Stratego\Stratego.Game.Test\bin\Debug\Stratego.Game
 C:\Users\Danilo\Source\Repos\Stratego\Stratego.Game.Test\obj\Debug\Stratego.Game.Test.csprojResolveAssemblyReference.cache
 C:\Users\Danilo\Source\Repos\Stratego\Stratego.Game.Test\obj\Debug\Stratego.Game.Test.dll
 C:\Users\Danilo\Source\Repos\Stratego\Stratego.Game.Test\obj\Debug\Stratego.Game.Test.pdb
+C:\Users\ewanzd\Source\Repos\Stratego\Stratego.Game.Test\bin\Debug\Stratego.Game.Test.dll
+C:\Users\ewanzd\Source\Repos\Stratego\Stratego.Game.Test\bin\Debug\Stratego.Game.Test.pdb
+C:\Users\ewanzd\Source\Repos\Stratego\Stratego.Game.Test\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\ewanzd\Source\Repos\Stratego\Stratego.Game.Test\bin\Debug\Montana.dll
+C:\Users\ewanzd\Source\Repos\Stratego\Stratego.Game.Test\bin\Debug\Stratego.Game.dll
+C:\Users\ewanzd\Source\Repos\Stratego\Stratego.Game.Test\bin\Debug\Montana.pdb
+C:\Users\ewanzd\Source\Repos\Stratego\Stratego.Game.Test\bin\Debug\Stratego.Game.pdb
+C:\Users\ewanzd\Source\Repos\Stratego\Stratego.Game.Test\bin\Debug\de\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\ewanzd\Source\Repos\Stratego\Stratego.Game.Test\obj\Debug\Stratego.Game.Test.csprojResolveAssemblyReference.cache
+C:\Users\ewanzd\Source\Repos\Stratego\Stratego.Game.Test\obj\Debug\Stratego.Game.Test.dll
+C:\Users\ewanzd\Source\Repos\Stratego\Stratego.Game.Test\obj\Debug\Stratego.Game.Test.pdb

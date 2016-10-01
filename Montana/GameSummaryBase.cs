@@ -10,7 +10,7 @@ namespace Montana
     {
         public Guid GameId { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool Active { get; set; } = true;
         
         public List<Guid> ListOfPlayers { get; set; }
     }

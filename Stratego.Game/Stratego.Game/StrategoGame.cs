@@ -11,21 +11,19 @@ namespace Stratego.Game
     {
         // Verfügt über die Spiellogik von Stratego
 
-        private GameInfo _info;
         private StrategoBench _bench;
         private int _maxPlayer;
-        private GameState _gameState;
 
         public GameState GameState
         {
             get
             {
-                return _gameState;
+                return Summary.GameState;
             }
             protected set
             {
                 var state = value;
-                _gameState = state;
+                Summary.GameState = state;
                 OnGameStateChanged(state);
             }
         }
@@ -38,33 +36,25 @@ namespace Stratego.Game
             }
             protected set
             {
-                if(IsActive && !IsReady)
+                if (IsActive && !IsReady)
                     _maxPlayer = value;
             }
         }
 
         public StrategoBench Bench
         {
-            get
-            {
-                return _bench;
-            }
-            protected set
-            {
-                _bench = value;
-            }
+            get { return _bench; }
+            protected set { _bench = value; }
         }
 
         public event EventHandler GameStateChanged;
 
         protected void OnGameStateChanged(GameState state)
         {
-            var ev = GameStateChanged;
-
-            if (ev != null) ev(this, EventArgs.Empty);
+            GameStateChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        public StrategoGame()
+        public StrategoGame() : this(new StrategoGameSummary())
         {
             
         }
@@ -74,18 +64,24 @@ namespace Stratego.Game
             
         }
 
-        public override StrategoGameSummary GetSummary()
-        {
-            var sum = base.GetSummary();
-
-            return sum;
-        }
-
         protected override void OnInitialize()
         {
             base.OnInitialize();
 
-            this.MaxPlayer = 2;
+            MaxPlayer = 2;
+            Bench = new StrategoBench();
+            Bench.Summary = Summary;
+
+            if(Summary.GameInfo == null)
+            {
+                Summary.GameInfo = new GameInfo()
+                {
+                    Title = "Stratego Game",
+                    CreateDateTime = DateTime.Now
+                };
+            }
+
+            if (Summary.ListOfMoves == null) Summary.ListOfMoves = new List<GameMove>();
 
             //fight.AddSpecialCase(new CombatSpecialCase(fieldMarshal.TypeName, bomber.TypeName, new Func<Pawn, Pawn, FightResult>((att, def) => FightResult.Draw)));
             //fight.AddSpecialCase(new CombatSpecialCase(general.TypeName, bomber.TypeName, new Func<Pawn, Pawn, FightResult>((att, def) => FightResult.Draw)));
@@ -217,9 +213,7 @@ namespace Stratego.Game
 
         private void OnCountChanged(object sender, EventArgs e)
         {
-            var ev = CountChanges;
-
-            if (ev != null) ev(sender, e);
+            CountChanges?.Invoke(sender, e);
         }
     }
 }
