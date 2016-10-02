@@ -21,12 +21,21 @@ namespace Stratego.Game.Test
             Assert.AreEqual(true, game.IsReady);
         }
 
+        // ===================================================================================
+        // Ablauf testen
+        // ===================================================================================
+
         StrategoGame game;
+        StrategoBench bench;
+        Guid playerOne;
+        Guid playerTwo;
 
         [TestInitialize]
         public void Init()
         {
             game = new StrategoGame();
+            playerOne = Guid.NewGuid();
+            playerTwo = Guid.NewGuid();
         }
 
         [TestMethod]
@@ -37,22 +46,34 @@ namespace Stratego.Game.Test
                 Assert.AreNotEqual(sender, null);
             };
 
-            game.AddPlayer(Guid.NewGuid());
-            game.AddPlayer(Guid.NewGuid());
+            game.AddPlayer(playerOne);
+            game.AddPlayer(playerTwo);
         }
 
         [TestMethod]
         public void InitBoardBench()
         {
-            var playerGuid1 = Guid.NewGuid();
+            GameCheckReadyEvent();
 
-            var bench = game.Bench;
+            bench = game.Bench;
             
-            var pawnSettings = new StrategoPawnSettings();
-            var pawn1 = pawnSettings.GetPawn(playerGuid1, "PAWN_FLAG");
-            var result = bench.PlacingPawn(pawn1, new Montana.Position(1, 1));
+            var classic = new StrategoModeClassic();
+            
 
-            Assert.AreEqual(true, result);
+            var pawn1 = classic.GetUnit(playerOne, "PAWN_FLAG");
+            
+
+            
+        }
+
+        [TestMethod]
+        public void PlacingPawns()
+        {
+            InitBoardBench();
+
+            //var result = bench.PlaceUnit(pawn1, new Montana.Position(1, 1));
+
+            //Assert.AreEqual(true, result);
         }
     }
 }

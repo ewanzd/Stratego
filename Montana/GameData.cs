@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Montana
 {
-    public class GameSummaryBase
+    public class GameData
     {
         public Guid GameId { get; set; }
 

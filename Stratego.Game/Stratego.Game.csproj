@@ -43,25 +43,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Stratego.Game\Interfaces\IBoardInitializer.cs" />
-    <Compile Include="Stratego.Game\StrategoBench.cs" />
-    <Compile Include="Stratego.Game\CombatSystem.cs" />
-    <Compile Include="Stratego.Game\Enums\GameState.cs" />
-    <Compile Include="Stratego.Game\Extensions\EnumerationExtension.cs" />
-    <Compile Include="Stratego.Game\Models\Terrain.cs" />
-    <Compile Include="Stratego.Game\CombatSpecialCase.cs" />
-    <Compile Include="Stratego.Game\Models\Pawn.cs" />
-    <Compile Include="Stratego.Game\Models\Field.cs" />
-    <Compile Include="Stratego.Game\StrategoGame.cs" />
-    <Compile Include="Stratego.Game\Models\Unit.cs" />
-    <Compile Include="Stratego.Game\StrategoGameSummary.cs" />
+    <Compile Include="Interfaces\IBoardInitializer.cs" />
+    <Compile Include="Models\GameInfo.cs" />
+    <Compile Include="StrategoBench.cs" />
+    <Compile Include="CombatSystem.cs" />
+    <Compile Include="Enums\GameState.cs" />
+    <Compile Include="Extensions\EnumerationExtension.cs" />
+    <Compile Include="Models\Terrain.cs" />
+    <Compile Include="CombatSpecialCase.cs" />
+    <Compile Include="Models\Pawn.cs" />
+    <Compile Include="Models\Field.cs" />
+    <Compile Include="StrategoGame.cs" />
+    <Compile Include="Models\Unit.cs" />
+    <Compile Include="StrategoData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Instruction.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Stratego.AI\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Classic.xml" />
   </ItemGroup>

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Stratego.Game
 {
-    public class StrategoGameSummary : GameSummaryBase
+    public class StrategoData : GameData
     {
+        public GameInfo GameInfo { get; set; }
         public GameState GameState { get; set; }
         public List<GameMove> ListOfMoves { get; set; }
     }

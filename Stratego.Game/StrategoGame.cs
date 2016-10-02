@@ -7,27 +7,34 @@ using System.Threading.Tasks;
 
 namespace Stratego.Game
 {
-    public class StrategoGame : GameBase<StrategoGameSummary>
+    public class StrategoGame : GameBase<StrategoData>
     {
         // Verfügt über die Spiellogik von Stratego
 
-        private GameInfo _info;
         private StrategoBench _bench;
         private int _maxPlayer;
-        private GameState _gameState;
+
+        // Game settings
+        private IStrategoMode _mode;
 
         public GameState GameState
         {
             get
             {
-                return _gameState;
+                return Data.GameState;
             }
             protected set
             {
                 var state = value;
-                _gameState = state;
+                Data.GameState = state;
                 OnGameStateChanged(state);
             }
+        }
+
+        public IStrategoMode Mode
+        {
+            get { return _mode; }
+            private set { _mode = value; }
         }
 
         public override int MaxPlayer
@@ -38,77 +45,75 @@ namespace Stratego.Game
             }
             protected set
             {
-                if(IsActive && !IsReady)
+                if (IsActive && !IsReady)
                     _maxPlayer = value;
             }
         }
 
         public StrategoBench Bench
         {
-            get
-            {
-                return _bench;
-            }
-            protected set
-            {
-                _bench = value;
-            }
+            get { return _bench; }
+            protected set { _bench = value; }
         }
 
         public event EventHandler GameStateChanged;
 
         protected void OnGameStateChanged(GameState state)
         {
-            var ev = GameStateChanged;
-
-            if (ev != null) ev(this, EventArgs.Empty);
+            GameStateChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        public StrategoGame()
+        public StrategoGame() : this(new StrategoModeClassic())
         {
             
         }
 
-        public StrategoGame(StrategoGameSummary summary) : base(summary)
+        public StrategoGame(IStrategoMode mode) : this(new StrategoData(), mode)
         {
-            
+
         }
 
-        public override StrategoGameSummary GetSummary()
+        public StrategoGame(StrategoData summary, IStrategoMode mode) : base(summary)
         {
-            var sum = base.GetSummary();
+            if (mode == null) throw new NullReferenceException();
 
-            return sum;
+            Mode = mode;
         }
 
         protected override void OnInitialize()
         {
             base.OnInitialize();
 
-            this.MaxPlayer = 2;
+            MaxPlayer = 2;
+            Bench = new StrategoBench();
+            Bench.Data = Data;
+
+            if(Data.GameInfo == null)
+            {
+                Data.GameInfo = new GameInfo()
+                {
+                    Title = "Stratego Game",
+                    CreateDateTime = DateTime.Now
+                };
+            }
+
+            if (Data.ListOfMoves == null) Data.ListOfMoves = new List<GameMove>();
 
             //fight.AddSpecialCase(new CombatSpecialCase(fieldMarshal.TypeName, bomber.TypeName, new Func<Pawn, Pawn, FightResult>((att, def) => FightResult.Draw)));
             //fight.AddSpecialCase(new CombatSpecialCase(general.TypeName, bomber.TypeName, new Func<Pawn, Pawn, FightResult>((att, def) => FightResult.Draw)));
         }
     }
 
-    public class GameInfo
+    public interface IStrategoMode
     {
-        public string Title { get; set; }
-        public DateTime CreateDateTime { get; set; }
-        public DateTime FinishDateTime { get; set; }
+        Unit GetUnit(string typeName);
+        //bool GetBackPawn(Guid player, string typeName);
+        IEnumerable<Tuple<Unit, int>> GetAllUnit();
     }
 
-    public interface IPawnSettings
+    public sealed class StrategoModeClassic : IStrategoMode
     {
-        Pawn GetPawn(Guid player, string typeName);
-        bool GetBackPawn(Guid player, string typeName);
-        IEnumerable<Tuple<Unit, int>> GetAll();
-    }
-
-    public sealed class StrategoPawnSettings : IPawnSettings
-    {
-        protected class UnitSetting
+        public class UnitSetting
         {
             public readonly int MaxPawns;
             public readonly Unit Type;
@@ -142,21 +147,26 @@ namespace Stratego.Game
             }
         }
 
-        protected List<UnitSetting> UnitSettings;
+        public List<UnitSetting> UnitSettings;
 
         public event EventHandler CountChanges;
 
-        public StrategoPawnSettings()
+        public StrategoModeClassic()
         {
-            InitializePawnSettings();
+            InitializePawns();
         }
 
-        protected UnitSetting GetPawnSetting(string typeName)
+        public UnitSetting GetPawnSetting(string typeName)
         {
             return UnitSettings.Where(x => x.Type.TypeName == typeName).FirstOrDefault();
         }
 
-        public Pawn GetPawn(Guid player, string typeName)
+        public Unit GetUnit(string typeName)
+        {
+            return UnitSettings.Where(x => x.Type.TypeName == typeName).FirstOrDefault()?.Type;
+        }
+
+        public Pawn GetUnit(Guid player, string typeName)
         {
             var type = GetPawnSetting(typeName).GetUnit(player);
 
@@ -173,12 +183,12 @@ namespace Stratego.Game
             return setting.GetBackUnit(player);
         }
 
-        public IEnumerable<Tuple<Unit, int>> GetAll()
+        public IEnumerable<Tuple<Unit, int>> GetAllUnit()
         {
             return null;
         }
 
-        private void InitializePawnSettings()
+        private void InitializePawns()
         {
             UnitSettings = new List<UnitSetting>()
             {
@@ -217,9 +227,7 @@ namespace Stratego.Game
 
         private void OnCountChanged(object sender, EventArgs e)
         {
-            var ev = CountChanges;
-
-            if (ev != null) ev(sender, e);
+            CountChanges?.Invoke(sender, e);
         }
     }
 }

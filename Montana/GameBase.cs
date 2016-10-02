@@ -9,23 +9,23 @@ namespace Montana
     /// <summary>
     /// The base for several games.
     /// </summary>
-    public abstract class GameBase<summary>
-        where summary : GameSummaryBase, new()
+    public abstract class GameBase<data>
+        where data : GameData, new()
     {
         // Grundlogik für verschiedene Arten von Spiele.
 
         /// <summary>
-        /// 
+        /// User game data.
         /// </summary>
-        public summary Summary { get; private set; }
+        public data Data { get; private set; }
 
         /// <summary>
         /// All players <see cref="System.Guid"/>.
         /// </summary>
         protected List<Guid> listOfPlayers
         {
-            get { return Summary.ListOfPlayers; }
-            private set { Summary.ListOfPlayers = value; }
+            get { return Data.ListOfPlayers; }
+            private set { Data.ListOfPlayers = value; }
         }
 
         /// <summary>
@@ -33,8 +33,8 @@ namespace Montana
         /// </summary>
         public bool IsActive
         {
-            get { return Summary.Active; }
-            private set { Summary.Active = value; }
+            get { return Data.Active; }
+            private set { Data.Active = value; }
         }
 
         /// <summary>
@@ -47,8 +47,8 @@ namespace Montana
         /// </summary>
         public Guid GameId
         {
-            get { return Summary.GameId; }
-            private set { Summary.GameId = value; }
+            get { return Data.GameId; }
+            private set { Data.GameId = value; }
         }
 
         /// <summary>
@@ -69,10 +69,12 @@ namespace Montana
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="summary"></param>
-        public GameBase(summary summary)
+        /// <param name="data"></param>
+        public GameBase(data data)
         {
-            Summary = summary;
+            if (data == null) throw new NullReferenceException();
+
+            Data = data;
 
             OnInitialize();
         }

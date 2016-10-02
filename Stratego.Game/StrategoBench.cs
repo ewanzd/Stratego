@@ -13,7 +13,9 @@ namespace Stratego.Game
     {
         protected Board<Field> Board;
         protected CombatSystem Combat;
-        protected List<GameMove> ListOfMoves;
+        //protected List<GameMove> ListOfMoves;
+        internal StrategoData Data { get; set; }
+        protected IStrategoMode Mode;
 
         protected object sync = new object();
 
@@ -38,8 +40,7 @@ namespace Stratego.Game
         /// <param name="board"></param>
         public StrategoBench(Board<Field> board)
         {
-            this.Board = board;
-            ListOfMoves = new List<GameMove>();
+            Board = board;
         }
 
         /// <summary>
@@ -78,7 +79,7 @@ namespace Stratego.Game
         /// <param name="pawn"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public bool PlacingPawn(Pawn pawn, Position pos)
+        public bool PlaceUnit(Pawn pawn, Position pos)
         {
             var field = Board[pos];
 

@@ -8,8 +8,8 @@ namespace Stratego.Game
 {
     public enum GameState
     {
-        Prep        = 1,
-        InPlay      = 2,
-        Finished    = 3
+        Prep        = 0,
+        InPlay      = 1,
+        Finished    = 2
     }
 }
