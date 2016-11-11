@@ -1,20 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Montana
 {
+    /// <summary>
+    /// Immutable position with x and y coordinates.
+    /// </summary>
     [Serializable]
-    public struct Position
+    public class Position
     {
-        public int X, Y;
+        private readonly int x, y;
 
+        /// <summary>
+        /// X-coordinate.
+        /// </summary>
+        public int X { get { return x; } }
+
+        /// <summary>
+        /// Y-coordinate.
+        /// </summary>
+        public int Y { get { return y; } }
+
+        /// <summary>
+        /// Create new coordinates.
+        /// </summary>
+        /// <param name="x">X-coordinate.</param>
+        /// <param name="y">Y-coordinate.</param>
         public Position(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            this.x = x;
+            this.y = y;
         }
 
         public override string ToString()

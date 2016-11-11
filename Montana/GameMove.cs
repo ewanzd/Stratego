@@ -3,7 +3,7 @@
 namespace Montana
 {
     /// <summary>
-    /// 
+    /// Save source and destination position.
     /// </summary>
     [Serializable]
     public class GameMove
@@ -12,20 +12,20 @@ namespace Montana
         private readonly Position to;
 
         /// <summary>
-        /// 
+        /// Get source position.
         /// </summary>
         public Position From { get { return from; } }
 
         /// <summary>
-        /// 
+        /// Get destination position.
         /// </summary>
         public Position To { get { return to; } }
 
         /// <summary>
-        /// 
+        /// Create new move with source and destination position.
         /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
+        /// <param name="from">Source position.</param>
+        /// <param name="to">Destination position.</param>
         public GameMove(Position from, Position to)
         {
             this.from = from;

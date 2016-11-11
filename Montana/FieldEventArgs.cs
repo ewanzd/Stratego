@@ -9,8 +9,7 @@ namespace Montana
     public class FieldEventArgs<T> : EventArgs
     {
         private readonly Position pos;
-        private readonly T oldValue;
-        private readonly T newValue;
+        private readonly T oldValue, newValue;
 
         /// <summary>
         /// Create new event args.
