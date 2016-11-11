@@ -49,7 +49,6 @@
     <Compile Include="StrategoBenchInPlay.cs" />
     <Compile Include="Combat.cs" />
     <Compile Include="Enums\GameState.cs" />
-    <Compile Include="Extensions\EnumerationExtension.cs" />
     <Compile Include="Models\Terrain.cs" />
     <Compile Include="Data\Pawn.cs" />
     <Compile Include="Data\Field.cs" />

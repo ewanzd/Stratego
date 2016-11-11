@@ -9,14 +9,22 @@ namespace Stratego.Game
     /// </summary>
     public class StrategoBenchPrep
     {
-        private StrategoBoard board;
-        private IGame game;
+        protected StrategoBoard board;
+        protected IGame game;
 
         protected Dictionary<UnitInfo, int> p1CurrentCount;
         protected Dictionary<UnitInfo, int> p2CurrentCount;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public event EventHandler PawnPlaced;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="initializer"></param>
         public StrategoBenchPrep(IGame game, IBoardInitializer initializer)
         {
             board = new StrategoBoard();

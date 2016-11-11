@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Stratego.Game
+namespace Montana
 {
     // from http://www.codeproject.com/Articles/37921/Enums-Flags-and-C-Oh-my-bad-pun
 

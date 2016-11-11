@@ -44,6 +44,7 @@
     <Compile Include="Board.cs" />
     <Compile Include="Enums\FightResult.cs" />
     <Compile Include="Enums\MoveType.cs" />
+    <Compile Include="Extensions\EnumerationExtension.cs" />
     <Compile Include="FieldEventArgs.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="Interfaces\ICombatSystem.cs" />

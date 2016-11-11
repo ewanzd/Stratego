@@ -6,7 +6,7 @@ namespace Stratego.Game
 {
     public interface IBench
     {
-        event EventHandler KingFailed;
+        event EventHandler NextPhase;
     }
 
     /// <summary>
@@ -42,6 +42,11 @@ namespace Stratego.Game
         /// 
         /// </summary>
         public event EventHandler KingFailed;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event EventHandler NextPhase;
 
         /// <summary>
         /// 

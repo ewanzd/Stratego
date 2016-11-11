@@ -107,8 +107,18 @@ namespace Stratego.Game
         {
             if (benchHasBeenRegistered) throw new InvalidOperationException("Bench has already been registered.");
 
-            bench.KingFailed += Bench_KingFailed;
+            bench.NextPhase += Bench_NextPhase;
             benchHasBeenRegistered = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bench"></param>
+        public void UnRegisterBench(IBench bench)
+        {
+            bench.NextPhase -= Bench_NextPhase;
+            benchHasBeenRegistered = false;
         }
 
         /// <summary>
@@ -116,10 +126,18 @@ namespace Stratego.Game
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Bench_KingFailed(object sender, EventArgs e)
+        private void Bench_NextPhase(object sender, EventArgs e)
         {
-            DateTime finishedTime = DateTime.Now;
-            data.SetStateFinished(finishedTime);
+            switch (data.GameState)
+            {
+                case GameState.Prep:
+                    data.SetStateInPlay();
+                    break;
+                case GameState.InPlay:
+                    DateTime finishedTime = DateTime.Now;
+                    data.SetStateFinished(finishedTime);
+                    break;
+            }
         }
     }
 
