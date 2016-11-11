@@ -2,232 +2,167 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stratego.Game
 {
-    public class StrategoGame : GameBase<StrategoData>
+    public interface IGame
     {
-        // Verfügt über die Spiellogik von Stratego
+        void RegisterBench(StrategoBench bench);
+    }
 
-        private StrategoBench _bench;
-        private int _maxPlayer;
+    // Verwaltet die Erstellung des Spieles und fasst die notwendige Daten und Objekte zusammen.
+    /// <summary>
+    /// Manage the create of games.
+    /// 1) Use 'New' static method to create a game.
+    /// 2) Take bench.
+    /// 3) Take settings and set all pawns on the board.
+    /// 4) Play.
+    /// </summary>
+    public sealed class StrategoGame : IGame
+    {
+        private StrategoData data;
+        private bool benchHasBeenRegistered;
 
-        // Game settings
-        private IStrategoMode _mode;
+        /// <summary>
+        /// The <see cref="System.Guid"/> of game.
+        /// </summary>
+        public Guid Id
+        {
+            get { return data.Id; }
+        }
 
+        /// <summary>
+        /// The state of game.
+        /// </summary>
         public GameState GameState
         {
             get
             {
-                return Data.GameState;
-            }
-            protected set
-            {
-                var state = value;
-                Data.GameState = state;
-                OnGameStateChanged(state);
+                return data.GameState;
             }
         }
 
-        public IStrategoMode Mode
+        /// <summary>
+        /// Is the game active.
+        /// </summary>
+        public bool IsActive
         {
-            get { return _mode; }
-            private set { _mode = value; }
+            get { return data.IsActive; }
         }
 
-        public override int MaxPlayer
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsReady
         {
-            get
-            {
-                return _maxPlayer;
-            }
-            protected set
-            {
-                if (IsActive && !IsReady)
-                    _maxPlayer = value;
-            }
+            get { return IsActive && benchHasBeenRegistered; }
         }
 
-        public StrategoBench Bench
+        /// <summary>
+        /// Game state changed.
+        /// </summary>
+        public event EventHandler GameStateChanged
         {
-            get { return _bench; }
-            protected set { _bench = value; }
+            add { data.GameStateChanged += value; }
+            remove { data.GameStateChanged -= value; }
         }
 
-        public event EventHandler GameStateChanged;
-
-        protected void OnGameStateChanged(GameState state)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        private StrategoGame(StrategoData data)
         {
-            GameStateChanged?.Invoke(this, EventArgs.Empty);
+            this.data = data;
         }
 
-        public StrategoGame() : this(new StrategoModeClassic())
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playerOne"></param>
+        /// <param name="playerTwo"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static StrategoGame New(Guid playerOne, Guid playerTwo)
         {
-            
+            // Initialize game
+            var data = StrategoData.Create(playerOne, playerTwo);
+            var game = new StrategoGame(data);
+
+            return game;
         }
 
-        public StrategoGame(IStrategoMode mode) : this(new StrategoData(), mode)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bench"></param>
+        public void RegisterBench(StrategoBench bench)
         {
+            if (benchHasBeenRegistered) throw new InvalidOperationException("Bench has already been registered.");
 
+            bench.KingFailed += Bench_KingFailed;
+            benchHasBeenRegistered = true;
         }
 
-        public StrategoGame(StrategoData summary, IStrategoMode mode) : base(summary)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Bench_KingFailed(object sender, EventArgs e)
         {
-            if (mode == null) throw new NullReferenceException();
-
-            Mode = mode;
-        }
-
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-
-            MaxPlayer = 2;
-            Bench = new StrategoBench();
-            Bench.Data = Data;
-
-            if(Data.GameInfo == null)
-            {
-                Data.GameInfo = new GameInfo()
-                {
-                    Title = "Stratego Game",
-                    CreateDateTime = DateTime.Now
-                };
-            }
-
-            if (Data.ListOfMoves == null) Data.ListOfMoves = new List<GameMove>();
-
-            //fight.AddSpecialCase(new CombatSpecialCase(fieldMarshal.TypeName, bomber.TypeName, new Func<Pawn, Pawn, FightResult>((att, def) => FightResult.Draw)));
-            //fight.AddSpecialCase(new CombatSpecialCase(general.TypeName, bomber.TypeName, new Func<Pawn, Pawn, FightResult>((att, def) => FightResult.Draw)));
+            DateTime finishedTime = DateTime.Now;
+            data.SetStateFinished(finishedTime);
         }
     }
 
-    public interface IStrategoMode
+    // Braucht es nur vor dem eigentlichen Spiel. Sammelt alle Settings (Unit, Terrain)
+    public class StrategoSettings
     {
-        Unit GetUnit(string typeName);
-        //bool GetBackPawn(Guid player, string typeName);
-        IEnumerable<Tuple<Unit, int>> GetAllUnit();
+        private List<UnitInfo> units;
+        private ISource source;
+
+        public StrategoSettings(ISource source)
+        {
+            this.source = source;
+            units = new List<UnitInfo>(source.GetAllUnits());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<UnitInfo> GetAllUnit()
+        {
+            return units;
+        }
     }
 
-    public sealed class StrategoModeClassic : IStrategoMode
+    public class BoardInitializer : IBoardInitializer
     {
-        public class UnitSetting
+        private List<Terrain> terrains;
+        private ISource source;
+
+        public BoardInitializer(ISource source)
         {
-            public readonly int MaxPawns;
-            public readonly Unit Type;
-            protected Dictionary<Guid,int> CurrentCount; // PlayerId/Count
+            this.source = source;
+            terrains = new List<Terrain>(source.GetAllTerrains());
+        }
 
-            public event EventHandler CountChanged;
-
-            public UnitSetting(int max, Unit type)
+        public Board<Field> Initialize(Board<Field> board)
+        {
+            for(int i = 1; i <= board.Length; i++)
             {
-                this.MaxPawns = max;
-                this.Type = type;
-                CurrentCount = new Dictionary<Guid, int>();
+                for (int y = 1; y <= board.Height; y++)
+                {
+                    board[i, y] = new Field()
+                    {
+                        Terrain = (from ter in terrains where ter.TypeName == "TYPE_TERRAIN_FIELD" select ter).FirstOrDefault()
+                    };
+                }
             }
 
-            public Unit GetUnit(Guid player)
-            {
-                if(!CurrentCount.Keys.Contains(player))
-                    CurrentCount.Add(player, MaxPawns);
-
-                if (CurrentCount[player] == 0)
-                    throw new ArgumentException("You have reached the max!");
-
-                CurrentCount[player]--;
-
-                return Type;
-            }
-
-            public bool GetBackUnit(Guid player)
-            {
-                return false;
-            }
-        }
-
-        public List<UnitSetting> UnitSettings;
-
-        public event EventHandler CountChanges;
-
-        public StrategoModeClassic()
-        {
-            InitializePawns();
-        }
-
-        public UnitSetting GetPawnSetting(string typeName)
-        {
-            return UnitSettings.Where(x => x.Type.TypeName == typeName).FirstOrDefault();
-        }
-
-        public Unit GetUnit(string typeName)
-        {
-            return UnitSettings.Where(x => x.Type.TypeName == typeName).FirstOrDefault()?.Type;
-        }
-
-        public Pawn GetUnit(Guid player, string typeName)
-        {
-            var type = GetPawnSetting(typeName).GetUnit(player);
-
-            return new Pawn(type, player);
-        }
-
-        public bool GetBackPawn(Guid player, string typeName)
-        {
-            var setting = GetPawnSetting(typeName);
-
-            if(setting == null)
-                return false;
-                
-            return setting.GetBackUnit(player);
-        }
-
-        public IEnumerable<Tuple<Unit, int>> GetAllUnit()
-        {
-            return null;
-        }
-
-        private void InitializePawns()
-        {
-            UnitSettings = new List<UnitSetting>()
-            {
-                new UnitSetting(1, new Unit()
-                {
-                    TypeName = "PAWN_FLAG",
-                    Power = 0,
-                    Range = 0,
-                    MoveType = MoveType.None
-                }),
-                new UnitSetting(5, new Unit()
-                {
-                    TypeName = "PAWN_BOMB",
-                    Power = 12,
-                    Range = 0,
-                    MoveType = MoveType.None
-                }),
-                new UnitSetting(2, new Unit()
-                {
-                    TypeName = "PAWN_FIELDMARSHAL",
-                    Power = 11,
-                    Range = 1,
-                    MoveType = MoveType.Cross
-                }),
-                new UnitSetting(1, new Unit()
-                {
-                    TypeName = "PAWN_GENERAL",
-                    Power = 10,
-                    Range = 1,
-                    MoveType = MoveType.Cross
-                })
-            };
-
-            UnitSettings.ForEach(x => x.CountChanged += OnCountChanged);
-        }
-
-        private void OnCountChanged(object sender, EventArgs e)
-        {
-            CountChanges?.Invoke(sender, e);
+            return board;
         }
     }
 }

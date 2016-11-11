@@ -1,26 +1,13 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Stratego.Game;
+using System.Linq;
+using Montana;
 
 namespace Stratego.Game.Test
 {
     [TestClass]
     public class UnitGame
     {
-        [TestMethod]
-        public void InitGame()
-        {
-            var playerGuid1 = Guid.NewGuid();
-            var playerGuid2 = Guid.NewGuid();
-
-            var game = new StrategoGame();
-            if(!game.AddPlayer(playerGuid1)) Assert.Fail("Can't add player.");
-            if(!game.AddPlayer(playerGuid2)) Assert.Fail("Can't add player.");
-
-            Assert.AreEqual(true, game.IsActive);
-            Assert.AreEqual(true, game.IsReady);
-        }
-
         // ===================================================================================
         // Ablauf testen
         // ===================================================================================
@@ -33,47 +20,37 @@ namespace Stratego.Game.Test
         [TestInitialize]
         public void Init()
         {
-            game = new StrategoGame();
             playerOne = Guid.NewGuid();
             playerTwo = Guid.NewGuid();
+
+            game = StrategoGame.New(playerOne, playerTwo);
+            var boardInitializer = new BoardInitializer(new StrategoSource());
+            bench = new StrategoBench(game, boardInitializer);
         }
 
         [TestMethod]
-        public void GameCheckReadyEvent()
+        public void GameCheckReady()
         {
-            game.Ready += (sender, e) =>
-            {
-                Assert.AreNotEqual(sender, null);
-            };
-
-            game.AddPlayer(playerOne);
-            game.AddPlayer(playerTwo);
-        }
-
-        [TestMethod]
-        public void InitBoardBench()
-        {
-            GameCheckReadyEvent();
-
-            bench = game.Bench;
-            
-            var classic = new StrategoModeClassic();
-            
-
-            var pawn1 = classic.GetUnit(playerOne, "PAWN_FLAG");
-            
-
-            
+            Assert.AreEqual(true, game.IsActive);
         }
 
         [TestMethod]
         public void PlacingPawns()
         {
-            InitBoardBench();
+            GameCheckReady();
 
-            //var result = bench.PlaceUnit(pawn1, new Montana.Position(1, 1));
+            //var settings = game.GetSettings();
+            //var listUnits = settings.GetAllUnit().ToList();
 
-            //Assert.AreEqual(true, result);
+            //bench.PlaceUnit(playerOne, listUnits[0], new Position(1, 1));
+
+            //Assert.AreEqual(bench.GetField(new Position(1, 1)).Pawn.Player, playerOne);
+        }
+
+        [TestMethod]
+        public void MovePawns()
+        {
+
         }
     }
 }

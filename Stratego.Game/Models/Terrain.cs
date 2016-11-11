@@ -9,10 +9,10 @@ namespace Stratego.Game
 {
     public class Terrain : IDisplay
     {
-        /// <summary>
-        /// Id of member.
-        /// </summary>
-        public int Id { get; set; }
+        ///// <summary>
+        ///// Id of member.
+        ///// </summary>
+        //public int Id { get; set; }
 
         /// <summary>
         /// Unique name of member.

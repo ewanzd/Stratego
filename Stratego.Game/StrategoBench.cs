@@ -1,8 +1,6 @@
 ﻿using Montana;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Stratego.Game
 {
@@ -11,45 +9,39 @@ namespace Stratego.Game
     /// </summary>
     public class StrategoBench
     {
-        protected Board<Field> Board;
-        protected CombatSystem Combat;
-        //protected List<GameMove> ListOfMoves;
-        internal StrategoData Data { get; set; }
-        protected IStrategoMode Mode;
+        private readonly List<GameMove> listOfMoves;
+        private Board<Field> board;
+        private Combat combat;
+
+        protected int currentPlayer; // 0 / 1
+        protected int round;
+
+        protected Dictionary<UnitInfo, int> p1CurrentCount;
+        protected Dictionary<UnitInfo, int> p2CurrentCount;
 
         protected object sync = new object();
 
-        public event EventHandler<MoveEventArgs> PawnMoved;
+        /// <summary>
+        /// Contain list with all past moved in this game.
+        /// </summary>
+        public List<GameMove> ListOfMoves { get { return listOfMoves; } }
+
         public event EventHandler PawnPlaced;
-        public event EventHandler Fighted;
+        public event EventHandler<MoveEventArgs> PawnMoved;
+        public event EventHandler<FightEventArgs> Fighted;
         public event EventHandler KingFailed;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="board"></param>
-        public StrategoBench() 
-            : this(new Board<Field>(10, 10))
+        public StrategoBench(IGame game, IBoardInitializer initializer) 
         {
-            
-        }
+            if (game == null) throw new ArgumentNullException(nameof(game));
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="board"></param>
-        public StrategoBench(Board<Field> board)
-        {
-            Board = board;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="initializer"></param>
-        public void Initialize(IBoardInitializer initializer)
-        {
-            initializer.Initialize(Board);
+            game.RegisterBench(this);
+            board = new Board<Field>(10, 10);
+            initializer.Initialize(board);
         }
 
         /// <summary>
@@ -59,7 +51,7 @@ namespace Stratego.Game
         /// <returns></returns>
         public Field GetField(Position pos)
         {
-            return Board[pos.X, pos.Y];
+            return board[pos.X, pos.Y];
         }
 
         /// <summary>
@@ -67,9 +59,9 @@ namespace Stratego.Game
         /// </summary>
         /// <param name="pos">Position of field to check.</param>
         /// <returns>Return <c>true</c> if have a pawn.</returns>
-        public bool HavePawn(Position pos)
+        public bool HasPawn(Position pos)
         {
-            var field = Board[pos];
+            var field = board[pos];
             return (field != null) ? field.Pawn != null : false;
         }
 
@@ -79,13 +71,14 @@ namespace Stratego.Game
         /// <param name="pawn"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public bool PlaceUnit(Pawn pawn, Position pos)
+        public bool PlaceUnit(Guid player, UnitInfo unit, Position pos)
         {
-            var field = Board[pos];
+            var field = board[pos];
 
-            if (HavePawn(pos))
+            if (HasPawn(pos))
                 return false;
 
+            Pawn pawn = new Pawn(unit, player);
             field.Pawn = pawn;
 
             return true;
@@ -118,13 +111,14 @@ namespace Stratego.Game
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <returns></returns>
-        public bool MakeMove(Position from, Position to)
+        public virtual bool MakeMove(Position from, Position to)
         {
-            var start = GetField(from);
-            var end = GetField(to);
-
             lock (sync)
             {
+                // Get fields
+                var start = GetField(from);
+                var end = GetField(to);
+
                 // Can't move the pawn
                 if (start.Pawn == null)
                     return false;
@@ -137,16 +131,29 @@ namespace Stratego.Game
                     var pawn = start.Pawn;
                     start.Pawn = null;
                     end.Pawn = pawn;
-                    OnPawnMoved(from, to, pawn);
+                    var eventArgs = new MoveEventArgs(from, to);
+                    OnPawnMoved(eventArgs);
                     return true;
                 }
 
                 // Fight
                 var att = start.Pawn;
                 var def = end.Pawn;
-                var result = Combat.Go(att, def);
+                var result = combat.Fight(att, def);
 
-                //listOfMoves.Add(move);
+                switch(result)
+                {
+                    case FightResult.Win:
+                        if (def.SpecialUnit == SpecialUnit.Flag) OnKingFailed(EventArgs.Empty);
+                        start.Pawn = null;
+                        end.Pawn = att;
+                        break;
+                    case FightResult.Lose:
+
+                        break;
+                    case FightResult.Draw:
+                        break;
+                }
             }
 
             return false;
@@ -155,21 +162,113 @@ namespace Stratego.Game
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="field"></param>
-        protected void OnPawnMoved(Position from, Position to, Pawn pawn)
+        /// <param name="e"></param>
+        protected virtual void OnPawnMoved(MoveEventArgs e)
         {
-            var ev = PawnMoved;
-            var args = new MoveEventArgs(from, to, pawn);
+            PawnMoved?.Invoke(this, e);
+        }
 
-            if(ev != null) ev(this, args);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnFight(FightEventArgs e)
+        {
+            Fighted?.Invoke(this, e);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnKingFailed(EventArgs e)
+        {
+            KingFailed?.Invoke(this, e);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnPawnPlaced(EventArgs e)
+        {
+            PawnPlaced?.Invoke(this, e);
         }
     }
 
+    /// <summary>
+    /// A pawn move from <see cref="Position"/> to <see cref="Position"/>.
+    /// </summary>
     public class MoveEventArgs : EventArgs
     {
-        public MoveEventArgs(Position from, Position to, Pawn pawn)
-        {
+        private readonly Position from, to;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        public MoveEventArgs(Position from, Position to)
+        {
+            this.from = from; this.to = to;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Position From { get { return from; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Position To { get { return to; } }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class FightEventArgs : EventArgs
+    {
+        private readonly Position from, to;
+        private readonly Pawn att, def;
+        private readonly FightResult result;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="att"></param>
+        /// <param name="def"></param>
+        /// <param name="result"></param>
+        public FightEventArgs(Position from, Position to, Pawn att, Pawn def, FightResult result)
+        {
+            this.from = from; this.to = to; this.att = att; this.def = def; this.result = result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Position From { get { return from; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Position To { get { return to; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Pawn Att { get { return att; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Pawn Def { get { return def; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public FightResult Result { get { return result; } }
     }
 }

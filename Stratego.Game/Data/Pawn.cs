@@ -9,12 +9,11 @@ namespace Stratego.Game
 {
     public class Pawn
     {
-        protected Unit UnitType { get; set; }
+        protected UnitInfo UnitType { get; }
 
-        public Guid Player { get; set; }
+        public Guid Player { get; }
 
         private string _name;
-        private int _power;
 
         public string Name
         {
@@ -23,7 +22,7 @@ namespace Stratego.Game
                 var type = UnitType;
                 var name = _name;
 
-                return !String.IsNullOrWhiteSpace(name) ? name : UnitType.TypeName;
+                return !String.IsNullOrWhiteSpace(name) ? name : UnitType.Type;
             }
             set
             {
@@ -39,10 +38,18 @@ namespace Stratego.Game
             }
         }
 
-        public Pawn(Unit type, Guid playerId = default(Guid), string name = "")
+        public SpecialUnit SpecialUnit
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
+            get
+            {
+                return UnitType.SpecialUnit;
+            }
+        }
+
+        public Pawn(UnitInfo type, Guid playerId, string name = "")
+        {
+            //if (type == default(Unit))
+            //    throw new ArgumentNullException("type");
 
             this.UnitType = type;
             this.Player = playerId;

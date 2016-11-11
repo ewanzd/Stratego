@@ -45,9 +45,7 @@
     <Compile Include="Enums\FightResult.cs" />
     <Compile Include="Enums\MoveType.cs" />
     <Compile Include="FieldEventArgs.cs" />
-    <Compile Include="GameBase.cs" />
     <Compile Include="GameMove.cs" />
-    <Compile Include="GameData.cs" />
     <Compile Include="Interfaces\ICombatSystem.cs" />
     <Compile Include="Interfaces\IDisplay.cs" />
     <Compile Include="Matrix.cs" />

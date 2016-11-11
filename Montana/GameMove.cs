@@ -7,10 +7,34 @@ using System.Threading.Tasks;
 
 namespace Montana
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    [Serializable]
     public class GameMove
     {
-        public Position From { get; set; }
+        private readonly Position from;
+        private readonly Position to;
 
-        public Position To { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public Position From { get { return from; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Position To { get { return to; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        public GameMove(Position from, Position to)
+        {
+            this.from = from;
+            this.to = to;
+        }
     }
 }

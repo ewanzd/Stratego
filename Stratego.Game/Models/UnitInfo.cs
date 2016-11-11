@@ -1,31 +1,26 @@
 ﻿using Montana;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stratego.Game
 {
-    public class Unit : IDisplay
+    public class UnitInfo : IDisplay
     {
-        /// <summary>
-        /// Id of member.
-        /// </summary>
-        public int Id { get; set; }
+        ///// <summary>
+        ///// Id of member.
+        ///// </summary>
+        //public int Id { get; set; }
 
         /// <summary>
         /// Unique name of member.
         /// </summary>
-        public string TypeName { get; set; }
+        public string Type { get; set; }
 
         /// <summary>
-        /// Display name of member.
+        /// Key of name.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Display description of member.
+        /// Key of description.
         /// </summary>
         public string Description { get; set; }
 
@@ -40,9 +35,9 @@ namespace Stratego.Game
         public int Value { get; set; }
 
         /// <summary>
-        /// Range of unit.
+        /// Max count to place.
         /// </summary>
-        public int Range { get; set; }
+        public int MaxAvailable { get; set; }
 
         /// <summary>
         /// Move type (none, diagonal, cross, abroad).
@@ -50,12 +45,17 @@ namespace Stratego.Game
         public MoveType MoveType { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public SpecialUnit SpecialUnit { get; set; }
+
+        /// <summary>
         /// Get type name of member.
         /// </summary>
         /// <returns>The type name of member.</returns>
         public override string ToString()
         {
-            return TypeName;
+            return Type;
         }
     }
 }

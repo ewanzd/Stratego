@@ -42,27 +42,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\SpecialUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\IBoardInitializer.cs" />
-    <Compile Include="Models\GameInfo.cs" />
+    <Compile Include="Data\GameInfo.cs" />
     <Compile Include="StrategoBench.cs" />
-    <Compile Include="CombatSystem.cs" />
+    <Compile Include="Combat.cs" />
     <Compile Include="Enums\GameState.cs" />
     <Compile Include="Extensions\EnumerationExtension.cs" />
     <Compile Include="Models\Terrain.cs" />
-    <Compile Include="CombatSpecialCase.cs" />
-    <Compile Include="Models\Pawn.cs" />
-    <Compile Include="Models\Field.cs" />
+    <Compile Include="Data\Pawn.cs" />
+    <Compile Include="Data\Field.cs" />
     <Compile Include="StrategoGame.cs" />
-    <Compile Include="Models\Unit.cs" />
+    <Compile Include="Models\UnitInfo.cs" />
     <Compile Include="StrategoData.cs" />
+    <Compile Include="StrategoSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Instruction.txt" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Classic.xml" />
+    <Folder Include="Units\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Montana\Montana.csproj">
