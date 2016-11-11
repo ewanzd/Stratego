@@ -14,7 +14,7 @@ namespace Stratego.Game
     public class StrategoData
     {
         private readonly GameInfo info;
-        private readonly List<Guid> listOfPlayers;
+        private readonly IEnumerable<Guid> listOfPlayers;
 
         /// <summary>
         /// Return id of game.
@@ -46,12 +46,12 @@ namespace Stratego.Game
         /// <summary>
         /// Player one.
         /// </summary>
-        public Guid PlayerOne { get { return listOfPlayers[0]; } }
+        public Guid PlayerOne { get { return listOfPlayers.ElementAt(0); } }
 
         /// <summary>
         /// Player two.
         /// </summary>
-        public Guid PlayerTwo { get { return listOfPlayers[1]; } }
+        public Guid PlayerTwo { get { return listOfPlayers.ElementAt(1); } }
 
         /// <summary>
         /// Game state changed.
@@ -69,7 +69,7 @@ namespace Stratego.Game
         /// <param name="id"></param>
         /// <param name="players"></param>
         /// <param name="created"></param>
-        protected StrategoData(Guid id, 
+        protected StrategoData(Guid id,
             IEnumerable<Guid> players,
             DateTime created = default(DateTime))
         {
@@ -82,7 +82,7 @@ namespace Stratego.Game
                 GameState = default(GameState)
             };
 
-            listOfPlayers = new List<Guid>(players);
+            listOfPlayers = players;
         }
 
         /// <summary>
