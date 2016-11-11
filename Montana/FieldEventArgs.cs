@@ -5,11 +5,12 @@ namespace Montana
     /// <summary>
     /// 
     /// </summary>
-    public class FieldEventArgs : EventArgs
+    /// <typeparam name="T">Field type.</typeparam>
+    public class FieldEventArgs<T> : EventArgs
     {
         private readonly Position pos;
-        private readonly object oldValue;
-        private readonly object newValue;
+        private readonly T oldValue;
+        private readonly T newValue;
 
         /// <summary>
         /// 
@@ -17,7 +18,7 @@ namespace Montana
         /// <param name="pos"></param>
         /// <param name="oldValue"></param>
         /// <param name="newValue"></param>
-        public FieldEventArgs(Position pos, object oldValue, object newValue)
+        public FieldEventArgs(Position pos, T oldValue, T newValue)
         {
             this.oldValue = oldValue;
             this.newValue = newValue;
@@ -32,11 +33,11 @@ namespace Montana
         /// <summary>
         /// 
         /// </summary>
-        public object OldValue { get { return oldValue; } }
+        public T OldValue { get { return oldValue; } }
 
         /// <summary>
         /// 
         /// </summary>
-        public object NewValue { get { return newValue; } }
+        public T NewValue { get { return newValue; } }
     }
 }

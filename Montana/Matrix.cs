@@ -9,7 +9,8 @@ namespace Montana
     /// <summary>
     /// Matrix to save values with any number of dimensions.
     /// </summary>
-    public abstract class Matrix
+    /// <typeparam name="T">Type of field.</typeparam>
+    public abstract class Matrix<T>
     {
         // Das Objekt verwaltet Daten in beliebigen Anzahl und Länge der Dimensionen.
         // Beispiel ein 2D-Spielbrett mit einem Spielfeld von der Länge 20 und der Breit 10
@@ -19,9 +20,10 @@ namespace Montana
         /// Get and set a grain of <see cref="Montana.Matrix"/>.
         /// </summary>
         /// <param name="position">Position of the grain.</param>
+        /// <
         /// <returns>Target grain.</returns>
         /// <exception cref="IndexOutOfRangeException">Position is out of range.</exception>
-        protected object this[params int[] position]
+        protected T this[params int[] position]
         {
             get
             {
@@ -41,7 +43,7 @@ namespace Montana
             }
         }
 
-        private readonly object[] matrix;
+        private readonly T[] matrix;
         private readonly int[] dimensionsLength;
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace Montana
             var fullLength = dimensionsLength.Aggregate((x1, x2) => x1 * x2);
 
             // Matrix erstellen
-            matrix = new object[fullLength];
+            matrix = new T[fullLength];
         }
 
         /// <summary>

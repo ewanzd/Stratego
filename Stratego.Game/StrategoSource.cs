@@ -12,6 +12,9 @@ namespace Stratego.Game
         IEnumerable<Terrain> GetAllTerrains();
     }
 
+    /// <summary>
+    /// Default source. Contain all units and fields.
+    /// </summary>
     public class StrategoSource : ISource
     {
         public IEnumerable<Terrain> GetAllTerrains()

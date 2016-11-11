@@ -7,12 +7,12 @@ namespace Stratego.Game
 {
     public interface IGame
     {
-        void RegisterBench(StrategoBench bench);
+        void RegisterBench(IBench bench);
     }
 
-    // Verwaltet die Erstellung des Spieles und fasst die notwendige Daten und Objekte zusammen.
+    // Erstellt und verwaltet ein Spiel und fasst die notwendige Daten und Objekte zusammen.
     /// <summary>
-    /// Manage the create of games.
+    /// Create and manage a game.
     /// 1) Use 'New' static method to create a game.
     /// 2) Take bench.
     /// 3) Take settings and set all pawns on the board.
@@ -96,7 +96,7 @@ namespace Stratego.Game
         /// 
         /// </summary>
         /// <param name="bench"></param>
-        public void RegisterBench(StrategoBench bench)
+        public void RegisterBench(IBench bench)
         {
             if (benchHasBeenRegistered) throw new InvalidOperationException("Bench has already been registered.");
 

@@ -4,13 +4,103 @@ using System.Collections.Generic;
 
 namespace Stratego.Game
 {
+    public interface IBench
+    {
+        event EventHandler KingFailed;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class StrategoBoard : Board<Field>
+    {
+        public StrategoBoard() : base(10, 10)
+        {
+
+        }
+
+        /// <summary>
+        /// Check the field have a pawn.
+        /// </summary>
+        /// <param name="pos">Position of field to check.</param>
+        /// <returns>Return <c>true</c> if have a pawn.</returns>
+        public bool HasPawn(Position pos)
+        {
+            var field = this[pos];
+            return (field != null) ? field.Pawn != null : false;
+        }
+    }
+
+    /// <summary>
+    /// Help to prepare the board. That include board creation and set pawns.
+    /// </summary>
+    public class StrategoBenchPrep
+    {
+        private StrategoBoard board;
+
+        public event EventHandler PawnPlaced;
+
+        public StrategoBenchPrep(IBoardInitializer initializer)
+        {
+            board = new StrategoBoard();
+            initializer.Initialize(board);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pawn"></param>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        public bool PlaceUnit(Guid player, UnitInfo unit, Position pos)
+        {
+            var field = board[pos];
+
+            if (board.HasPawn(pos))
+                return false;
+
+            Pawn pawn = new Pawn(unit, player);
+            field.Pawn = pawn;
+
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        public bool RemoveUnit(Position pos)
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// Get board if it ready.
+        /// </summary>
+        /// <returns>Prepared board.</returns>
+        public StrategoBoard GetBoard()
+        {
+            return board;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnPawnPlaced(EventArgs e)
+        {
+            PawnPlaced?.Invoke(this, e);
+        }
+    }
+
     /// <summary>
     /// Manage the access to board.
     /// </summary>
-    public class StrategoBench
+    public class StrategoBenchInPlay : IBench
     {
         private readonly List<GameMove> listOfMoves;
-        private Board<Field> board;
+        private StrategoBoard board;
         private Combat combat;
 
         protected int currentPlayer; // 0 / 1
@@ -26,7 +116,7 @@ namespace Stratego.Game
         /// </summary>
         public List<GameMove> ListOfMoves { get { return listOfMoves; } }
 
-        public event EventHandler PawnPlaced;
+        
         public event EventHandler<MoveEventArgs> PawnMoved;
         public event EventHandler<FightEventArgs> Fighted;
         public event EventHandler KingFailed;
@@ -35,63 +125,13 @@ namespace Stratego.Game
         /// 
         /// </summary>
         /// <param name="board"></param>
-        public StrategoBench(IGame game, IBoardInitializer initializer) 
+        public StrategoBenchInPlay(IGame game, StrategoBenchPrep prep) 
         {
             if (game == null) throw new ArgumentNullException(nameof(game));
+            if (prep == null) throw new ArgumentNullException(nameof(prep));
 
             game.RegisterBench(this);
-            board = new Board<Field>(10, 10);
-            initializer.Initialize(board);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pos"></param>
-        /// <returns></returns>
-        public Field GetField(Position pos)
-        {
-            return board[pos.X, pos.Y];
-        }
-
-        /// <summary>
-        /// Check the field have a pawn.
-        /// </summary>
-        /// <param name="pos">Position of field to check.</param>
-        /// <returns>Return <c>true</c> if have a pawn.</returns>
-        public bool HasPawn(Position pos)
-        {
-            var field = board[pos];
-            return (field != null) ? field.Pawn != null : false;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pawn"></param>
-        /// <param name="pos"></param>
-        /// <returns></returns>
-        public bool PlaceUnit(Guid player, UnitInfo unit, Position pos)
-        {
-            var field = board[pos];
-
-            if (HasPawn(pos))
-                return false;
-
-            Pawn pawn = new Pawn(unit, player);
-            field.Pawn = pawn;
-
-            return true;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pos"></param>
-        /// <returns></returns>
-        public bool RemovePawn(Position pos)
-        {
-            return false;
+            board = prep.GetBoard();
         }
 
         /// <summary>
@@ -116,8 +156,8 @@ namespace Stratego.Game
             lock (sync)
             {
                 // Get fields
-                var start = GetField(from);
-                var end = GetField(to);
+                var start = board[from.X, from.Y];
+                var end = board[to.X, to.Y];
 
                 // Can't move the pawn
                 if (start.Pawn == null)
@@ -184,15 +224,6 @@ namespace Stratego.Game
         protected virtual void OnKingFailed(EventArgs e)
         {
             KingFailed?.Invoke(this, e);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected virtual void OnPawnPlaced(EventArgs e)
-        {
-            PawnPlaced?.Invoke(this, e);
         }
     }
 

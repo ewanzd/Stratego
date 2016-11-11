@@ -13,7 +13,8 @@ namespace Stratego.Game.Test
         // ===================================================================================
 
         StrategoGame game;
-        StrategoBench bench;
+        StrategoBenchPrep benchPrep;
+        StrategoBenchInPlay benchInPlay;
         Guid playerOne;
         Guid playerTwo;
 
@@ -24,8 +25,9 @@ namespace Stratego.Game.Test
             playerTwo = Guid.NewGuid();
 
             game = StrategoGame.New(playerOne, playerTwo);
-            var boardInitializer = new BoardInitializer(new StrategoSource());
-            bench = new StrategoBench(game, boardInitializer);
+            var source = new StrategoSource();
+            var boardInitializer = new BoardInitializer(source);
+            benchPrep = new StrategoBenchPrep(boardInitializer);
         }
 
         [TestMethod]
@@ -50,7 +52,7 @@ namespace Stratego.Game.Test
         [TestMethod]
         public void MovePawns()
         {
-
+            benchInPlay = new StrategoBenchInPlay(game, benchPrep);
         }
     }
 }
