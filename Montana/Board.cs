@@ -13,17 +13,17 @@ namespace Montana
     public class Board<T> : Matrix<T>
     {
         /// <summary>
-        /// Get and set a field of <see cref="Stratego.Game.Board{field}"/>.
+        /// Get and set a field of <see cref="Stratego.Game.Board{T}"/>.
         /// </summary>
-        /// <param name="x">Horizontal position in <see cref="Stratego.Game.Board{field}"/>.</param>
-        /// <param name="y">Vertical position in <see cref="Stratego.Game.Board{field}"/>.</param>
+        /// <param name="x">Horizontal position in <see cref="Stratego.Game.Board{T}"/>.</param>
+        /// <param name="y">Vertical position in <see cref="Stratego.Game.Board{T}"/>.</param>
         /// <returns>Return field in target position.</returns>
         /// <exception cref="IndexOutOfRangeException">Position is out of range.</exception>
         public T this[int x, int y]
         {
             get
             {
-                return (T)base[x, y];
+                return base[x, y];
             }
             set
             {
@@ -32,7 +32,8 @@ namespace Montana
 
                 base[x, y] = newValue;
 
-                OnFieldChanged(new Position(x, y), oldValue, newValue);
+                var eventArgs = new FieldEventArgs<T>(new Position(x, y), oldValue, newValue);
+                OnFieldChanged(eventArgs);
             }
         }
 
@@ -60,7 +61,7 @@ namespace Montana
         public event EventHandler<FieldEventArgs<T>> FieldChanged;
 
         /// <summary>
-        /// Get length of <see cref="Stratego.Game.Board{field}"/>.
+        /// Get length of <see cref="Stratego.Game.Board{T}"/>.
         /// </summary>
         public int Length
         {
@@ -71,7 +72,7 @@ namespace Montana
         }
 
         /// <summary>
-        /// Get height of <see cref="Stratego.Game.Board{field}"/>.
+        /// Get height of <see cref="Stratego.Game.Board{T}"/>.
         /// </summary>
         public int Height
         {
@@ -95,15 +96,10 @@ namespace Montana
         /// <summary>
         /// Fire <see cref="Stratego.Game.Board{T}.FieldChanged"/>.
         /// </summary>
-        /// <param name="pos"></param>
-        /// <param name="newValue"></param>
-        protected void OnFieldChanged(Position pos, T oldValue, T newValue)
+        /// <param name="e">Event args with changed data.</param>
+        protected void OnFieldChanged(FieldEventArgs<T> e)
         {
-            var ev = FieldChanged;
-            var args = new FieldEventArgs<T>(pos, oldValue, newValue);
-
-            if (ev != null)
-                ev(this, args);
+            FieldChanged?.Invoke(this, e);
         }
     }
 }

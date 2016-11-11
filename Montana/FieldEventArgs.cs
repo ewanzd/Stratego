@@ -3,9 +3,9 @@
 namespace Montana
 {
     /// <summary>
-    /// 
+    /// Save old and new field, which changed.
     /// </summary>
-    /// <typeparam name="T">Field type.</typeparam>
+    /// <typeparam name="T">Type of field.</typeparam>
     public class FieldEventArgs<T> : EventArgs
     {
         private readonly Position pos;
@@ -13,11 +13,11 @@ namespace Montana
         private readonly T newValue;
 
         /// <summary>
-        /// 
+        /// Create new event args.
         /// </summary>
-        /// <param name="pos"></param>
-        /// <param name="oldValue"></param>
-        /// <param name="newValue"></param>
+        /// <param name="pos">Position of field.</param>
+        /// <param name="oldValue">Old field.</param>
+        /// <param name="newValue">New field.</param>
         public FieldEventArgs(Position pos, T oldValue, T newValue)
         {
             this.oldValue = oldValue;
@@ -26,17 +26,17 @@ namespace Montana
         }
 
         /// <summary>
-        /// 
+        /// Position of field.
         /// </summary>
         public Position Position { get { return pos; } }
 
         /// <summary>
-        /// 
+        /// Old field.
         /// </summary>
         public T OldValue { get { return oldValue; } }
 
         /// <summary>
-        /// 
+        /// New field.
         /// </summary>
         public T NewValue { get { return newValue; } }
     }
