@@ -6,7 +6,7 @@ namespace Montana
     /// Save source and destination position.
     /// </summary>
     [Serializable]
-    public class GameMove
+    public class Move
     {
         private readonly Position from;
         private readonly Position to;
@@ -26,7 +26,7 @@ namespace Montana
         /// </summary>
         /// <param name="from">Source position.</param>
         /// <param name="to">Destination position.</param>
-        public GameMove(Position from, Position to)
+        public Move(Position from, Position to)
         {
             this.from = from;
             this.to = to;

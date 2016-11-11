@@ -99,7 +99,7 @@ namespace Stratego.Game
     /// </summary>
     public class StrategoBenchInPlay : IBench
     {
-        private readonly List<GameMove> listOfMoves;
+        private readonly List<Move> listOfMoves;
         private StrategoBoard board;
         private Combat combat;
 
@@ -114,7 +114,7 @@ namespace Stratego.Game
         /// <summary>
         /// Contain list with all past moved in this game.
         /// </summary>
-        public List<GameMove> ListOfMoves { get { return listOfMoves; } }
+        public List<Move> ListOfMoves { get { return listOfMoves; } }
 
         
         public event EventHandler<MoveEventArgs> PawnMoved;
