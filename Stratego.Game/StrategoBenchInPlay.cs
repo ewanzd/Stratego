@@ -10,104 +10,16 @@ namespace Stratego.Game
     }
 
     /// <summary>
-    /// 
-    /// </summary>
-    public class StrategoBoard : Board<Field>
-    {
-        public StrategoBoard() : base(10, 10)
-        {
-
-        }
-
-        /// <summary>
-        /// Check the field have a pawn.
-        /// </summary>
-        /// <param name="pos">Position of field to check.</param>
-        /// <returns>Return <c>true</c> if have a pawn.</returns>
-        public bool HasPawn(Position pos)
-        {
-            var field = this[pos];
-            return (field != null) ? field.Pawn != null : false;
-        }
-    }
-
-    /// <summary>
-    /// Help to prepare the board. That include board creation and set pawns.
-    /// </summary>
-    public class StrategoBenchPrep
-    {
-        private StrategoBoard board;
-
-        public event EventHandler PawnPlaced;
-
-        public StrategoBenchPrep(IBoardInitializer initializer)
-        {
-            board = new StrategoBoard();
-            initializer.Initialize(board);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pawn"></param>
-        /// <param name="pos"></param>
-        /// <returns></returns>
-        public bool PlaceUnit(Guid player, UnitInfo unit, Position pos)
-        {
-            var field = board[pos];
-
-            if (board.HasPawn(pos))
-                return false;
-
-            Pawn pawn = new Pawn(unit, player);
-            field.Pawn = pawn;
-
-            return true;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pos"></param>
-        /// <returns></returns>
-        public bool RemoveUnit(Position pos)
-        {
-            return false;
-        }
-
-        /// <summary>
-        /// Get board if it ready.
-        /// </summary>
-        /// <returns>Prepared board.</returns>
-        public StrategoBoard GetBoard()
-        {
-            return board;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected virtual void OnPawnPlaced(EventArgs e)
-        {
-            PawnPlaced?.Invoke(this, e);
-        }
-    }
-
-    /// <summary>
     /// Manage the access to board.
     /// </summary>
     public class StrategoBenchInPlay : IBench
     {
-        private readonly List<Move> listOfMoves;
-        private StrategoBoard board;
-        private Combat combat;
+        protected readonly List<Move> listOfMoves;
+        protected StrategoBoard board;
+        protected Combat combat;
 
         protected int currentPlayer; // 0 / 1
         protected int round;
-
-        protected Dictionary<UnitInfo, int> p1CurrentCount;
-        protected Dictionary<UnitInfo, int> p2CurrentCount;
 
         protected object sync = new object();
 
@@ -116,20 +28,37 @@ namespace Stratego.Game
         /// </summary>
         public List<Move> ListOfMoves { get { return listOfMoves; } }
 
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public event EventHandler<MoveEventArgs> PawnMoved;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public event EventHandler<FightEventArgs> Fighted;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public event EventHandler KingFailed;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="board"></param>
+        /// <param name="game"></param>
+        /// <param name="prep"></param>
         public StrategoBenchInPlay(IGame game, StrategoBenchPrep prep) 
         {
+            // check input
             if (game == null) throw new ArgumentNullException(nameof(game));
             if (prep == null) throw new ArgumentNullException(nameof(prep));
 
+            // inittialize data
+            round = 0;
+            listOfMoves = new List<Move>();
+
+            // manage args
             game.RegisterBench(this);
             board = prep.GetBoard();
         }
@@ -144,6 +73,13 @@ namespace Stratego.Game
         {
             return false;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="move"></param>
+        /// <returns></returns>
+        public bool MakeMove(Move move) => MakeMove(move.From, move.To);
 
         /// <summary>
         /// 
@@ -171,7 +107,7 @@ namespace Stratego.Game
                     var pawn = start.Pawn;
                     start.Pawn = null;
                     end.Pawn = pawn;
-                    var eventArgs = new MoveEventArgs(from, to);
+                    var eventArgs = new MoveEventArgs(new Move(from, to));
                     OnPawnMoved(eventArgs);
                     return true;
                 }
@@ -232,27 +168,21 @@ namespace Stratego.Game
     /// </summary>
     public class MoveEventArgs : EventArgs
     {
-        private readonly Position from, to;
+        private readonly Move move;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        public MoveEventArgs(Position from, Position to)
+        /// <param name="move"></param>
+        public MoveEventArgs(Move move)
         {
-            this.from = from; this.to = to;
+            this.move = move;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Position From { get { return from; } }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Position To { get { return to; } }
+        public Move Move { get { return move; } }
     }
 
     /// <summary>

@@ -27,7 +27,7 @@ namespace Stratego.Game.Test
             game = StrategoGame.New(playerOne, playerTwo);
             var source = new StrategoSource();
             var boardInitializer = new BoardInitializer(source);
-            benchPrep = new StrategoBenchPrep(boardInitializer);
+            benchPrep = new StrategoBenchPrep(game, boardInitializer);
         }
 
         [TestMethod]

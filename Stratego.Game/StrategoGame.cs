@@ -13,10 +13,7 @@ namespace Stratego.Game
     // Erstellt und verwaltet ein Spiel und fasst die notwendige Daten und Objekte zusammen.
     /// <summary>
     /// Create and manage a game.
-    /// 1) Use 'New' static method to create a game.
-    /// 2) Take bench.
-    /// 3) Take settings and set all pawns on the board.
-    /// 4) Play.
+    /// Use 'New' static method to create a game.
     /// </summary>
     public sealed class StrategoGame : IGame
     {
@@ -51,12 +48,22 @@ namespace Stratego.Game
         }
 
         /// <summary>
-        /// 
+        /// Game is ready.
         /// </summary>
         public bool IsReady
         {
             get { return IsActive && benchHasBeenRegistered; }
         }
+
+        /// <summary>
+        /// Player one.
+        /// </summary>
+        public Guid PlayerOne { get { return data.PlayerOne; } }
+
+        /// <summary>
+        /// Player two.
+        /// </summary>
+        public Guid PlayerTwo { get { return data.PlayerTwo; } }
 
         /// <summary>
         /// Game state changed.
