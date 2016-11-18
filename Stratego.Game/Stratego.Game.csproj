@@ -54,10 +54,11 @@
     <Compile Include="Data\Field.cs" />
     <Compile Include="StrategoBenchPrep.cs" />
     <Compile Include="StrategoBoard.cs" />
+    <Compile Include="StrategoMapGenerator.cs" />
     <Compile Include="StrategoGame.cs" />
     <Compile Include="Models\UnitInfo.cs" />
     <Compile Include="StrategoData.cs" />
-    <Compile Include="StrategoSource.cs" />
+    <Compile Include="StrategoSourceStandard.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Instruction.txt" />

@@ -9,9 +9,9 @@ namespace Stratego.Game
     public class GameInfo
     {
         public Guid GameId;
-        public string Title;
-        public DateTime CreateDateTime;
-        public DateTime FinishDateTime;
+        //public string Title;
+        //public DateTime CreateDateTime;
+        //public DateTime FinishDateTime;
         public GameState GameState;
     }
 }

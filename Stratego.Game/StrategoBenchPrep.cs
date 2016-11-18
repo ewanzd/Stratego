@@ -7,7 +7,7 @@ namespace Stratego.Game
     /// <summary>
     /// Help to prepare the board. That include board creation and set pawns.
     /// </summary>
-    public class StrategoBenchPrep
+    public class StrategoBenchPrep : IBench
     {
         protected StrategoBoard board;
         protected IGame game;
@@ -19,6 +19,11 @@ namespace Stratego.Game
         /// 
         /// </summary>
         public event EventHandler PawnPlaced;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        //public event EventHandler NextPhase;
 
         /// <summary>
         /// 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Stratego.Game
 {
@@ -15,7 +11,7 @@ namespace Stratego.Game
     /// <summary>
     /// Default source. Contain all units and fields.
     /// </summary>
-    public class StrategoSource : ISource
+    public class StrategoSourceStandard : ISource
     {
         public IEnumerable<Terrain> GetAllTerrains()
         {

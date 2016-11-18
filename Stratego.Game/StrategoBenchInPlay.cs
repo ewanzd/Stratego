@@ -6,7 +6,7 @@ namespace Stratego.Game
 {
     public interface IBench
     {
-        event EventHandler NextPhase;
+        
     }
 
     /// <summary>
@@ -18,7 +18,7 @@ namespace Stratego.Game
         protected StrategoBoard board;
         protected Combat combat;
 
-        protected int currentPlayer; // 0 / 1
+        protected int currentPlayer; // order (0 / 1)
         protected int round;
 
         protected object sync = new object();
@@ -59,12 +59,12 @@ namespace Stratego.Game
             if (game == null) throw new ArgumentNullException(nameof(game));
             if (prep == null) throw new ArgumentNullException(nameof(prep));
 
-            // inittialize data
+            // initialize data
             round = 0;
             listOfMoves = new List<Move>();
 
             // manage args
-            game.RegisterBench(this);
+            //game.RegisterBench(this);
             board = prep.GetBoard();
         }
 

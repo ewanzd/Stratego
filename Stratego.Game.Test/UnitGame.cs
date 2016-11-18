@@ -1,7 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
-using Montana;
 
 namespace Stratego.Game.Test
 {
@@ -24,16 +22,18 @@ namespace Stratego.Game.Test
             playerOne = Guid.NewGuid();
             playerTwo = Guid.NewGuid();
 
-            game = StrategoGame.New(playerOne, playerTwo);
-            var source = new StrategoSource();
-            var boardInitializer = new BoardInitializer(source);
-            benchPrep = new StrategoBenchPrep(game, boardInitializer);
+            game = new StrategoGame(playerOne, playerTwo);
+
+
+            var source = new StrategoSourceStandard();
+            var mapGenerator = new StrategoMapGenerator(source);
+            benchPrep = new StrategoBenchPrep(game, mapGenerator);
         }
 
         [TestMethod]
         public void GameCheckReady()
         {
-            Assert.AreEqual(true, game.IsActive);
+            //Assert.AreEqual(true, game.IsActive);
         }
 
         [TestMethod]
@@ -41,12 +41,7 @@ namespace Stratego.Game.Test
         {
             GameCheckReady();
 
-            //var settings = game.GetSettings();
-            //var listUnits = settings.GetAllUnit().ToList();
-
-            //bench.PlaceUnit(playerOne, listUnits[0], new Position(1, 1));
-
-            //Assert.AreEqual(bench.GetField(new Position(1, 1)).Pawn.Player, playerOne);
+            
         }
 
         [TestMethod]
@@ -54,5 +49,11 @@ namespace Stratego.Game.Test
         {
             benchInPlay = new StrategoBenchInPlay(game, benchPrep);
         }
+    }
+
+    internal class UnitGameKind
+    {
+        private readonly StrategoGame _game;
+        private string _title;
     }
 }
