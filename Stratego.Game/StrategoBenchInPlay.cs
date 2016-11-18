@@ -4,18 +4,13 @@ using System.Collections.Generic;
 
 namespace Stratego.Game
 {
-    public interface IBench
-    {
-        
-    }
-
     /// <summary>
     /// Manage the access to board.
     /// </summary>
-    public class StrategoBenchInPlay : IBench
+    public class StrategoBenchInPlay
     {
-        protected readonly List<Move> listOfMoves;
-        protected StrategoBoard board;
+        private readonly List<Move> _listOfMoves;
+        private readonly StrategoBoard _board;
         protected Combat combat;
 
         protected int currentPlayer; // order (0 / 1)
@@ -26,7 +21,7 @@ namespace Stratego.Game
         /// <summary>
         /// Contain list with all past moved in this game.
         /// </summary>
-        public List<Move> ListOfMoves { get { return listOfMoves; } }
+        public List<Move> ListOfMoves { get { return _listOfMoves; } }
 
         /// <summary>
         /// 
@@ -53,7 +48,7 @@ namespace Stratego.Game
         /// </summary>
         /// <param name="game"></param>
         /// <param name="prep"></param>
-        public StrategoBenchInPlay(IGame game, StrategoBenchPrep prep) 
+        public StrategoBenchInPlay(StrategoGame game, StrategoBenchSetup prep) 
         {
             // check input
             if (game == null) throw new ArgumentNullException(nameof(game));
@@ -61,11 +56,11 @@ namespace Stratego.Game
 
             // initialize data
             round = 0;
-            listOfMoves = new List<Move>();
+            _listOfMoves = new List<Move>();
 
             // manage args
             //game.RegisterBench(this);
-            board = prep.GetBoard();
+            _board = prep.GetBoard();
         }
 
         /// <summary>
@@ -97,8 +92,8 @@ namespace Stratego.Game
             lock (sync)
             {
                 // Get fields
-                var start = board[from.X, from.Y];
-                var end = board[to.X, to.Y];
+                var start = _board[from.X, from.Y];
+                var end = _board[to.X, to.Y];
 
                 // Can't move the pawn
                 if (start.Pawn == null)

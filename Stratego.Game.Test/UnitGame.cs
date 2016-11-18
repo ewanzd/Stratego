@@ -11,7 +11,7 @@ namespace Stratego.Game.Test
         // ===================================================================================
 
         StrategoGame game;
-        StrategoBenchPrep benchPrep;
+        StrategoBenchSetup benchPrep;
         StrategoBenchInPlay benchInPlay;
         Guid playerOne;
         Guid playerTwo;
@@ -23,11 +23,7 @@ namespace Stratego.Game.Test
             playerTwo = Guid.NewGuid();
 
             game = new StrategoGame(playerOne, playerTwo);
-
-
-            var source = new StrategoSourceStandard();
-            var mapGenerator = new StrategoMapGenerator(source);
-            benchPrep = new StrategoBenchPrep(game, mapGenerator);
+            benchPrep = new StrategoBenchSetup(game);
         }
 
         [TestMethod]
@@ -49,6 +45,13 @@ namespace Stratego.Game.Test
         {
             benchInPlay = new StrategoBenchInPlay(game, benchPrep);
         }
+    }
+
+    internal class UnitPlayer
+    {
+        private readonly Guid _id;
+        private string _name;
+        private string _color;
     }
 
     internal class UnitGameKind

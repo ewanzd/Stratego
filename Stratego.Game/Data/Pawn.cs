@@ -34,7 +34,7 @@ namespace Stratego.Game
         {
             get
             {
-                return UnitType.Power;
+                return UnitType.Rank;
             }
         }
 

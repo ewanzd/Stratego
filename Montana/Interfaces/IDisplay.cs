@@ -8,7 +8,7 @@ namespace Montana
 {
     public interface IDisplay
     {
-        string Name { get; set; }
+        string DisplayName { get; set; }
 
         string Description { get; set; }
     }

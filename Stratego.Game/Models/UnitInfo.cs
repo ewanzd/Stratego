@@ -17,7 +17,7 @@ namespace Stratego.Game
         /// <summary>
         /// Key of name.
         /// </summary>
-        public string Name { get; set; }
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// Key of description.
@@ -25,9 +25,9 @@ namespace Stratego.Game
         public string Description { get; set; }
 
         /// <summary>
-        /// The power of unit.
+        /// Rank of unit.
         /// </summary>
-        public int Power { get; set; }
+        public int Rank { get; set; }
 
         /// <summary>
         /// Value of unit for AI.

@@ -7,13 +7,13 @@ namespace Stratego.Game
     /// <summary>
     /// Help to prepare the board. That include board creation and set pawns.
     /// </summary>
-    public class StrategoBenchPrep : IBench
+    public class StrategoBenchSetup
     {
-        protected StrategoBoard board;
-        protected IGame game;
+        private readonly StrategoBoard _board;
+        private readonly StrategoGame _game;
 
-        protected Dictionary<UnitInfo, int> p1CurrentCount;
-        protected Dictionary<UnitInfo, int> p2CurrentCount;
+        private readonly List<UnitInfo> _p1Units;
+        private readonly List<UnitInfo> _p2Units;
 
         /// <summary>
         /// 
@@ -23,17 +23,50 @@ namespace Stratego.Game
         /// <summary>
         /// 
         /// </summary>
-        //public event EventHandler NextPhase;
+        public bool IsReady
+        {
+            get
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="game"></param>
-        /// <param name="initializer"></param>
-        public StrategoBenchPrep(IGame game, IBoardInitializer initializer)
+        public StrategoBenchSetup(StrategoGame game) 
+            : this(game, new StrategoMapGenerator()) { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="generator"></param>
+        public StrategoBenchSetup(StrategoGame game, IMapGenerator generator)
         {
-            board = new StrategoBoard();
-            initializer.Initialize(board);
+            if (game == null) throw new ArgumentNullException("game cant be null");
+
+            _game = game;
+            _board = generator.DrawBoard();
+
+            _p1Units = new List<UnitInfo>();
+            _p2Units = new List<UnitInfo>();
+
+            var units = game.GameType.GetAllUnits();
+            GenerateUnits(_p1Units, units);
+            GenerateUnits(_p2Units, units);
+        }
+
+        private void GenerateUnits(List<UnitInfo> reserve, IEnumerable<UnitInfo> source)
+        {
+            foreach(var unit in source)
+            {
+                for(int i = 0; i <= unit.MaxAvailable; i++)
+                {
+                    
+                }
+            }
         }
 
         /// <summary>
@@ -44,9 +77,9 @@ namespace Stratego.Game
         /// <returns></returns>
         public bool PlaceUnit(Guid player, UnitInfo unit, Position pos)
         {
-            var field = board[pos];
+            var field = _board[pos];
 
-            if (board.HasPawn(pos))
+            if (_board.HasPawn(pos))
                 return false;
 
             Pawn pawn = new Pawn(unit, player);
@@ -71,7 +104,7 @@ namespace Stratego.Game
         /// <returns>Prepared board.</returns>
         public StrategoBoard GetBoard()
         {
-            return board;
+            return _board;
         }
 
         /// <summary>

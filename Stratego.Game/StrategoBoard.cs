@@ -8,9 +8,22 @@ namespace Stratego.Game
     public class StrategoBoard : Board<Field>
     {
         /// <summary>
-        /// New board.
+        /// Create uninitialize board with 10x10 fields.
         /// </summary>
-        public StrategoBoard() : base(10, 10) { }
+        public StrategoBoard() : this(10, 10)
+        {
+
+        }
+
+        /// <summary>
+        /// Create uninitialize board.
+        /// </summary>
+        /// <param name="width">Width of board.</param>
+        /// <param name="height">Height of board.</param>
+        public StrategoBoard(int width, int height) : base(width, height)
+        {
+            
+        }
 
         /// <summary>
         /// Check the field have a pawn.

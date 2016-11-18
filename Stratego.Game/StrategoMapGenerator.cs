@@ -1,29 +1,38 @@
 ﻿using Montana;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Stratego.Game
 {
-    public class StrategoMapGenerator : IBoardInitializer
+    public class StrategoMapGenerator : IMapGenerator
     {
-        private List<Terrain> terrains;
-        private ISource source;
+        private readonly List<Terrain> _terrains;
+        private readonly IGameType _type;
 
-        public StrategoMapGenerator(ISource source)
+        public StrategoMapGenerator() 
+            : this(new StrategoTypeClassic())
         {
-            this.source = source;
-            terrains = new List<Terrain>(source.GetAllTerrains());
+
         }
 
-        public Board<Field> Initialize(Board<Field> board)
+        public StrategoMapGenerator(IGameType type)
         {
+            _type = type;
+            _terrains = new List<Terrain>(type.GetAllTerrains());
+        }
+
+        public StrategoBoard DrawBoard()
+        {
+            StrategoBoard board = new StrategoBoard();
+
             for (int i = 1; i <= board.Length; i++)
             {
                 for (int y = 1; y <= board.Height; y++)
                 {
                     board[i, y] = new Field()
                     {
-                        Terrain = (from ter in terrains where ter.TypeName == "TYPE_TERRAIN_FIELD" select ter).FirstOrDefault()
+                        Terrain = (from ter in _terrains where ter.TypeName == "TYPE_TERRAIN_FIELD" select ter).FirstOrDefault()
                     };
                 }
             }
