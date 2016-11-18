@@ -8,6 +8,7 @@ namespace Stratego.Game
     public interface IGameType
     {
         int CountOfPlayer { get; }
+        IMapGenerator GetMapGenerator();
         IEnumerable<UnitInfo> GetAllUnits();
         IEnumerable<Terrain> GetAllTerrains();
     }

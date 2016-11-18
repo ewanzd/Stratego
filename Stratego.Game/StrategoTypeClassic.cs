@@ -1,5 +1,6 @@
 ﻿using Montana;
 using System.Collections.Generic;
+using System;
 
 namespace Stratego.Game
 {
@@ -9,8 +10,14 @@ namespace Stratego.Game
     public class StrategoTypeClassic : IGameType
     {
         private const int COUNTOFPLAYER = 2;
+        private readonly StrategoMapGenerator _mapGenerator;
 
         public int CountOfPlayer { get { return COUNTOFPLAYER; } }
+
+        public StrategoTypeClassic()
+        {
+            _mapGenerator = new StrategoMapGenerator(this);
+        }
 
         public IEnumerable<Terrain> GetAllTerrains()
         {
@@ -48,6 +55,11 @@ namespace Stratego.Game
                     MoveType = MoveType.None
                 }
             };
+        }
+
+        public IMapGenerator GetMapGenerator()
+        {
+            return _mapGenerator;
         }
     }
 }

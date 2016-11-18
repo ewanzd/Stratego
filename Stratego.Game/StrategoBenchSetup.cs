@@ -35,20 +35,14 @@ namespace Stratego.Game
         /// 
         /// </summary>
         /// <param name="game"></param>
-        public StrategoBenchSetup(StrategoGame game) 
-            : this(game, new StrategoMapGenerator()) { }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="game"></param>
         /// <param name="generator"></param>
-        public StrategoBenchSetup(StrategoGame game, IMapGenerator generator)
+        public StrategoBenchSetup(StrategoGame game)
         {
             if (game == null) throw new ArgumentNullException("game cant be null");
 
             _game = game;
-            _board = generator.DrawBoard();
+            var mapGenerator = game.GameType.GetMapGenerator();
+            _board = mapGenerator.DrawBoard();
 
             _p1Units = new List<UnitInfo>();
             _p2Units = new List<UnitInfo>();
