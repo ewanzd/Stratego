@@ -1,16 +1,38 @@
-﻿using Montana;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Stratego.Game
+﻿namespace Stratego.Game
 {
     public class Field
     {
-        public Terrain Terrain { get; set; }
+        private Terrain _terrain;
+        private Pawn _pawn;
 
-        public Pawn Pawn { get; set; }
+        /// <summary>
+        /// Terrain on this field.
+        /// </summary>
+        public Terrain Terrain
+        {
+            get
+            {
+                return _terrain;
+            }
+            set
+            {
+                _terrain = value;
+            }
+        }
+
+        /// <summary>
+        /// Pawn on this field.
+        /// </summary>
+        public Pawn Pawn
+        {
+            get
+            {
+                return _pawn;
+            }
+            set
+            {
+                _pawn = value;
+            }
+        }
     }
 }

@@ -38,7 +38,7 @@ namespace Stratego.Game
         /// </summary>
         /// <param name="type"></param>
         /// <param name="players"></param>
-        public StrategoGame(IGameType type, params Guid[] players)
+        private StrategoGame(IGameType type, params Guid[] players)
         {
             if (players.Length != type.CountOfPlayer)
                 throw new ArgumentException("Count of players are not valid.");

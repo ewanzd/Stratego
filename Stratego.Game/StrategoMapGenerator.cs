@@ -10,15 +10,14 @@ namespace Stratego.Game
         private readonly List<Terrain> _terrains;
         private readonly IGameType _type;
 
-        public StrategoMapGenerator() 
-            : this(new StrategoTypeClassic())
+        public StrategoMapGenerator() : this(null)
         {
 
         }
 
         public StrategoMapGenerator(IGameType type)
         {
-            _type = type;
+            _type = type ?? new StrategoTypeClassic();
             _terrains = new List<Terrain>(type.GetAllTerrains());
         }
 

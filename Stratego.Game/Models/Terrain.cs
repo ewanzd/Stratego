@@ -2,6 +2,8 @@
 {
     public class Terrain
     {
+        // readonly?
+
         /// <summary>
         /// Unique name of member.
         /// </summary>

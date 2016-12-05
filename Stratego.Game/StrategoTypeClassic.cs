@@ -12,13 +12,23 @@ namespace Stratego.Game
         private const int COUNTOFPLAYER = 2;
         private readonly StrategoMapGenerator _mapGenerator;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int CountOfPlayer { get { return COUNTOFPLAYER; } }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public StrategoTypeClassic()
         {
             _mapGenerator = new StrategoMapGenerator(this);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Terrain> GetAllTerrains()
         {
             return new List<Terrain>()
@@ -40,6 +50,10 @@ namespace Stratego.Game
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<UnitInfo> GetAllUnits()
         {
             return new List<UnitInfo>()
@@ -57,6 +71,10 @@ namespace Stratego.Game
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IMapGenerator GetMapGenerator()
         {
             return _mapGenerator;
