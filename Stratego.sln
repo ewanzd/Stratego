@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stratego.Core", "Stratego.Game\Stratego.Core.csproj", "{0F44F0ED-00B5-40AF-B05C-A6291C2AA3F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stratego.Core", "Stratego.Core\Stratego.Core.csproj", "{0F44F0ED-00B5-40AF-B05C-A6291C2AA3F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stratego.Data", "Stratego.Data\Stratego.Data.csproj", "{7176C21F-027E-480E-8054-CE5B6135CCE6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stratego.Service", "Stratego.Service\Stratego.Service.csproj", "{8165C116-02EB-461D-B192-20057BE7AF1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stratego.Test", "Stratego.Game.Test\Stratego.Test.csproj", "{B9214EF9-F37A-4A82-B7C2-A291E6C164CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stratego.Test", "Stratego.Test\Stratego.Test.csproj", "{B9214EF9-F37A-4A82-B7C2-A291E6C164CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stratego.AI", "Stratego.AI\Stratego.AI.csproj", "{C83FD701-7224-4CCD-A2B1-42B18EA357B1}"
 EndProject

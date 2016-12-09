@@ -49,7 +49,7 @@
       <Project>{7176c21f-027e-480e-8054-ce5b6135cce6}</Project>
       <Name>Stratego.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Stratego.Game\Stratego.Core.csproj">
+    <ProjectReference Include="..\Stratego.Core\Stratego.Core.csproj">
       <Project>{0f44f0ed-00b5-40af-b05c-a6291c2aa3f4}</Project>
       <Name>Stratego.Core</Name>
     </ProjectReference>

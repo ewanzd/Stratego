@@ -50,7 +50,7 @@
     <Folder Include="DataAccess\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Stratego.Game\Stratego.Core.csproj">
+    <ProjectReference Include="..\Stratego.Core\Stratego.Core.csproj">
       <Project>{0F44F0ED-00B5-40AF-B05C-A6291C2AA3F4}</Project>
       <Name>Stratego.Core</Name>
     </ProjectReference>
