@@ -1,8 +1,7 @@
 ﻿using Montana;
 using System.Collections.Generic;
-using System;
 
-namespace Stratego.Game
+namespace Stratego.Core
 {
     /// <summary>
     /// Default type. Contain all units and fields.
@@ -37,15 +36,15 @@ namespace Stratego.Game
                 {
                     TypeName = "TERRAIN_FIELD",
                     IsLock = false,
-                    DisplayName = "TXT_NAME_TERRAIN_FIELD",
-                    Description = "TXT_DESC_TERRAIN_FIELD"
+                    //DisplayName = "TXT_NAME_TERRAIN_FIELD",
+                    //Description = "TXT_DESC_TERRAIN_FIELD"
                 },
                 new Terrain()
                 {
                     TypeName = "TERRAIN_LAKE",
                     IsLock = true,
-                    DisplayName = "TXT_NAME_TERRAIN_LAKE",
-                    Description = "TXT_DESC_TERRAIN_LAKE"
+                    //DisplayName = "TXT_NAME_TERRAIN_LAKE",
+                    //Description = "TXT_DESC_TERRAIN_LAKE"
                 }
             };
         }
@@ -65,7 +64,7 @@ namespace Stratego.Game
                     Description = "TXT_DESC_UNIT_FLAG",
                     MaxAvailable = 1,
                     Rank = 0,
-                    SpecialUnit = SpecialUnit.Flag,
+                    SpecialUnit = SpecialSkill.Flag,
                     MoveType = MoveType.None
                 }
             };

@@ -1,4 +1,4 @@
-﻿namespace Stratego.Game
+﻿namespace Stratego.Core
 {
     /// <summary>
     /// Help to draw a board.

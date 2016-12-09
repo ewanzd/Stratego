@@ -1,6 +1,6 @@
 ﻿using Montana;
 
-namespace Stratego.Game
+namespace Stratego.Core
 {
     public class UnitInfo : IDisplay
     {
@@ -47,7 +47,7 @@ namespace Stratego.Game
         /// <summary>
         /// 
         /// </summary>
-        public SpecialUnit SpecialUnit { get; set; }
+        public SpecialSkill SpecialUnit { get; set; }
 
         /// <summary>
         /// Get type name of member.

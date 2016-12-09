@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Stratego.Game
+namespace Stratego.Core
 {
     /// <summary>
     /// Help to prepare the board. That include board creation and set pawns.

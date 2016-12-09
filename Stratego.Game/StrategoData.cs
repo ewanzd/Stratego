@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Stratego.Game
+namespace Stratego.Core
 {
     ///// <summary>
     ///// Contain all data for one instance of stratego game.

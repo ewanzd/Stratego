@@ -1,4 +1,4 @@
-﻿namespace Stratego.Game
+﻿namespace Stratego.Core
 {
     public class Field
     {

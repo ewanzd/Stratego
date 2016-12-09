@@ -1,6 +1,6 @@
 ﻿using Montana;
 
-namespace Stratego.Game
+namespace Stratego.Core
 {
     public class Combat
     {
@@ -8,11 +8,11 @@ namespace Stratego.Game
         {
             switch(defender.SpecialUnit)
             {
-                case SpecialUnit.Flag:
+                case SpecialSkill.Flag:
                     return FightFlag(attacker, defender);
-                case SpecialUnit.Bomb:
+                case SpecialSkill.Bomb:
                     return FightBomb(attacker, defender);
-                case SpecialUnit.Marshal:
+                case SpecialSkill.Marshal:
                     return FightMarshal(attacker, defender);
                 default:
                     return FightNormal(attacker, defender);
@@ -33,13 +33,13 @@ namespace Stratego.Game
 
         protected virtual FightResult FightBomb(Pawn attacker, Pawn defender)
         {
-            return (attacker.SpecialUnit == SpecialUnit.Miner) ?
+            return (attacker.SpecialUnit == SpecialSkill.Miner) ?
                 FightResult.Win : FightResult.Lose;
         }
 
         protected virtual FightResult FightMarshal(Pawn attacker, Pawn defender)
         {
-            return (defender.SpecialUnit == SpecialUnit.Marshal) ?
+            return (defender.SpecialUnit == SpecialSkill.Marshal) ?
                 FightResult.Win : FightResult.Lose;
         }
     }

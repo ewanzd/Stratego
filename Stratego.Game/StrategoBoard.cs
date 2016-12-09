@@ -1,6 +1,6 @@
 ﻿using Montana;
 
-namespace Stratego.Game
+namespace Stratego.Core
 {
     /// <summary>
     /// Define board and offer checks.

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Stratego.Game
+namespace Stratego.Core
 {
     /// <summary>
     /// Manage the access to board.
@@ -120,7 +120,7 @@ namespace Stratego.Game
                 switch(result)
                 {
                     case FightResult.Win:
-                        if (def.SpecialUnit == SpecialUnit.Flag) OnKingFailed(EventArgs.Empty);
+                        if (def.SpecialUnit == SpecialSkill.Flag) OnKingFailed(EventArgs.Empty);
                         start.Pawn = null;
                         end.Pawn = att;
                         break;

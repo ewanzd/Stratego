@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stratego.Game
+namespace Stratego.Core
 {
     public class Pawn
     {
@@ -38,7 +38,7 @@ namespace Stratego.Game
             }
         }
 
-        public SpecialUnit SpecialUnit
+        public SpecialSkill SpecialUnit
         {
             get
             {

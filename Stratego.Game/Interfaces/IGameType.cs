@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Stratego.Game
+namespace Stratego.Core
 {
     /// <summary>
     /// 
