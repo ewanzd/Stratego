@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stratego.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,12 +10,13 @@ namespace Stratego.Data.Business
     /// <summary>
     /// 
     /// </summary>
-    public class StrategoPlayer
+    public class StrategoPlayerManager
     {
         private readonly Guid _id;
         private string _name;
         private string _color;
-        // network
+        private StrategoBenchSetup _benchSetup;
+        private StrategoBenchInPlay _benchInPlay;
 
         /// <summary>
         /// 
@@ -41,12 +43,16 @@ namespace Stratego.Data.Business
         /// 
         /// </summary>
         /// <param name="id"></param>
-        public StrategoPlayer(Guid id) {
+        public StrategoPlayerManager(Guid id) {
             if (id == default(Guid)) {
                 throw new ArgumentException("Player need a Guid.", nameof(id));
             }
 
             _id = id;
+        }
+
+        public void SetUnit() {
+
         }
     }
 }

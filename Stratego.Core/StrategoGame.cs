@@ -9,6 +9,7 @@ namespace Stratego.Core
     public class StrategoGame
     {
         private readonly IGameType _type;
+        private Guid _currentPlayer;
         private readonly ReadOnlyCollection<Guid> _listOfPlayers;
 
         /// <summary>

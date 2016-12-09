@@ -13,12 +13,15 @@ namespace Stratego.Data.Business
     /// </summary>
     public class StrategoGameManager
     {
+        // Data
         private readonly Guid _gameId;
-        private StrategoGame _game;
-        private StrategoBoard _board;
         private GameState _state;
         private string _title;
-        private Collection<StrategoPlayer> _players;
+        private Collection<StrategoPlayerManager> _players;
+
+        // Move between states
+        private StrategoGame _game;
+        private StrategoBoard _board;
 
         /// <summary>
         /// 
@@ -97,7 +100,7 @@ namespace Stratego.Data.Business
             _game = null;
             _board = null;
             _state = state;
-            _players = new Collection<StrategoPlayer>();
+            _players = new Collection<StrategoPlayerManager>();
         }
 
         /// <summary>
@@ -115,7 +118,16 @@ namespace Stratego.Data.Business
         /// </summary>
         /// <param name="game"></param>
         /// <returns></returns>
-        public static StrategoGameManager Continue(Game game) {
+        public static StrategoGameManager Load(Game game) {
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns></returns>
+        public static Game Save(StrategoGameManager game) {
             return null;
         }
 
@@ -127,7 +139,7 @@ namespace Stratego.Data.Business
         public bool AddPlayer(Player player) {
             if (_players.Count >= 2) { return false; }
 
-            var sPlayer = new StrategoPlayer(player.Id) {
+            var sPlayer = new StrategoPlayerManager(player.Id) {
                 Name = player.Name
             };
             _players.Add(sPlayer);

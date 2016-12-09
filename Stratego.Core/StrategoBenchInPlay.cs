@@ -11,7 +11,7 @@ namespace Stratego.Core
     {
         private readonly List<Move> _listOfMoves;
         private readonly StrategoBoard _board;
-        protected Combat combat;
+        protected StrategoCombat combat;
 
         protected int currentPlayer; // order (0 / 1)
         protected int round;

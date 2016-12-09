@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\StrategoGameManager.cs" />
-    <Compile Include="Business\StrategoPlayer.cs" />
+    <Compile Include="Business\StrategoPlayerManager.cs" />
     <Compile Include="Business\StrategoServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Game.cs" />

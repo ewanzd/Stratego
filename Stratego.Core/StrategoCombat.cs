@@ -2,7 +2,7 @@
 
 namespace Stratego.Core
 {
-    public class Combat
+    public class StrategoCombat
     {
         public virtual FightResult Fight(Pawn attacker, Pawn defender)
         {
