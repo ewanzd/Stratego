@@ -1,4 +1,5 @@
 ﻿using Montana;
+using System.Collections.Generic;
 
 namespace Stratego.Core
 {
@@ -14,7 +15,7 @@ namespace Stratego.Core
              = new StrategoBoardGeneratorClassic();
 
         /// <summary>
-        /// 
+        /// Get count of player from classic game type.
         /// </summary>
         public int CountOfPlayer { get { return _countOfPlayer; } }
 
@@ -35,19 +36,27 @@ namespace Stratego.Core
         }
 
         /// <summary>
-        /// 
+        /// Get board generator which help to create a board.
         /// </summary>
-        /// <returns></returns>
-        public IBoardGenerator GetBoard() {
+        /// <returns>Board generator.</returns>
+        public IBoardGenerator GetBoardGenerator() {
             return _boardGenerator;
         }
 
         /// <summary>
-        /// 
+        /// Get pawn factory which help to create pawn from selected unit.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Pawn factory.</returns>
         public StrategoPawnFactory GetPawnFactory() {
             return _pawnFactory;
+        }
+
+        /// <summary>
+        /// Get all units from classic game type.
+        /// </summary>
+        /// <returns>All infos to units.</returns>
+        public List<UnitInfo> GetAllUnitInfo() {
+            return _pawnFactory.GetAllUnitInfo();
         }
     }
 }

@@ -13,16 +13,15 @@ namespace Stratego.Core
         public StrategoBoard DrawBoard() {
             var board = new StrategoBoard();
 
-            for (int i = 0; i < board.Length; i++) {
+            for (int x = 0; x < board.Length; x++) {
                 for (int y = 0; y < board.Height; y++) {
-
-                    if(_lockedFields.Find(t => t.Item1 == i && t.Item2 == y) != null) {
-                        board[i, y] = new Field() {
+                    if(_lockedFields.Find(t => t.Item1 == x && t.Item2 == y) != null) {
+                        board[x, y] = new Field() {
                             IsLocked = true,
                             Pawn = null
                         };
                     } else {
-                        board[i, y] = new Field() {
+                        board[x, y] = new Field() {
                             IsLocked = false,
                             Pawn = null
                         };

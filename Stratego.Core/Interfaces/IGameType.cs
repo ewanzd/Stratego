@@ -8,7 +8,7 @@ namespace Stratego.Core
     public interface IGameType
     {
         int CountOfPlayer { get; }
-        IBoardGenerator GetBoard();
+        IBoardGenerator GetBoardGenerator();
         StrategoPawnFactory GetPawnFactory();
     }
 }

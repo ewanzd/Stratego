@@ -24,8 +24,8 @@ namespace Stratego.Core
             }
         }
 
-        public List<string> GetAllUnitInfoIds() {
-            return _units.Keys.ToList();
+        public List<UnitInfo> GetAllUnitInfo() {
+            return _units.Values.ToList();
         }
 
         public void SetCreatePawnDel(Func<UnitInfo, Guid, Pawn> creator) {
