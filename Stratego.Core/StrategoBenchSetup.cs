@@ -5,15 +5,13 @@ using System.Collections.Generic;
 namespace Stratego.Core
 {
     /// <summary>
-    /// Help to prepare the board. That include board creation and set pawns.
+    /// A player can set his units on this board in preperation of a game.
     /// </summary>
     public class StrategoBenchSetup
     {
-        private readonly StrategoBoard _board;
         private readonly StrategoGame _game;
-
-        private readonly List<UnitInfo> _p1Units;
-        private readonly List<UnitInfo> _p2Units;
+        private readonly StrategoBoard _board;
+        //private readonly List<UnitInfo> _availableUnits;
 
         /// <summary>
         /// 
@@ -23,10 +21,13 @@ namespace Stratego.Core
         /// <summary>
         /// 
         /// </summary>
-        public bool IsReady
-        {
-            get
-            {
+        public event EventHandler PawnRemoved;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsReady {
+            get {
                 return false;
             }
         }
@@ -36,32 +37,31 @@ namespace Stratego.Core
         /// </summary>
         /// <param name="game"></param>
         /// <param name="generator"></param>
-        public StrategoBenchSetup(StrategoGame game)
-        {
-            if (game == null) throw new ArgumentNullException("game cant be null");
+        public StrategoBenchSetup(StrategoGame game, StrategoBoard board) {
+            if (game == null) { throw new ArgumentNullException(nameof(game)); }
+            if (board == null) { throw new ArgumentNullException(nameof(board)); }
 
             _game = game;
-            var mapGenerator = game.GameType.GetMapGenerator();
-            _board = mapGenerator.DrawBoard();
+            _board = board;
 
-            _p1Units = new List<UnitInfo>();
-            _p2Units = new List<UnitInfo>();
+            //_availableUnits = new List<UnitInfo>();
 
-            var units = game.GameType.GetAllUnits();
-            GenerateUnits(_p1Units, units);
-            GenerateUnits(_p2Units, units);
+            //var units = game.GameType.GetSetOfUnits();
+            //GenerateUnits(_availableUnits, units);
         }
 
-        private void GenerateUnits(List<UnitInfo> reserve, IEnumerable<UnitInfo> source)
-        {
-            foreach(var unit in source)
-            {
-                for(int i = 0; i <= unit.MaxAvailable; i++)
-                {
-                    
-                }
-            }
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="reserve"></param>
+        ///// <param name="source"></param>
+        //private void GenerateUnits(List<UnitInfo> reserve, IEnumerable<UnitInfo> source) {
+        //    foreach (var unit in source) {
+        //        for (int i = 0; i <= unit.MaxAvailable; i++) {
+
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// 
@@ -69,8 +69,7 @@ namespace Stratego.Core
         /// <param name="pawn"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public bool PlaceUnit(Guid player, UnitInfo unit, Position pos)
-        {
+        public bool PlaceUnit(Guid player, UnitInfo unit, Position pos) {
             var field = _board[pos];
 
             if (_board.HasPawn(pos))
@@ -87,27 +86,24 @@ namespace Stratego.Core
         /// </summary>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public bool RemoveUnit(Position pos)
-        {
+        public bool RemoveUnit(Position pos) {
             return false;
-        }
-
-        /// <summary>
-        /// Get board if it ready.
-        /// </summary>
-        /// <returns>Prepared board.</returns>
-        public StrategoBoard GetBoard()
-        {
-            return _board;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnPawnPlaced(EventArgs e)
-        {
+        protected virtual void OnPawnPlaced(EventArgs e) {
             PawnPlaced?.Invoke(this, e);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnPawnRemoved(EventArgs e) {
+            PawnRemoved?.Invoke(this, e);
         }
     }
 }

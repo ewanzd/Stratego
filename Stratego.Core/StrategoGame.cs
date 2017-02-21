@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 
 namespace Stratego.Core
 {
     /// <summary>
-    /// Create and manage a game.
+    /// Central data object who moved between the states ande objects.
     /// </summary>
     public class StrategoGame
     {
         private readonly IGameType _type;
-        private Guid _currentPlayer;
-        private readonly ReadOnlyCollection<Guid> _listOfPlayers;
+        private int _currentPlayerPosition;
+        private GameState _state;
 
         /// <summary>
         /// Game type from this game.
@@ -18,37 +17,63 @@ namespace Stratego.Core
         public IGameType GameType { get { return _type; } }
 
         /// <summary>
+        /// State of the game.
+        /// </summary>
+        public GameState CurrentGameState { get { return _state; } }
+
+        /// <summary>
+        /// Player, who can drag a unit.
+        /// </summary>
+        public int CurrentPlayer { get { return _currentPlayerPosition; } }
+
+        /// <summary>
+        /// Game state changed.
+        /// </summary>
+        public event EventHandler GameStateChanged;
+
+        /// <summary>
         /// Create new game with any type of game.
         /// </summary>
         /// <param name="type">Type of game.</param>
-        /// <param name="players">All players <see cref="System.Guid"/>, who participate this game.</param>
-        protected StrategoGame(IGameType type, params Guid[] players)
-        {
-            if (players.Length != type.CountOfPlayer)
-                throw new ArgumentException("Count of players are not valid.");
-
+        /// <param name="state"></param>
+        /// <param name="currentPlayer"></param>
+        protected StrategoGame(IGameType type, GameState state = GameState.Setup, int currentPlayer = 0) {
             _type = type ?? new StrategoTypeClassic();
-            _listOfPlayers = new ReadOnlyCollection<Guid>(players);
+            _currentPlayerPosition = 0;
         }
 
         /// <summary>
         /// Create a new classic stratego game with two players.
         /// </summary>
-        /// <param name="playerOne"><see cref="System.Guid"/> of player one.</param>
-        /// <param name="playerTwo"><see cref="System.Guid"/> of player two.</param>
-        /// <returns>Game of type classic.</returns>
-        public static StrategoGame CreateClassic(Guid playerOne, Guid playerTwo) 
-            => new StrategoGame(null, new Guid[] { playerOne, playerTwo });
-        
+        /// <param name="type"></param>
+        /// <returns>Game.</returns>
+        public static StrategoGame Create(IGameType type)
+            => new StrategoGame(type);
 
         /// <summary>
-        /// Get player on position X (start on 1).
+        /// Change current player to next one.
         /// </summary>
-        /// <param name="pos">The position of the player.</param>
-        /// <returns><see cref="System.Guid"/> of player.</returns>
-        public Guid GetPlayer(int pos)
-        {
-            return _listOfPlayers[pos - 1];
+        public void NextPlayer() {
+            if (CurrentGameState != GameState.InPlay) {
+                throw new InvalidOperationException($"Only possible in {GameState.InPlay.ToString()}.");
+            }
+
+            if(_currentPlayerPosition < _type.CountOfPlayer - 1) {
+                _currentPlayerPosition++;
+            } else {
+                _currentPlayerPosition = 0;
+            }
+        }
+
+        /// <summary>
+        /// Game go to the next state.
+        /// </summary>
+        public void NextState() {
+            if(_state < GameState.Finished) {
+                _state++;
+            } else {
+                throw new InvalidOperationException($"Game is already finished.");
+            }
         }
     }
 }

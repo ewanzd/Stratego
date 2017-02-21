@@ -25,15 +25,13 @@ namespace Montana
         /// </summary>
         /// <param name="x">X-coordinate.</param>
         /// <param name="y">Y-coordinate.</param>
-        public Position(int x, int y)
-        {
+        public Position(int x, int y) {
             this.x = x;
             this.y = y;
         }
 
-        public override string ToString()
-        {
-            return String.Format("({0},{1})", X, Y);
+        public override string ToString() {
+            return $"({X},{Y})";
         }
     }
 }

@@ -45,19 +45,19 @@
     <Compile Include="Enums\SpecialSkill.cs" />
     <Compile Include="Interfaces\IGameType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Interfaces\IMapGenerator.cs" />
+    <Compile Include="Interfaces\IBoardGenerator.cs" />
     <Compile Include="StrategoBenchInPlay.cs" />
     <Compile Include="StrategoCombat.cs" />
     <Compile Include="Enums\GameState.cs" />
-    <Compile Include="Models\Terrain.cs" />
     <Compile Include="Data\Pawn.cs" />
     <Compile Include="Data\Field.cs" />
     <Compile Include="StrategoBenchSetup.cs" />
     <Compile Include="StrategoBoard.cs" />
-    <Compile Include="StrategoMapGenerator.cs" />
+    <Compile Include="StrategoBoardGeneratorClassic.cs" />
     <Compile Include="StrategoGame.cs" />
     <Compile Include="Models\UnitInfo.cs" />
     <Compile Include="StrategoData.cs" />
+    <Compile Include="StrategoPawnFactory.cs" />
     <Compile Include="StrategoTypeClassic.cs" />
   </ItemGroup>
   <ItemGroup />

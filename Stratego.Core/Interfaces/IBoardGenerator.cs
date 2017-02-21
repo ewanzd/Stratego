@@ -3,7 +3,7 @@
     /// <summary>
     /// Help to draw a board.
     /// </summary>
-    public interface IMapGenerator
+    public interface IBoardGenerator
     {
         StrategoBoard DrawBoard();
     }

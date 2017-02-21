@@ -4,11 +4,6 @@ namespace Stratego.Core
 {
     public class UnitInfo : IDisplay
     {
-        ///// <summary>
-        ///// Id of member.
-        ///// </summary>
-        //public int Id { get; set; }
-
         /// <summary>
         /// Unique name of member.
         /// </summary>
@@ -47,7 +42,7 @@ namespace Stratego.Core
         /// <summary>
         /// 
         /// </summary>
-        public SpecialSkill SpecialUnit { get; set; }
+        public SpecialSkill SpecialSkill { get; set; }
 
         /// <summary>
         /// Get type name of member.

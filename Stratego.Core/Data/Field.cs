@@ -2,21 +2,21 @@
 {
     public class Field
     {
-        private Terrain _terrain;
+        private bool _isLocked;
         private Pawn _pawn;
 
         /// <summary>
-        /// Terrain on this field.
+        /// Field is locked.
         /// </summary>
-        public Terrain Terrain
+        public bool IsLocked
         {
             get
             {
-                return _terrain;
+                return _isLocked;
             }
             set
             {
-                _terrain = value;
+                _isLocked = value;
             }
         }
 

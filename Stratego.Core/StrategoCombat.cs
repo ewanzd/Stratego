@@ -6,7 +6,7 @@ namespace Stratego.Core
     {
         public virtual FightResult Fight(Pawn attacker, Pawn defender)
         {
-            switch(defender.SpecialUnit)
+            switch(defender.SpecialSkill)
             {
                 case SpecialSkill.Flag:
                     return FightFlag(attacker, defender);
@@ -33,13 +33,13 @@ namespace Stratego.Core
 
         protected virtual FightResult FightBomb(Pawn attacker, Pawn defender)
         {
-            return (attacker.SpecialUnit == SpecialSkill.Miner) ?
+            return (attacker.SpecialSkill == SpecialSkill.Miner) ?
                 FightResult.Win : FightResult.Lose;
         }
 
         protected virtual FightResult FightMarshal(Pawn attacker, Pawn defender)
         {
-            return (defender.SpecialUnit == SpecialSkill.Marshal) ?
+            return (defender.SpecialSkill == SpecialSkill.Marshal) ?
                 FightResult.Win : FightResult.Lose;
         }
     }

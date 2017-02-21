@@ -1,10 +1,7 @@
 ﻿using Stratego.Core;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stratego.Data.Business
 {
@@ -15,7 +12,6 @@ namespace Stratego.Data.Business
     {
         // Data
         private readonly Guid _gameId;
-        private GameState _state;
         private string _title;
         private Collection<StrategoPlayerManager> _players;
 
@@ -83,7 +79,7 @@ namespace Stratego.Data.Business
         /// </summary>
         public bool IsFinished {
             get {
-                if (_state == GameState.Finished) {
+                if (_game.CurrentGameState == GameState.Finished) {
                     return true;
                 } else {
                     return false;
@@ -94,12 +90,10 @@ namespace Stratego.Data.Business
         /// <summary>
         /// 
         /// </summary>
-        protected StrategoGameManager(Guid gameId, GameState state = GameState.Setup) {
+        protected StrategoGameManager(Guid gameId) {
             _title = string.Empty;
             _gameId = gameId;
             _game = null;
-            _board = null;
-            _state = state;
             _players = new Collection<StrategoPlayerManager>();
         }
 

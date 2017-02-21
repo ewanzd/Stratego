@@ -18,7 +18,7 @@ namespace Stratego.Test
 
         [TestInitialize]
         public void Init() {
-            board = new StrategoBoard();
+            board = new StrategoBoardGeneratorClassic().DrawBoard();
         }
     }
 }

@@ -15,39 +15,31 @@ namespace Stratego.Core
 
         private string _name;
 
-        public string Name
-        {
-            get
-            {
+        public string Name {
+            get {
                 var type = UnitType;
                 var name = _name;
 
                 return !String.IsNullOrWhiteSpace(name) ? name : UnitType.Type;
             }
-            set
-            {
+            set {
                 _name = value;
             }
         }
 
-        public int Power
-        {
-            get
-            {
+        public int Power {
+            get {
                 return UnitType.Rank;
             }
         }
 
-        public SpecialSkill SpecialUnit
-        {
-            get
-            {
-                return UnitType.SpecialUnit;
+        public SpecialSkill SpecialSkill {
+            get {
+                return UnitType.SpecialSkill;
             }
         }
 
-        public Pawn(UnitInfo type, Guid playerId, string name = "")
-        {
+        public Pawn(UnitInfo type, Guid playerId, string name = "") {
             //if (type == default(Unit))
             //    throw new ArgumentNullException("type");
 

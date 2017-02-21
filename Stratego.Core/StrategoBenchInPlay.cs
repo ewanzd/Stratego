@@ -16,8 +16,6 @@ namespace Stratego.Core
         protected int currentPlayer; // order (0 / 1)
         protected int round;
 
-        protected object sync = new object();
-
         /// <summary>
         /// Contain list with all past moved in this game.
         /// </summary>
@@ -41,18 +39,13 @@ namespace Stratego.Core
         /// <summary>
         /// 
         /// </summary>
-        public event EventHandler NextPhase;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="game"></param>
         /// <param name="prep"></param>
-        public StrategoBenchInPlay(StrategoGame game, StrategoBenchSetup prep) 
+        public StrategoBenchInPlay(StrategoGame game, StrategoBenchSetup prepPlayerOne, StrategoBenchSetup prepPlayerTwo) 
         {
             // check input
             if (game == null) throw new ArgumentNullException(nameof(game));
-            if (prep == null) throw new ArgumentNullException(nameof(prep));
+            if (prepPlayerOne == null) throw new ArgumentNullException(nameof(prepPlayerOne));
 
             // initialize data
             round = 0;
@@ -60,7 +53,7 @@ namespace Stratego.Core
 
             // manage args
             //game.RegisterBench(this);
-            _board = prep.GetBoard();
+            //_board = prep.GetBoard();
         }
 
         /// <summary>
@@ -87,49 +80,44 @@ namespace Stratego.Core
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <returns></returns>
-        public virtual bool MakeMove(Position from, Position to)
-        {
-            lock (sync)
-            {
-                // Get fields
-                var start = _board[from.X, from.Y];
-                var end = _board[to.X, to.Y];
+        public virtual bool MakeMove(Position from, Position to) {
+            // Get fields
+            var start = _board[from.X, from.Y];
+            var end = _board[to.X, to.Y];
 
-                // Can't move the pawn
-                if (start.Pawn == null)
-                    return false;
-                if (!CanMove(from, to))
-                    return false;
+            // Can't move the pawn
+            if (start.Pawn == null)
+                return false;
+            if (!CanMove(from, to))
+                return false;
 
-                // Move the pawn
-                if (end.Pawn == null)
-                {
-                    var pawn = start.Pawn;
+            // Move the pawn
+            if (end.Pawn == null) {
+                var pawn = start.Pawn;
+                start.Pawn = null;
+                end.Pawn = pawn;
+                var eventArgs = new MoveEventArgs(new Move(from, to));
+                OnPawnMoved(eventArgs);
+                return true;
+            }
+
+            // Fight
+            var att = start.Pawn;
+            var def = end.Pawn;
+            var result = combat.Fight(att, def);
+
+            switch (result) {
+                case FightResult.Win:
+                    if (def.SpecialSkill == SpecialSkill.Flag)
+                        OnKingFailed(EventArgs.Empty);
                     start.Pawn = null;
-                    end.Pawn = pawn;
-                    var eventArgs = new MoveEventArgs(new Move(from, to));
-                    OnPawnMoved(eventArgs);
-                    return true;
-                }
+                    end.Pawn = att;
+                    break;
+                case FightResult.Lose:
 
-                // Fight
-                var att = start.Pawn;
-                var def = end.Pawn;
-                var result = combat.Fight(att, def);
-
-                switch(result)
-                {
-                    case FightResult.Win:
-                        if (def.SpecialUnit == SpecialSkill.Flag) OnKingFailed(EventArgs.Empty);
-                        start.Pawn = null;
-                        end.Pawn = att;
-                        break;
-                    case FightResult.Lose:
-
-                        break;
-                    case FightResult.Draw:
-                        break;
-                }
+                    break;
+                case FightResult.Draw:
+                    break;
             }
 
             return false;
