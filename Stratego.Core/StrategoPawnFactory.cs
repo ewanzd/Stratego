@@ -7,12 +7,11 @@ namespace Stratego.Core
     public class StrategoPawnFactory
     {
         private readonly Dictionary<string, UnitInfo> _units = new Dictionary<string, UnitInfo>();
-        private Func<UnitInfo, Guid, Pawn> _createPawn = (unit, id) => new Pawn(unit, id);
 
         public Pawn Create(string id, Guid playerId) {
             UnitInfo unit = null;
             if (_units.TryGetValue(id, out unit)) {
-                return _createPawn(unit, playerId);
+                return new Pawn(unit, playerId);
             }
 
             throw new ArgumentException("No type registered for this id");
@@ -26,10 +25,6 @@ namespace Stratego.Core
 
         public List<UnitInfo> GetAllUnitInfo() {
             return _units.Values.ToList();
-        }
-
-        public void SetCreatePawnDel(Func<UnitInfo, Guid, Pawn> creator) {
-            _createPawn = creator;
         }
     }
 }

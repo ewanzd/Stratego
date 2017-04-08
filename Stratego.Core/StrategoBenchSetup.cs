@@ -11,7 +11,7 @@ namespace Stratego.Core
     {
         private readonly StrategoGame _game;
         private readonly StrategoBoard _board;
-        //private readonly List<UnitInfo> _availableUnits;
+        private readonly StrategoPawnFactory _factory;
 
         /// <summary>
         /// 
@@ -43,25 +43,8 @@ namespace Stratego.Core
 
             _game = game;
             _board = board;
-
-            //_availableUnits = new List<UnitInfo>();
-
-            //var units = game.GameType.GetSetOfUnits();
-            //GenerateUnits(_availableUnits, units);
+            _factory = _game.GameType.GetPawnFactory();
         }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="reserve"></param>
-        ///// <param name="source"></param>
-        //private void GenerateUnits(List<UnitInfo> reserve, IEnumerable<UnitInfo> source) {
-        //    foreach (var unit in source) {
-        //        for (int i = 0; i <= unit.MaxAvailable; i++) {
-
-        //        }
-        //    }
-        //}
 
         /// <summary>
         /// 

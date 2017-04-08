@@ -3,7 +3,7 @@
 namespace Stratego.Core
 {
     /// <summary>
-    /// Central data object who moved between the states ande objects.
+    /// Central data object who moved between the states and objects.
     /// </summary>
     public class StrategoGame
     {
@@ -72,7 +72,7 @@ namespace Stratego.Core
             if(_state < GameState.Finished) {
                 _state++;
             } else {
-                throw new InvalidOperationException($"Game is already finished.");
+                throw new InvalidOperationException("Game is already finished.");
             }
         }
     }

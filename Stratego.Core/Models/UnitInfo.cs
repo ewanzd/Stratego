@@ -25,11 +25,6 @@ namespace Stratego.Core
         public int Rank { get; set; }
 
         /// <summary>
-        /// Value of unit for AI.
-        /// </summary>
-        public int Value { get; set; }
-
-        /// <summary>
         /// Max count to place.
         /// </summary>
         public int MaxAvailable { get; set; }

@@ -9,17 +9,10 @@ namespace Stratego.Core
     /// </summary>
     public class StrategoBenchInPlay
     {
-        private readonly List<Move> _listOfMoves;
         private readonly StrategoBoard _board;
         protected StrategoCombat combat;
 
         protected int currentPlayer; // order (0 / 1)
-        protected int round;
-
-        /// <summary>
-        /// Contain list with all past moved in this game.
-        /// </summary>
-        public List<Move> ListOfMoves { get { return _listOfMoves; } }
 
         /// <summary>
         /// 
@@ -41,19 +34,12 @@ namespace Stratego.Core
         /// </summary>
         /// <param name="game"></param>
         /// <param name="prep"></param>
-        public StrategoBenchInPlay(StrategoGame game, StrategoBenchSetup prepPlayerOne, StrategoBenchSetup prepPlayerTwo) 
-        {
+        public StrategoBenchInPlay(StrategoGame game, StrategoBenchSetup prepPlayerOne, StrategoBenchSetup prepPlayerTwo) {
             // check input
-            if (game == null) throw new ArgumentNullException(nameof(game));
-            if (prepPlayerOne == null) throw new ArgumentNullException(nameof(prepPlayerOne));
-
-            // initialize data
-            round = 0;
-            _listOfMoves = new List<Move>();
-
-            // manage args
-            //game.RegisterBench(this);
-            //_board = prep.GetBoard();
+            if (game == null)
+                throw new ArgumentNullException(nameof(game));
+            if (prepPlayerOne == null)
+                throw new ArgumentNullException(nameof(prepPlayerOne));
         }
 
         /// <summary>
@@ -62,8 +48,7 @@ namespace Stratego.Core
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <returns></returns>
-        public bool CanMove(Position from, Position to)
-        {
+        public bool CanMove(Position from, Position to) {
             return false;
         }
 
@@ -127,8 +112,7 @@ namespace Stratego.Core
         /// 
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnPawnMoved(MoveEventArgs e)
-        {
+        protected virtual void OnPawnMoved(MoveEventArgs e) {
             PawnMoved?.Invoke(this, e);
         }
 
@@ -136,8 +120,7 @@ namespace Stratego.Core
         /// 
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnFight(FightEventArgs e)
-        {
+        protected virtual void OnFight(FightEventArgs e) {
             Fighted?.Invoke(this, e);
         }
 
@@ -145,8 +128,7 @@ namespace Stratego.Core
         /// 
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnKingFailed(EventArgs e)
-        {
+        protected virtual void OnKingFailed(EventArgs e) {
             KingFailed?.Invoke(this, e);
         }
     }

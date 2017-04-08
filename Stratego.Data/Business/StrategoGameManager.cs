@@ -103,8 +103,7 @@ namespace Stratego.Data.Business
         /// <returns></returns>
         public static StrategoGameManager New() {
             var id = Guid.NewGuid();
-            var game = new StrategoGameManager(id);
-            return game;
+            return new StrategoGameManager(id);
         }
 
         /// <summary>
