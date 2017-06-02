@@ -2,7 +2,6 @@
 
 namespace Stratego.Data
 {
-    [Serializable]
     public class Game
     {
         public Guid Id;

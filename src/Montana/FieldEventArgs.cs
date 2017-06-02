@@ -17,8 +17,7 @@ namespace Montana
         /// <param name="pos">Position of field.</param>
         /// <param name="oldValue">Old field.</param>
         /// <param name="newValue">New field.</param>
-        public FieldEventArgs(Position pos, T oldValue, T newValue)
-        {
+        public FieldEventArgs(Position pos, T oldValue, T newValue) {
             this.oldValue = oldValue;
             this.newValue = newValue;
             this.pos = pos;

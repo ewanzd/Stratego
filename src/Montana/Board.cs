@@ -15,14 +15,11 @@ namespace Montana
         /// <param name="y">Vertical position in <see cref="Stratego.Game.Board{T}"/>.</param>
         /// <returns>Return field in target position.</returns>
         /// <exception cref="IndexOutOfRangeException">Position is out of range.</exception>
-        public T this[int x, int y]
-        {
-            get
-            {
+        public T this[int x, int y] {
+            get {
                 return base[x, y];
             }
-            set
-            {
+            set {
                 var newValue = value;
                 var oldValue = base[x, y];
 
@@ -39,14 +36,11 @@ namespace Montana
         /// <param name="position">Position in board.</param>
         /// <returns>Return field in target position.</returns>
         /// <exception cref="IndexOutOfRangeException">Position is out of range.</exception>
-        public T this[Position position]
-        {
-            get
-            {
+        public T this[Position position] {
+            get {
                 return this[position.X, position.Y];
             }
-            set
-            {
+            set {
                 this[position.X, position.Y] = value;
             }
         }
@@ -59,22 +53,18 @@ namespace Montana
         /// <summary>
         /// Get length of <see cref="Stratego.Game.Board{T}"/>.
         /// </summary>
-        public int Length
-        {
-            get
-            {
-                return GetLength(1);
+        public int Width {
+            get {
+                return GetLength(0);
             }
         }
 
         /// <summary>
         /// Get height of <see cref="Stratego.Game.Board{T}"/>.
         /// </summary>
-        public int Height
-        {
-            get
-            {
-                return GetLength(2);
+        public int Height {
+            get {
+                return GetLength(1);
             }
         }
 
@@ -84,17 +74,15 @@ namespace Montana
         /// <param name="length">Length of <see cref="Stratego.Game.Board{T}"/>.</param>
         /// <param name="height">Height of <see cref="Stratego.Game.Board{T}"/>.</param>
         public Board(int length, int height)
-            : base(length, height)
-        {
-            
+            : base(length, height) {
+
         }
 
         /// <summary>
         /// Fire <see cref="Stratego.Game.Board{T}.FieldChanged"/>.
         /// </summary>
         /// <param name="e">Event args with changed data.</param>
-        protected void OnFieldChanged(FieldEventArgs<T> e)
-        {
+        protected void OnFieldChanged(FieldEventArgs<T> e) {
             FieldChanged?.Invoke(this, e);
         }
     }

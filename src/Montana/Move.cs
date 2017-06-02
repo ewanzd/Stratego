@@ -5,7 +5,6 @@ namespace Montana
     /// <summary>
     /// Save source and destination position.
     /// </summary>
-    [Serializable]
     public class Move
     {
         private readonly Position from;
@@ -26,8 +25,7 @@ namespace Montana
         /// </summary>
         /// <param name="from">Source position.</param>
         /// <param name="to">Destination position.</param>
-        public Move(Position from, Position to)
-        {
+        public Move(Position from, Position to) {
             this.from = from;
             this.to = to;
         }

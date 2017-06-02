@@ -5,7 +5,6 @@ namespace Montana
     /// <summary>
     /// Immutable position with x and y coordinates.
     /// </summary>
-    [Serializable]
     public class Position
     {
         private readonly int x, y;

@@ -1,9 +1,5 @@
-﻿using Stratego.Game;
+﻿using Stratego.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stratego.AI
 {
@@ -20,8 +16,6 @@ namespace Stratego.AI
 
             this.game = game;
             AiId = Guid.NewGuid();
-
-            game.AddPlayer(AiId);
         }
     }
 }
