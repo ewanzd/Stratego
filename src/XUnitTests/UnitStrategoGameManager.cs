@@ -1,19 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Stratego.Data;
+﻿using Stratego.Data;
 using Stratego.Data.Business;
 using System;
+using Xunit;
 
 namespace Stratego.Test
 {
     /// <summary>
     /// Test <see cref="Stratego.Core.Test.StrategoGameManager"/>.
     /// </summary>
-    [TestClass]
     public class UnitStrategoGameManager
     {
         StrategoGameManager game;
 
-        [TestInitialize]
         public void Init() {
             game = StrategoGameManager.New();
         }
@@ -21,9 +19,9 @@ namespace Stratego.Test
         /// <summary>
         /// Test whether push a event if set new title.
         /// </summary>
-        [TestMethod]
-        public void TestSetTitle() {
-            game.TitleChanged += (obj, e) => { Assert.IsTrue(true); };
+        [Fact]
+        public void SetTitleTest() {
+            game.TitleChanged += (obj, e) => { Assert.True(true); };
 
             game.Title = "Test Game";
         }
@@ -31,8 +29,8 @@ namespace Stratego.Test
         /// <summary>
         /// Test if the game is ready after set players.
         /// </summary>
-        [TestMethod]
-        public void TestAddPlayers() {
+        [Fact]
+        public void AddPlayersTest() {
             var playerOne = new Player() {
                 Id = Guid.NewGuid(),
                 Name = "PlayerOne"
@@ -42,9 +40,9 @@ namespace Stratego.Test
                 Name = "PlayerTwo"
             };
 
-            Assert.IsTrue(game.AddPlayer(playerOne));
-            Assert.IsTrue(game.AddPlayer(playerTwo));
-            Assert.IsTrue(game.IsReadyToPrep);
+            Assert.True(game.AddPlayer(playerOne));
+            Assert.True(game.AddPlayer(playerTwo));
+            Assert.True(game.IsReadyToPrep);
         }
     }
 }
