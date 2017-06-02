@@ -7,6 +7,9 @@ namespace Stratego.Core
     /// </summary>
     public class StrategoGame
     {
+        // Game data
+        private Field[,] _board;
+
         private readonly IGameType _type;
         private int _currentPlayerPosition;
         private GameState _state;
@@ -37,7 +40,7 @@ namespace Stratego.Core
         /// <param name="type">Type of game.</param>
         /// <param name="state"></param>
         /// <param name="currentPlayer"></param>
-        protected StrategoGame(IGameType type, GameState state = GameState.Setup, int currentPlayer = 0) {
+        protected StrategoGame(IGameType type, GameState state = GameState.New, int currentPlayer = 0) {
             _type = type ?? new StrategoTypeClassic();
             _currentPlayerPosition = 0;
         }
@@ -54,8 +57,8 @@ namespace Stratego.Core
         /// Change current player to next one.
         /// </summary>
         public void NextPlayer() {
-            if (CurrentGameState != GameState.InPlay) {
-                throw new InvalidOperationException($"Only possible in {GameState.InPlay.ToString()}.");
+            if (CurrentGameState != GameState.Running) {
+                throw new InvalidOperationException($"Only possible in {GameState.Running.ToString()}.");
             }
 
             if(_currentPlayerPosition < _type.CountOfPlayer - 1) {
@@ -69,7 +72,7 @@ namespace Stratego.Core
         /// Game go to the next state.
         /// </summary>
         public void NextState() {
-            if(_state < GameState.Finished) {
+            if(_state < GameState.Closed) {
                 _state++;
             } else {
                 throw new InvalidOperationException("Game is already finished.");

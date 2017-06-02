@@ -79,7 +79,7 @@ namespace Stratego.Data.Business
         /// </summary>
         public bool IsFinished {
             get {
-                if (_game.CurrentGameState == GameState.Finished) {
+                if (_game.CurrentGameState == GameState.Closed) {
                     return true;
                 } else {
                     return false;

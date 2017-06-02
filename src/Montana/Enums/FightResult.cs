@@ -2,8 +2,9 @@
 {
     public enum FightResult
     {
-        Draw = 0,
-        Win  = 1,
-        Lose = 2
+        None    = 0,
+        Win     = 1,
+        Lose    = 2,
+        Draw    = 3
     }
 }

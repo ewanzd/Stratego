@@ -4,20 +4,32 @@ using System.Collections.Generic;
 
 namespace Stratego.Core
 {
+    internal interface Bench
+    {
+        event EventHandler KingFailed;
+        event EventHandler<MoveEventArgs> Moved;
+
+        void Move(Position from, Position to);
+        bool TryMove(Position from, Position to);
+        void Back();
+        Position[] GetPossibleMoves(Position pos);
+    }
+
     /// <summary>
     /// Manage the access to board.
     /// </summary>
-    public class StrategoBenchInPlay
+    public class StrategoBenchInPlay : Bench
     {
-        private readonly StrategoBoard _board;
+        private Field[,] _board;
         protected StrategoCombat combat;
 
         protected int currentPlayer; // order (0 / 1)
+        private Stack<Move> _listOfMoves;
 
         /// <summary>
         /// 
         /// </summary>
-        public event EventHandler<MoveEventArgs> PawnMoved;
+        public event EventHandler<MoveEventArgs> Moved;
 
         /// <summary>
         /// 
@@ -81,8 +93,8 @@ namespace Stratego.Core
                 var pawn = start.Pawn;
                 start.Pawn = null;
                 end.Pawn = pawn;
-                var eventArgs = new MoveEventArgs(new Move(from, to));
-                OnPawnMoved(eventArgs);
+                var eventArgs = new MoveEventArgs(new Move(from, to, pawn));
+                OnMoved(eventArgs);
                 return true;
             }
 
@@ -112,8 +124,8 @@ namespace Stratego.Core
         /// 
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnPawnMoved(MoveEventArgs e) {
-            PawnMoved?.Invoke(this, e);
+        protected virtual void OnMoved(MoveEventArgs e) {
+            Moved?.Invoke(this, e);
         }
 
         /// <summary>
@@ -131,10 +143,26 @@ namespace Stratego.Core
         protected virtual void OnKingFailed(EventArgs e) {
             KingFailed?.Invoke(this, e);
         }
+
+        public void Move(Position from, Position to) {
+            throw new NotImplementedException();
+        }
+
+        public bool TryMove(Position from, Position to) {
+            throw new NotImplementedException();
+        }
+
+        public Position[] GetPossibleMoves(Position pos) {
+            throw new NotImplementedException();
+        }
+
+        public void Back() {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>
-    /// A pawn move from <see cref="Position"/> to <see cref="Position"/>.
+    /// Save a move of a pawn and when he fight, then it save the result.
     /// </summary>
     public class MoveEventArgs : EventArgs
     {
