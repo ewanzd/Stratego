@@ -1,20 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{50823708-238E-4C88-A8E2-ACA183CE7820}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{47A870AA-E826-4C5C-BBB9-FBB79B327319}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Stratego", "src\Stratego\Stratego.xproj", "{BD32B0F7-C459-48FC-9606-3726AF1D5341}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stratego", "src\Stratego\Stratego.csproj", "{BD32B0F7-C459-48FC-9606-3726AF1D5341}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Montana", "src\Montana\Montana.xproj", "{ADA46847-221B-4AF2-B50B-E2FEF519A978}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Montana", "src\Montana\Montana.csproj", "{ADA46847-221B-4AF2-B50B-E2FEF519A978}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "XUnitTests", "src\XUnitTests\XUnitTests.xproj", "{C6C77FB7-921E-4D87-B608-06AA3C3FA4B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTests", "src\XUnitTests\XUnitTests.csproj", "{C6C77FB7-921E-4D87-B608-06AA3C3FA4B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

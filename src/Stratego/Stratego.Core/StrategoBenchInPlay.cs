@@ -6,13 +6,12 @@ namespace Stratego.Core
 {
     internal interface Bench
     {
-        event EventHandler KingFailed;
         event EventHandler<MoveEventArgs> Moved;
 
-        void Move(Position from, Position to);
-        bool TryMove(Position from, Position to);
-        void Back();
-        Position[] GetPossibleMoves(Position pos);
+        void Move(Pawn pawn, Position to);
+        Move Back();
+
+        List<Position> GetPossibleMoves(Pawn pawn);
     }
 
     /// <summary>
@@ -20,7 +19,7 @@ namespace Stratego.Core
     /// </summary>
     public class StrategoBenchInPlay : Bench
     {
-        private Field[,] _board;
+        protected StrategoBoard _board;
         protected StrategoCombat combat;
 
         protected int currentPlayer; // order (0 / 1)
@@ -30,16 +29,6 @@ namespace Stratego.Core
         /// 
         /// </summary>
         public event EventHandler<MoveEventArgs> Moved;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public event EventHandler<FightEventArgs> Fighted;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public event EventHandler KingFailed;
 
         /// <summary>
         /// 
@@ -60,17 +49,18 @@ namespace Stratego.Core
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <returns></returns>
-        public bool CanMove(Position from, Position to) {
+        protected bool CanMove(Position from, Position to) {
             return false;
         }
 
+        /*
         /// <summary>
         /// 
         /// </summary>
         /// <param name="move"></param>
         /// <returns></returns>
         public bool MakeMove(Move move) => MakeMove(move.From, move.To);
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -105,8 +95,7 @@ namespace Stratego.Core
 
             switch (result) {
                 case FightResult.Win:
-                    if (def.SpecialSkill == SpecialSkill.Flag)
-                        OnKingFailed(EventArgs.Empty);
+                    
                     start.Pawn = null;
                     end.Pawn = att;
                     break;
@@ -118,7 +107,7 @@ namespace Stratego.Core
             }
 
             return false;
-        }
+        }*/
 
         /// <summary>
         /// 
@@ -128,35 +117,64 @@ namespace Stratego.Core
             Moved?.Invoke(this, e);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected virtual void OnFight(FightEventArgs e) {
-            Fighted?.Invoke(this, e);
+        public void Move(Pawn pawn, Position to) {
+            if (pawn == null) throw new ArgumentNullException(nameof(pawn));
+            if (pawn.Position == null) throw new ArgumentException("Pawn must has a position.");
+            if (to == null) throw new ArgumentNullException(nameof(to));
+
+            var from = pawn.Position;
+            if (from.CompareTo(to) == 0) return;
+
+            if(GetPossibleMoves(pawn).Find(p => p.CompareTo(to) == 0) != null) {
+                throw new ArgumentException("Move isn't possible.");
+            }
+
+            var f = _board[from.X, from.Y];
+            var t = _board[to.X, to.Y];
+
+            // move
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected virtual void OnKingFailed(EventArgs e) {
-            KingFailed?.Invoke(this, e);
+        public List<Position> GetPossibleMoves(Pawn pawn) {
+            if (pawn == null) throw new ArgumentNullException(nameof(pawn));
+            if (pawn.Position == null) throw new ArgumentException("Pawn must has a position.");
+
+            var pos = pawn.Position;
+            var moveType = pawn.UnitType.MoveType;
+            var maxRange = pawn.UnitType.MaxRange;
+            var possiblePos = new List<Position>();
+            
+            if (moveType.Is(MoveType.None) || maxRange == 0) return possiblePos;
+
+            Action<int, int> way = (stepX, stepY) => {
+                int currentRange = 1, x = pos.X + stepX, y = pos.Y + stepY;
+                while (currentRange <= maxRange && x >= 0 && x < _board.Width && y >= 0 && y < _board.Height && 
+                !_board[x, y].IsLocked && _board[x, y].Pawn != null) {
+                    possiblePos.Add(new Position(x, y));
+
+                    currentRange++;
+                    x += stepX;
+                    y += stepY;
+                }
+            };
+
+            if(moveType.Has(MoveType.Cross)) {
+                way(1, 0);
+                way(-1, 0);
+                way(0, 1);
+                way(0, -1);
+            }
+            if(moveType.Has(MoveType.Diagonal)) {
+                way(1, 1);
+                way(-1, 1);
+                way(1, -1);
+                way(-1, -1);
+            }
+
+            return possiblePos;
         }
 
-        public void Move(Position from, Position to) {
-            throw new NotImplementedException();
-        }
-
-        public bool TryMove(Position from, Position to) {
-            throw new NotImplementedException();
-        }
-
-        public Position[] GetPossibleMoves(Position pos) {
-            throw new NotImplementedException();
-        }
-
-        public void Back() {
+        public Move Back() {
             throw new NotImplementedException();
         }
     }
@@ -172,8 +190,7 @@ namespace Stratego.Core
         /// 
         /// </summary>
         /// <param name="move"></param>
-        public MoveEventArgs(Move move)
-        {
+        public MoveEventArgs(Move move) {
             this.move = move;
         }
 
@@ -181,53 +198,5 @@ namespace Stratego.Core
         /// 
         /// </summary>
         public Move Move { get { return move; } }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class FightEventArgs : EventArgs
-    {
-        private readonly Position from, to;
-        private readonly Pawn att, def;
-        private readonly FightResult result;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="att"></param>
-        /// <param name="def"></param>
-        /// <param name="result"></param>
-        public FightEventArgs(Position from, Position to, Pawn att, Pawn def, FightResult result)
-        {
-            this.from = from; this.to = to; this.att = att; this.def = def; this.result = result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Position From { get { return from; } }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Position To { get { return to; } }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Pawn Att { get { return att; } }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Pawn Def { get { return def; } }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public FightResult Result { get { return result; } }
     }
 }

@@ -5,7 +5,7 @@ namespace Montana
     /// <summary>
     /// Immutable position with x and y coordinates.
     /// </summary>
-    public class Position
+    public class Position : IComparable<Position>
     {
         private readonly int x, y;
 
@@ -31,6 +31,17 @@ namespace Montana
 
         public override string ToString() {
             return $"({X},{Y})";
+        }
+
+        /// <summary>
+        /// Compare X first. Nord and east is bigger than south and west.
+        /// </summary>
+        /// <param name="other">Position to compare.</param>
+        /// <returns>Result of compare.</returns>
+        public int CompareTo(Position other) {
+            if (other == null) return 1;
+            if (X == other.X) return Y.CompareTo(other.Y);
+            return X.CompareTo(other.X);
         }
     }
 }

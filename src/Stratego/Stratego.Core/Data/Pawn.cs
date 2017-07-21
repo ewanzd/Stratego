@@ -1,17 +1,18 @@
 ﻿using Montana;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stratego.Core
 {
     public class Pawn
     {
-        protected UnitInfo UnitType { get; }
+        public UnitInfo UnitType { get; }
 
         public Guid Player { get; }
+
+        /// <summary>
+        /// For simple access to position of this pawn.
+        /// </summary>
+        public Position Position { get; internal set; }
 
         private string _name;
 

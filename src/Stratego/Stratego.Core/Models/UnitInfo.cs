@@ -35,7 +35,12 @@ namespace Stratego.Core
         public MoveType MoveType { get; set; }
 
         /// <summary>
-        /// 
+        /// Get max range.
+        /// </summary>
+        public int MaxRange { get; set; }
+
+        /// <summary>
+        /// Get special skill.
         /// </summary>
         public SpecialSkill SpecialSkill { get; set; }
 

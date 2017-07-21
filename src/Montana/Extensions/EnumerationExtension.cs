@@ -30,7 +30,7 @@ namespace Montana
         /// <typeparam name="T">The type of <see cref="System.Enum"/>.</typeparam>
         /// <param name="type">Type <see cref="System.Enum"/>.</param>
         /// <param name="value">The value for equal.</param>
-        /// <returns>Return is euqal.</returns>
+        /// <returns>Return is equal.</returns>
         public static bool Is<T>(this Enum type, T value) {
             try {
                 return (int)(object)type == (int)(object)value;

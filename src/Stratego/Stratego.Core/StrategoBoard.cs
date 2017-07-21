@@ -5,13 +5,32 @@ namespace Stratego.Core
     /// <summary>
     /// Define board and offer checks.
     /// </summary>
-    public class StrategoBoard : Board<Field>
+    public class StrategoBoard
     {
+        private readonly Field[,] _board;
+        
+        public int Width { get; }
+        public int Height { get; }
+
+        /// <summary>
+        /// Access to a field with x and y coordinates.
+        /// </summary>
+        /// <param name="x">x-coordinate.</param>
+        /// <param name="y">y-coordinate.</param>
+        /// <returns>Field from this coordinates.</returns>
+        public Field this[int x, int y] {
+            get {
+                return _board[x, y];
+            }
+            set {
+                _board[x, y] = value;
+            }
+        }
+
         /// <summary>
         /// Create uninitialize board with 10x10 fields.
         /// </summary>
-        public StrategoBoard() : this(10, 10)
-        {
+        public StrategoBoard() : this(10, 10) {
 
         }
 
@@ -20,20 +39,11 @@ namespace Stratego.Core
         /// </summary>
         /// <param name="width">Width of board.</param>
         /// <param name="height">Height of board.</param>
-        public StrategoBoard(int width, int height) : base(width, height)
-        {
-            
-        }
+        public StrategoBoard(int width, int height) {
+            Width = width;
+            Height = height;
 
-        /// <summary>
-        /// Check the field have a pawn.
-        /// </summary>
-        /// <param name="pos">Position of field to check.</param>
-        /// <returns>Return <c>true</c> if have a pawn.</returns>
-        public bool HasPawn(Position pos)
-        {
-            var field = this[pos];
-            return (field != null) ? field.Pawn != null : false;
+            _board = new Field[width, height];
         }
     }
 }
