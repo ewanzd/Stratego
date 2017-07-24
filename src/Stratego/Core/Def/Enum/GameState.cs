@@ -1,4 +1,4 @@
-﻿namespace Stratego.Core
+﻿namespace Stratego.Core.Def
 {
     public enum GameState
     {

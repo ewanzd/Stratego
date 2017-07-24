@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stratego.Core.Def;
+using System;
 
 namespace Stratego.Core
 {

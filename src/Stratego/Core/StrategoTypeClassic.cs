@@ -1,4 +1,5 @@
 ﻿using Montana;
+using Stratego.Core.Def;
 using System.Collections.Generic;
 
 namespace Stratego.Core
@@ -23,7 +24,7 @@ namespace Stratego.Core
         /// 
         /// </summary>
         public StrategoTypeClassic() {
-            _pawnFactory.Register(new UnitInfo() {
+            /*_pawnFactory.Register(new UnitInfo() {
                 Type = "UNIT_FLAG",
                 DisplayName = "TXT_NAME_UNIT_FLAG",
                 Description = "TXT_DESC_UNIT_FLAG",
@@ -32,7 +33,7 @@ namespace Stratego.Core
                 SpecialSkill = SpecialSkill.Flag,
                 MoveType = MoveType.None
             });
-            // ...
+            */
         }
 
         /// <summary>
@@ -47,16 +48,16 @@ namespace Stratego.Core
         /// Get pawn factory which help to create pawn from selected unit.
         /// </summary>
         /// <returns>Pawn factory.</returns>
-        public StrategoPawnFactory GetPawnFactory() {
+        public IPawnFactory GetPawnFactory() {
             return _pawnFactory;
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Get all units from classic game type.
         /// </summary>
         /// <returns>All infos to units.</returns>
         public List<UnitInfo> GetAllUnitInfo() {
             return _pawnFactory.GetAllUnitInfo();
-        }
+        }*/
     }
 }

@@ -1,12 +1,14 @@
-﻿using Montana;
+﻿using System;
+using Montana;
+using Stratego.Core.Def;
 
 namespace Stratego.Core
 {
-    public class StrategoCombat
+    public class StrategoCombat : ICombatSystem
     {
-        public virtual FightResult Fight(Pawn attacker, Pawn defender)
+        /*public virtual FightResult Fight(Pawn attacker, Pawn defender)
         {
-            switch(defender.SpecialSkill)
+            switch(defender.UnitInfo.SpecialSkill)
             {
                 case SpecialSkill.Flag:
                     return FightFlag(attacker, defender);
@@ -41,6 +43,11 @@ namespace Stratego.Core
         {
             return (defender.SpecialSkill == SpecialSkill.Marshal) ?
                 FightResult.Win : FightResult.Lose;
+        }*/
+
+        public FightResult Go(Pawn attacker, Pawn defender)
+        {
+            throw new NotImplementedException();
         }
     }
 }

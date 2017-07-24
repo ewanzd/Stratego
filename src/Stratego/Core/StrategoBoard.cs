@@ -1,11 +1,12 @@
 ﻿using Montana;
+using Stratego.Core.Def;
 
 namespace Stratego.Core
 {
     /// <summary>
     /// Define board and offer checks.
     /// </summary>
-    public class StrategoBoard
+    public class StrategoBoard : IBoard
     {
         private readonly Field[,] _board;
         

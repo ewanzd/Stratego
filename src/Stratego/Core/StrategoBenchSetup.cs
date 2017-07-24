@@ -1,4 +1,5 @@
 ﻿using Montana;
+using Stratego.Core.Def;
 using System;
 using System.Collections.Generic;
 
@@ -10,8 +11,8 @@ namespace Stratego.Core
     public class StrategoBenchSetup
     {
         private readonly StrategoGame _game;
-        private readonly StrategoBoard _board;
-        private readonly StrategoPawnFactory _factory;
+        private readonly IBoard _board;
+        private readonly IPawnFactory _factory;
 
         /// <summary>
         /// 
@@ -37,12 +38,9 @@ namespace Stratego.Core
         /// </summary>
         /// <param name="game"></param>
         /// <param name="generator"></param>
-        public StrategoBenchSetup(StrategoGame game, StrategoBoard board) {
-            if (game == null) { throw new ArgumentNullException(nameof(game)); }
-            if (board == null) { throw new ArgumentNullException(nameof(board)); }
-
-            _game = game;
-            _board = board;
+        public StrategoBenchSetup(StrategoGame game, IBoard board) {
+            _game = game ?? throw new ArgumentNullException(nameof(game));
+            _board = board ?? throw new ArgumentNullException(nameof(board));
             _factory = _game.GameType.GetPawnFactory();
         }
 
@@ -53,10 +51,10 @@ namespace Stratego.Core
         /// <param name="pos"></param>
         /// <returns></returns>
         public bool PlaceUnit(Guid player, UnitInfo unit, Position pos) {
-            var field = _board[pos];
+            var field = _board[pos.X, pos.Y];
 
-            if (_board.HasPawn(pos))
-                return false;
+            /*if (_board.HasPawn(pos))
+                return false;*/
 
             Pawn pawn = new Pawn(unit, player);
             field.Pawn = pawn;

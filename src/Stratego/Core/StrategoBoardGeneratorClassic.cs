@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stratego.Core.Def;
+using System;
 using System.Collections.Generic;
 
 namespace Stratego.Core
@@ -10,7 +11,7 @@ namespace Stratego.Core
             Tuple.Create(2, 5), Tuple.Create(3, 5), Tuple.Create(6, 5), Tuple.Create(7, 5)
         };
 
-        public StrategoBoard DrawBoard() {
+        public IBoard DrawBoard() {
             var board = new StrategoBoard();
 
             for (int x = 0; x < board.Width; x++) {

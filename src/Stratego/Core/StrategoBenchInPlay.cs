@@ -1,10 +1,11 @@
 ﻿using Montana;
+using Stratego.Core.Def;
 using System;
 using System.Collections.Generic;
 
 namespace Stratego.Core
 {
-    internal interface Bench
+    internal interface IBench
     {
         event EventHandler<MoveEventArgs> Moved;
 
@@ -17,7 +18,7 @@ namespace Stratego.Core
     /// <summary>
     /// Manage the access to board.
     /// </summary>
-    public class StrategoBenchInPlay : Bench
+    public class StrategoBenchInPlay : IBench
     {
         protected StrategoBoard _board;
         protected StrategoCombat combat;
@@ -137,19 +138,21 @@ namespace Stratego.Core
 
         public List<Position> GetPossibleMoves(Pawn pawn) {
             if (pawn == null) throw new ArgumentNullException(nameof(pawn));
-            if (pawn.Position == null) throw new ArgumentException("Pawn must has a position.");
+            if (pawn.Position == null) throw new ArgumentException("Pawn must have a position.");
 
             var pos = pawn.Position;
-            var moveType = pawn.UnitType.MoveType;
-            var maxRange = pawn.UnitType.MaxRange;
+            var moveType = pawn.UnitInfo.MoveType;
+            var maxRange = pawn.UnitInfo.MaxRange;
             var possiblePos = new List<Position>();
             
             if (moveType.Is(MoveType.None) || maxRange == 0) return possiblePos;
 
             Action<int, int> way = (stepX, stepY) => {
+
                 int currentRange = 1, x = pos.X + stepX, y = pos.Y + stepY;
                 while (currentRange <= maxRange && x >= 0 && x < _board.Width && y >= 0 && y < _board.Height && 
                 !_board[x, y].IsLocked && _board[x, y].Pawn != null) {
+
                     possiblePos.Add(new Position(x, y));
 
                     currentRange++;

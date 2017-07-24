@@ -1,10 +1,10 @@
-﻿namespace Stratego.Core
+﻿namespace Stratego.Core.Def
 {
     /// <summary>
     /// Help to draw a board.
     /// </summary>
     public interface IBoardGenerator
     {
-        StrategoBoard DrawBoard();
+        IBoard DrawBoard();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Stratego.Core
+namespace Stratego.Core.Def
 {
     /// <summary>
     /// 
@@ -9,6 +9,6 @@ namespace Stratego.Core
     {
         int CountOfPlayer { get; }
         IBoardGenerator GetBoardGenerator();
-        StrategoPawnFactory GetPawnFactory();
+        IPawnFactory GetPawnFactory();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Stratego.Core
+namespace Stratego.Core.Def
 {
     /// <summary>
     /// Special skills.

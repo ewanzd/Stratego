@@ -1,7 +1,7 @@
 ﻿using Montana;
 using System;
 
-namespace Stratego.Core
+namespace Stratego.Core.Def
 {
     /// <summary>
     /// Save source and destination position.
@@ -14,11 +14,11 @@ namespace Stratego.Core
         private readonly Pawn _offender;
         private readonly Pawn _defender;
 
-        public Position From { get { return _from; } }
-        public Position To { get { return _to; } }
-        public FightResult FightResult { get { return _fightResult; } }
-        public Pawn Offender { get { return _offender; } }
-        public Pawn Defender { get { return _defender; } }
+        public Position From { get => _from; }
+        public Position To { get => _to; }
+        public FightResult FightResult { get => _fightResult; }
+        public Pawn Offender { get => _offender; }
+        public Pawn Defender { get => _defender; }
 
         /// <summary>
         /// Create new move with source and destination position.

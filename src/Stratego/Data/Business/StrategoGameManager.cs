@@ -1,4 +1,6 @@
 ﻿using Stratego.Core;
+using Stratego.Core.Def;
+using Stratego.Data.Def;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,7 +10,7 @@ namespace Stratego.Data.Business
     /// <summary>
     /// 
     /// </summary>
-    public class StrategoGameManager
+    public class StrategoGameManager : IGameManager
     {
         // Data
         private readonly Guid _gameId;

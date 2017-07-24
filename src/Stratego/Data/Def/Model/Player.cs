@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Stratego.Data
+namespace Stratego.Data.Def
 {
     public class Player
     {
