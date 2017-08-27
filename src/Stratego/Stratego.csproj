@@ -11,8 +11,15 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <OutputPath>$(SolutionDir)..\Lib\$(Platform)$(Configuration)\</OutputPath>
+	  <BaseIntermediateOutputPath>$(SolutionDir)..\Temp\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(MSBuildProjectName)$(Platform)$(Configuration)\</IntermediateOutputPath>
+	  <UseCommonOutputDirectory>True</UseCommonOutputDirectory>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Montana\Montana.csproj" />
-  </ItemGroup>
+  </ItemGroup> 
 
 </Project>

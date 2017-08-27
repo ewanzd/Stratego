@@ -1,9 +1,9 @@
-﻿using Stratego.Data;
 using Stratego.Data.Business;
+using Stratego.Data.Def;
 using System;
 using Xunit;
 
-namespace Stratego.Test
+namespace XUnitTestMontana
 {
     /// <summary>
     /// Test <see cref="Stratego.Core.Test.StrategoGameManager"/>.
@@ -12,7 +12,8 @@ namespace Stratego.Test
     {
         StrategoGameManager game;
 
-        public void Init() {
+        public void Init()
+        {
             game = StrategoGameManager.New();
         }
 
@@ -20,7 +21,8 @@ namespace Stratego.Test
         /// Test whether push a event if set new title.
         /// </summary>
         [Fact]
-        public void SetTitleTest() {
+        public void SetTitleTest()
+        {
             game.TitleChanged += (obj, e) => { Assert.True(true); };
 
             game.Title = "Test Game";
@@ -30,7 +32,8 @@ namespace Stratego.Test
         /// Test if the game is ready after set players.
         /// </summary>
         [Fact]
-        public void AddPlayersTest() {
+        public void AddPlayersTest()
+        {
             var playerOne = new Player() {
                 Id = Guid.NewGuid(),
                 Name = "PlayerOne"
