@@ -11,21 +11,21 @@ namespace Stratego.Core.Def
         private readonly Position _from;
         private readonly Position _to;
         private readonly FightResult _fightResult;
-        private readonly Pawn _offender;
-        private readonly Pawn _defender;
+        private readonly Actor _offender;
+        private readonly Actor _defender;
 
         public Position From { get => _from; }
         public Position To { get => _to; }
         public FightResult FightResult { get => _fightResult; }
-        public Pawn Offender { get => _offender; }
-        public Pawn Defender { get => _defender; }
+        public Actor Offender { get => _offender; }
+        public Actor Defender { get => _defender; }
 
         /// <summary>
         /// Create new move with source and destination position.
         /// </summary>
         /// <param name="from">Source position.</param>
         /// <param name="to">Destination position.</param>
-        public Move(Position from, Position to, Pawn offender) {
+        public Move(Position from, Position to, Actor offender) {
             _from = from;
             _to = to;
             _fightResult = FightResult.None;
@@ -41,7 +41,7 @@ namespace Stratego.Core.Def
         /// <param name="fightResult">Result of a fight.</param>
         /// <param name="offender">Offender of this fight.</param>
         /// <param name="defender">Defender of this fight.</param>
-        public Move(Position from, Position to, FightResult fightResult, Pawn offender, Pawn defender) {
+        public Move(Position from, Position to, FightResult fightResult, Actor offender, Actor defender) {
             _from = from;
             _to = to;
             _fightResult = fightResult;

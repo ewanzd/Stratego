@@ -8,7 +8,7 @@ namespace Stratego.Core
     /// </summary>
     public class StrategoBoard : IBoard
     {
-        private readonly Field[,] _board;
+        private readonly Actor[,] _board;
         
         public int Width { get; }
         public int Height { get; }
@@ -19,7 +19,7 @@ namespace Stratego.Core
         /// <param name="x">x-coordinate.</param>
         /// <param name="y">y-coordinate.</param>
         /// <returns>Field from this coordinates.</returns>
-        public Field this[int x, int y] {
+        public Actor this[int x, int y] {
             get {
                 return _board[x, y];
             }
@@ -44,7 +44,7 @@ namespace Stratego.Core
             Width = width;
             Height = height;
 
-            _board = new Field[width, height];
+            _board = new Actor[width, height];
         }
     }
 }

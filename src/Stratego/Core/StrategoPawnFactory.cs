@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace Stratego.Core
 {
-    public class StrategoPawnFactory : IPawnFactory
+    /*public class StrategoPawnFactory : IPawnFactory
     {
-        /*private readonly Dictionary<string, UnitInfo> _units = new Dictionary<string, UnitInfo>();
+        private readonly Dictionary<string, UnitInfo> _units = new Dictionary<string, UnitInfo>();
 
         public Pawn Create(string id, Guid playerId) {
             UnitInfo unit = null;
@@ -27,7 +27,7 @@ namespace Stratego.Core
 
         public List<UnitInfo> GetAllUnitInfo() {
             return _units.Values.ToList();
-        }*/
+        }
         public IEnumerable<Pawn> BuildPawnSet()
         {
             var pawnSet = new List<Pawn>();
@@ -46,5 +46,5 @@ namespace Stratego.Core
 
             return pawnSet;
         }
-    }
+    }*/
 }

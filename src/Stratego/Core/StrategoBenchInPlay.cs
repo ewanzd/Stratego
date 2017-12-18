@@ -9,10 +9,10 @@ namespace Stratego.Core
     {
         event EventHandler<MoveEventArgs> Moved;
 
-        void Move(Pawn pawn, Position to);
+        void Move(Actor pawn, Position to);
         Move Back();
 
-        List<Position> GetPossibleMoves(Pawn pawn);
+        List<Position> GetPossibleMoves(Actor pawn);
     }
 
     /// <summary>
@@ -118,12 +118,14 @@ namespace Stratego.Core
             Moved?.Invoke(this, e);
         }
 
-        public void Move(Pawn pawn, Position to) {
-            if (pawn == null) throw new ArgumentNullException(nameof(pawn));
-            if (pawn.Position == null) throw new ArgumentException("Pawn must has a position.");
+        public void Move(Actor pawn, Position to) {
+            MoveAbility moveComp = pawn.GetComponent<MoveAbility>(0);
+
+            if (moveComp == null) throw new ArgumentNullException(nameof(pawn));
+            if (moveComp.Position == null) throw new ArgumentException("Pawn must has a position.");
             if (to == null) throw new ArgumentNullException(nameof(to));
 
-            var from = pawn.Position;
+            var from = moveComp.Position;
             if (from.CompareTo(to) == 0) return;
 
             if(GetPossibleMoves(pawn).Find(p => p.CompareTo(to) == 0) != null) {
@@ -136,13 +138,15 @@ namespace Stratego.Core
             // move
         }
 
-        public List<Position> GetPossibleMoves(Pawn pawn) {
-            if (pawn == null) throw new ArgumentNullException(nameof(pawn));
-            if (pawn.Position == null) throw new ArgumentException("Pawn must have a position.");
+        public List<Position> GetPossibleMoves(Actor pawn) {
+            MoveAbility moveComp = pawn.GetComponent<MoveAbility>(0);
 
-            var pos = pawn.Position;
-            var moveType = pawn.UnitInfo.MoveType;
-            var maxRange = pawn.UnitInfo.MaxRange;
+            if (moveComp == null) throw new ArgumentNullException(nameof(pawn));
+            if (moveComp.Position == null) throw new ArgumentException("Pawn must have a position.");
+
+            var pos = moveComp.Position;
+            var moveType = moveComp.MoveType;
+            var maxRange = moveComp.MaxRange;
             var possiblePos = new List<Position>();
             
             if (moveType.Is(MoveType.None) || maxRange == 0) return possiblePos;
@@ -150,8 +154,8 @@ namespace Stratego.Core
             Action<int, int> way = (stepX, stepY) => {
 
                 int currentRange = 1, x = pos.X + stepX, y = pos.Y + stepY;
-                while (currentRange <= maxRange && x >= 0 && x < _board.Width && y >= 0 && y < _board.Height && 
-                !_board[x, y].IsLocked && _board[x, y].Pawn != null) {
+                while (currentRange <= maxRange && x >= 0 && x < _board.Width && y >= 0 && y < _board.Height/* && 
+                !_board[x, y].IsLocked && _board[x, y].Pawn != null*/) {
 
                     possiblePos.Add(new Position(x, y));
 

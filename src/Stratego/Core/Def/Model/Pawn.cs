@@ -1,10 +1,15 @@
 ﻿using Montana;
 using System;
+using System.Xml.Linq;
 
 namespace Stratego.Core.Def
 {
-    public class Pawn
+    /*public class Pawn
     {
+        private static ulong componentId;
+
+        public override ulong ComponentId => componentId;
+
         private Guid _player;
         private UnitInfo _unitInfo;
         private Position _position;
@@ -35,5 +40,5 @@ namespace Stratego.Core.Def
             this.Player = playerId;
             this.Name = name;
         }
-    }
+    }*/
 }

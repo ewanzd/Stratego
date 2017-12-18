@@ -6,10 +6,10 @@ namespace Stratego.Core
     /// <summary>
     /// Central data object who moved between the states and objects.
     /// </summary>
-    public class StrategoGame
+    public class StrategoGame : BaseGameLogic
     {
         // Game data
-        private Field[,] _board;
+        private Actor[,] _board;
 
         private readonly IGameType _type;
         private int _currentPlayerPosition;

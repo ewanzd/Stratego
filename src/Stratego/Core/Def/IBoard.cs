@@ -6,6 +6,6 @@ namespace Stratego.Core.Def
 {
     public interface IBoard
     {
-        Field this[int x, int y] { get; set; }
+        Actor this[int x, int y] { get; set; }
     }
 }
