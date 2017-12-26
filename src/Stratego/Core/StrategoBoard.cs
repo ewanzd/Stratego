@@ -1,13 +1,16 @@
 ﻿using Montana;
 using Stratego.Core.Def;
+using System;
 
 namespace Stratego.Core
 {
     /// <summary>
     /// Define board and offer checks.
     /// </summary>
-    public class StrategoBoard : IBoard
+    public class StrategoBoard : IBoard // World
     {
+        internal object sync = new object();
+
         private readonly Actor[,] _board;
         
         public int Width { get; }
@@ -25,6 +28,15 @@ namespace Stratego.Core
             }
             set {
                 _board[x, y] = value;
+            }
+        }
+
+        public Actor this[Position pos] {
+            get {
+                return _board[pos.X, pos.Y];
+            }
+            set {
+                _board[pos.X, pos.Y] = value;
             }
         }
 

@@ -7,12 +7,9 @@ namespace Stratego.Core
 {
     public abstract class ActorComponent
     {
-        private Actor owner;
+        private Actor _owner;
 
-        public void SetOwner(Actor owner)
-        {
-            this.owner = owner;
-        }
+        public Actor Owner { get => _owner; set => _owner = value; }
 
         public abstract ulong ComponentId { get; }
 

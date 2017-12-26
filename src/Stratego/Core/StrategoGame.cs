@@ -9,7 +9,7 @@ namespace Stratego.Core
     public class StrategoGame : BaseGameLogic
     {
         // Game data
-        private Actor[,] _board;
+        private IBoard _board;
 
         private readonly IGameType _type;
         private int _currentPlayerPosition;
