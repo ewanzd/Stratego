@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Stratego.Core
+namespace Montana
 {
-    public abstract class BaseGameLogic : IBaseGameLogic
+    public abstract class BaseGameLogic
     {
         private Dictionary<ulong, Actor> actorMap = new Dictionary<ulong, Actor>();
 
@@ -18,6 +18,6 @@ namespace Stratego.Core
             return null;
         }
 
-        public abstract bool Init();
+        public abstract bool Init(string configResource);
     }
 }

@@ -1,11 +1,28 @@
 ﻿using Montana;
-using Stratego.Core.Def;
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Xml.Linq;
 
 namespace Stratego.Core
 {
+    public class PawnFactory : ActorFactory
+    {
+        private IDictionary<string, Actor> _cache = new Dictionary<string, Actor>();
+
+        public PawnFactory() : base()
+        {
+            actorComponentCreatorMap.Add("Combat", () => new CombatComponent());
+            actorComponentCreatorMap.Add("Movement", () => new CombatComponent());
+            actorComponentCreatorMap.Add("Membership", () => new CombatComponent());
+        }
+
+        public override Actor CreateActor(string actorResource)
+        {
+            XDocument doc = XDocument.Parse(actorResource);
+
+            return CreateActor(doc.Root);
+        }
+    }
+
     /*public class StrategoPawnFactory : IPawnFactory
     {
         private readonly Dictionary<string, UnitInfo> _units = new Dictionary<string, UnitInfo>();

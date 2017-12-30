@@ -74,9 +74,12 @@ namespace Stratego.Core
 
         public void Remove(Position pos)
         {
-            this[pos] = null;
+            if(this[pos] != null)
+            {
+                this[pos] = null;
 
-            OnActorRemoved(EventArgs.Empty);
+                OnActorRemoved(EventArgs.Empty);
+            }
         }
 
         protected virtual void OnActorPlaced(EventArgs e)
@@ -87,6 +90,11 @@ namespace Stratego.Core
         protected virtual void OnActorRemoved(EventArgs e)
         {
             Removed?.Invoke(this, e);
+        }
+
+        public bool Init(string resource)
+        {
+            throw new NotImplementedException();
         }
     }
 }

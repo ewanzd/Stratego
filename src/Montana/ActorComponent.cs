@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Stratego.Core
+namespace Montana
 {
     public abstract class ActorComponent
     {

@@ -3,6 +3,7 @@ using Stratego.Core.Def;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Stratego.Core
 {
