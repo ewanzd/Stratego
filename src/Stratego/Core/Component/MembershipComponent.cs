@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Stratego.Core
 {
-    public class Membership : ActorComponent
+    public class MembershipComponent : ActorComponent
     {
         private static ulong _componentId;
         public override ulong ComponentId => _componentId;

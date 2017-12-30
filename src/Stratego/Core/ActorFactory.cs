@@ -5,7 +5,12 @@ using System.Xml.Linq;
 
 namespace Stratego.Core
 {
-    public class ActorFactory
+    public interface IActorFactory
+    {
+        Actor CreateActor(String actorResource);
+    }
+
+    public class ActorFactory : IActorFactory
     {
         private ulong actorId;
 
@@ -13,24 +18,28 @@ namespace Stratego.Core
 
         public ActorFactory()
         {
-            //actorComponentCreatorMap.Add("AmmoPickup", () => new AmmoPickup());
-            //actorComponentCreatorMap.Add("HealthPickup", () => new HealthPickup());
+            
         }
 
-        public Actor CreateActor(String actorResource)
+        public virtual Actor CreateActor(String actorResource)
         {
             XDocument doc = XDocument.Parse(actorResource);
 
+            return CreateActor(doc.Root);
+        }
+
+        protected Actor CreateActor(XElement node)
+        {
             Actor actor = new Actor(GetNextActorId());
 
             // any base-level initialization
-            actor.Init(doc.Root);
+            actor.Init(node);
 
-            foreach (var node in doc.Root.Elements())
+            foreach (var kind in node.Elements())
             {
-                var component = CreateComponent(node);
+                var component = CreateComponent(kind);
                 actor.AddComponent(component);
-                component.SetOwner(actor);
+                component.Owner = actor;
             }
 
             // initialization that needs to occur after the actor and all

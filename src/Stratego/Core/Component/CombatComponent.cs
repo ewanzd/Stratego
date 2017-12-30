@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Stratego.Core
 {
-    public class CombatAbility : ActorComponent
+    public class CombatComponent : ActorComponent
     {
         private static ulong _componentId;
         public override ulong ComponentId => _componentId;
@@ -17,7 +17,7 @@ namespace Stratego.Core
         private int _rank;
         public int Rank { get => _rank; set => _rank = value; }
 
-        public FightResult Fight(CombatAbility defender)
+        public FightResult Fight(CombatComponent defender)
         {
             switch (defender.SpecialSkill)
             {

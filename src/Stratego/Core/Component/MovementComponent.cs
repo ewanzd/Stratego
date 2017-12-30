@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Stratego.Core
 {
-    public class MoveAbility : ActorComponent
+    public class MovementComponent : ActorComponent
     {
         private static ulong _componentId;
         public override ulong ComponentId => _componentId;
@@ -16,8 +16,6 @@ namespace Stratego.Core
         protected IBoard Board { get => _board; }
 
         public event EventHandler<MoveEventArgs> Moved;
-        public event EventHandler Placed;
-        public event EventHandler Removed;
 
         private Position _position;
         public Position Position { get => _position; internal set => _position = value; }
@@ -33,38 +31,21 @@ namespace Stratego.Core
             Moved?.Invoke(this, e);
         }
 
-        protected virtual void OnActorPlaced(EventArgs e)
-        {
-            Placed?.Invoke(this, e);
-        }
-
-        protected virtual void OnActorRemoved(EventArgs e)
-        {
-            Removed?.Invoke(this, e);
-        }
-
         public void Place(Position pos)
         {
-            if (pos == null) throw new ArgumentNullException(nameof(pos));
-            if (_board[pos] != null) throw new ArgumentException("It's already a pawn on this field");
-
+            this.Board.Place(pos, Owner);
             this.Position = pos;
-            this.Board[pos] = Owner;
-
-            OnActorPlaced(EventArgs.Empty);
         }
 
         public void Remove()
         {
-            this.Board[Position] = null;
+            this.Board.Remove(Position);
             this.Position = null;
-
-            OnActorRemoved(EventArgs.Empty);
         }
 
         public void Move(Position to)
         {
-            MoveAbility moveComp = this;
+            MovementComponent moveComp = this;
 
             if (moveComp.Position == null) throw new ArgumentException("Pawn must has a position.");
             if (to == null) throw new ArgumentNullException(nameof(to));
@@ -81,9 +62,9 @@ namespace Stratego.Core
 
             if (target != null)
             {
-                var offender = Owner.GetComponent<CombatAbility>(0);
-                var defender = target.GetComponent<CombatAbility>(0);
-                var targetMoveAbility = target.GetComponent<MoveAbility>(0);
+                var offender = Owner.GetComponent<CombatComponent>(0);
+                var defender = target.GetComponent<CombatComponent>(0);
+                var targetMoveAbility = target.GetComponent<MovementComponent>(0);
 
                 var result = offender.Fight(defender);
                 switch (result)
@@ -109,7 +90,7 @@ namespace Stratego.Core
 
         public List<Position> GetPossibleMoves()
         {
-            MoveAbility moveComp = this;
+            MovementComponent moveComp = this;
 
             if (moveComp.Position == null) throw new ArgumentException("Pawn must have a position.");
 

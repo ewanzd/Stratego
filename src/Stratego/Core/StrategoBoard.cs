@@ -16,6 +16,9 @@ namespace Stratego.Core
         public int Width { get; }
         public int Height { get; }
 
+        public event EventHandler Placed;
+        public event EventHandler Removed;
+
         /// <summary>
         /// Access to a field with x and y coordinates.
         /// </summary>
@@ -26,7 +29,7 @@ namespace Stratego.Core
             get {
                 return _board[x, y];
             }
-            set {
+            private set {
                 _board[x, y] = value;
             }
         }
@@ -35,7 +38,7 @@ namespace Stratego.Core
             get {
                 return _board[pos.X, pos.Y];
             }
-            set {
+            private set {
                 _board[pos.X, pos.Y] = value;
             }
         }
@@ -57,6 +60,33 @@ namespace Stratego.Core
             Height = height;
 
             _board = new Actor[width, height];
+        }
+
+        public void Place(Position pos, Actor actor)
+        {
+            if (pos == null) throw new ArgumentNullException(nameof(pos));
+            if (this[pos] != null) throw new ArgumentException("It's already a pawn on this field");
+
+            this[pos] = actor;
+
+            OnActorPlaced(EventArgs.Empty);
+        }
+
+        public void Remove(Position pos)
+        {
+            this[pos] = null;
+
+            OnActorRemoved(EventArgs.Empty);
+        }
+
+        protected virtual void OnActorPlaced(EventArgs e)
+        {
+            Placed?.Invoke(this, e);
+        }
+
+        protected virtual void OnActorRemoved(EventArgs e)
+        {
+            Removed?.Invoke(this, e);
         }
     }
 }

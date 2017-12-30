@@ -1,8 +1,132 @@
-﻿using Stratego.Core.Def;
+﻿using Montana;
+using Stratego.Core.Def;
 using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace Stratego.Core
 {
+    public class PawnFactory : ActorFactory
+    {
+        private IDictionary<string, Actor> _cache = new Dictionary<string, Actor>();
+
+        public PawnFactory() : base()
+        {
+            actorComponentCreatorMap.Add("Combat", () => new CombatComponent());
+            actorComponentCreatorMap.Add("Movement", () => new CombatComponent());
+            actorComponentCreatorMap.Add("Membership", () => new CombatComponent());
+        }
+
+        public override Actor CreateActor(string actorResource)
+        {
+            XDocument doc = XDocument.Parse(actorResource);
+
+            return CreateActor(doc.Root);
+        }
+    }
+
+    public interface IGameConfig
+    {
+        IBoard CreateBoard();
+        bool Init(XElement node);
+    }
+
+    public class GameConfig : IGameConfig
+    {
+        private IActorFactory _actorFactory;
+
+        private int _boardWidth;
+        private int _boardHeight;
+        private IList<DefinedField> _definedFields;
+
+        public IBoard CreateBoard()
+        {
+            var board = new StrategoBoard(_boardWidth, _boardHeight);
+
+            foreach(var f in _definedFields)
+            {
+                var actor = _actorFactory.CreateActor(f.ActorResource);
+                board.Place(f.Position, actor);
+            }
+
+            return board;
+        }
+
+        public bool Init(XElement node)
+        {
+            try
+            {
+                foreach (var fieldElement in node.Elements(XName.Get("PredefinedField")))
+                {
+                    var actorId = fieldElement.Element(XName.Get("ActorId")).Value;
+                    var posElement = fieldElement.Element(XName.Get("Position"));
+                    var xStr = Convert.ToInt32(posElement.Attribute(XName.Get("x")).Value);
+                    var yStr = Convert.ToInt32(posElement.Attribute(XName.Get("y")).Value);
+
+                    var field = new DefinedField();
+                    _definedFields.Add(field);
+                }
+            }
+            catch(Exception ex) when (ex is FormatException || ex is OverflowException)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected class DefinedField
+        {
+            private Position _position;
+            public Position Position => _position;
+
+            private string _actorResource;
+            public string ActorResource => _actorResource;
+            
+        }
+    }
+
+    public interface IBaseGameLogic
+    {
+        Actor GetActor(ulong actorId);
+        bool Init();
+    }
+
+    public interface IGameLogic : IBaseGameLogic
+    {
+        
+    }
+
+    public class GameLogic : BaseGameLogic, IGameLogic
+    {
+        private IBoard _board;
+        private IGameConfig _config;
+
+        private GameLogic(IGameConfig config)
+        {
+            _config = config;
+        }
+
+        public override bool Init()
+        {
+            _board = _config.CreateBoard();
+            return true;
+        }
+
+        public static GameLogic New(string configResource)
+        {
+            XDocument doc = XDocument.Parse(configResource);
+
+            var config = new GameConfig();
+            config.Init(doc.Root);
+
+            var logic = new GameLogic(config);
+            logic.Init();
+
+            return logic;
+        }
+    }
+
     /// <summary>
     /// Central data object who moved between the states and objects.
     /// </summary>
@@ -42,7 +166,7 @@ namespace Stratego.Core
         /// <param name="state"></param>
         /// <param name="currentPlayer"></param>
         protected StrategoGame(IGameType type, GameState state = GameState.New, int currentPlayer = 0) {
-            _type = type ?? new StrategoTypeClassic();
+            //_type = type ?? new StrategoTypeClassic();
             _currentPlayerPosition = 0;
         }
 
@@ -78,6 +202,11 @@ namespace Stratego.Core
             } else {
                 throw new InvalidOperationException("Game is already finished.");
             }
+        }
+
+        public override bool Init()
+        {
+            throw new NotImplementedException();
         }
     }
 }

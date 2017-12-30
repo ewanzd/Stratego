@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Stratego.Core
 {
-    public class BaseGameLogic
+    public abstract class BaseGameLogic : IBaseGameLogic
     {
         private Dictionary<ulong, Actor> actorMap = new Dictionary<ulong, Actor>();
 
@@ -17,5 +17,7 @@ namespace Stratego.Core
 
             return null;
         }
+
+        public abstract bool Init();
     }
 }
